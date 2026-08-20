@@ -1,0 +1,6 @@
+{
+  "name": "Alpha Ai Services",
+  "description": "Premium multi-page agency website for Alpha Ai Services featuring modern SaaS design, soft orange glow visuals, interactive service hubs, case studies, and quote estimation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
