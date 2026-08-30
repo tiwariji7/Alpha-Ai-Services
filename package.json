@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "worker:dev": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && bunx wrangler --version && bunx wrangler deploy",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },
@@ -36,6 +36,6 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.3",
-    "wrangler": "^4.127.1"
+    "wrangler": "4.127.1"
   }
 }
