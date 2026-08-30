@@ -387,10 +387,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 {/* Form Header */}
                 <div className="space-y-1 border-b border-[#EDE9E4] pb-4">
                   <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111]">
-                    Tell Us About Your Project
+                    Project Inquiry Form
                   </h2>
                   <p className="text-xs text-[#6B6660]">
-                    Share a few details so we can understand what you need.
+                    Share your requirements below and we'll get back to you within 1 business day.
                   </p>
                 </div>
 
