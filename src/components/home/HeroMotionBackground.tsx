@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 
 export const HeroMotionBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,48 +16,98 @@ export const HeroMotionBackground: React.FC = () => {
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
 
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Node particle definition
-    interface Particle {
+    // Node particle definition for network/circuit grid
+    interface Node {
       x: number;
       y: number;
+      baseX: number;
+      baseY: number;
       vx: number;
       vy: number;
       radius: number;
-      baseAlpha: number;
-      color: string;
-      pulseSpeed: number;
-      pulseAngle: number;
+      connections: number[];
     }
 
-    const colors = [
-      'rgba(255, 90, 31, ',   // Primary Vivid Orange
-      'rgba(255, 140, 90, ',  // Warm Coral
-      'rgba(245, 166, 35, ',  // Golden Amber
-      'rgba(217, 119, 6, ',   // Deep Amber
+    interface Pulse {
+      fromIndex: number;
+      toIndex: number;
+      progress: number;
+      speed: number;
+      color: string;
+      size: number;
+    }
+
+    // Grid creation for structured circuit-like nodes
+    const cols = Math.max(6, Math.floor(width / 160));
+    const rows = Math.max(4, Math.floor(height / 140));
+    const nodes: Node[] = [];
+
+    const colStep = width / (cols + 1);
+    const rowStep = height / (rows + 1);
+
+    for (let c = 1; c <= cols; c++) {
+      for (let r = 1; r <= rows; r++) {
+        // Add subtle organic jitter to regular grid
+        const jitterX = (Math.random() - 0.5) * (colStep * 0.45);
+        const jitterY = (Math.random() - 0.5) * (rowStep * 0.45);
+        const posX = c * colStep + jitterX;
+        const posY = r * rowStep + jitterY;
+
+        nodes.push({
+          x: posX,
+          y: posY,
+          baseX: posX,
+          baseY: posY,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          radius: Math.random() * 1.5 + 1.2,
+          connections: [],
+        });
+      }
+    }
+
+    // Connect close neighbors
+    const maxConnectDist = Math.max(colStep, rowStep) * 1.4;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxConnectDist && nodes[i].connections.length < 3) {
+          nodes[i].connections.push(j);
+        }
+      }
+    }
+
+    // Active pulses traveling along lines
+    const pulses: Pulse[] = [];
+    const pulseColors = [
+      '#FF5A1F', // Orange
+      '#FF8C5A', // Light Orange
+      '#F59E0B', // Amber
+      '#3B82F6', // Tech Blue
     ];
 
-    // Determine particle count based on screen width
-    const particleCount = Math.min(Math.floor((width * height) / 16000), 48);
-    const particles: Particle[] = [];
+    const spawnPulse = () => {
+      if (nodes.length === 0 || pulses.length >= 7) return;
+      const randomNodeIdx = Math.floor(Math.random() * nodes.length);
+      const node = nodes[randomNodeIdx];
+      if (node && node.connections.length > 0) {
+        const targetIdx = node.connections[Math.floor(Math.random() * node.connections.length)];
+        pulses.push({
+          fromIndex: randomNodeIdx,
+          toIndex: targetIdx,
+          progress: 0,
+          speed: Math.random() * 0.012 + 0.008,
+          color: pulseColors[Math.floor(Math.random() * pulseColors.length)],
+          size: Math.random() * 1.5 + 1.5,
+        });
+      }
+    };
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 2.2 + 1.2,
-        baseAlpha: Math.random() * 0.45 + 0.25,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        pulseSpeed: Math.random() * 0.02 + 0.01,
-        pulseAngle: Math.random() * Math.PI * 2,
-      });
-    }
+    let lastSpawn = 0;
 
-    // Mouse coordinates for gentle interaction
+    // Mouse coordinates for gentle local repulsion
     let mouseX = -1000;
     let mouseY = -1000;
 
@@ -81,79 +133,90 @@ export const HeroMotionBackground: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Draw background particles and connecting data-lines
-    const render = () => {
+    const render = (time: number) => {
       ctx.clearRect(0, 0, width, height);
 
-      // Update positions
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      // Spawn pulses at periodic intervals
+      if (time - lastSpawn > 600 && !prefersReducedMotion) {
+        spawnPulse();
+        lastSpawn = time;
+      }
+
+      // Update and draw node connections
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
 
         if (!prefersReducedMotion) {
-          p.x += p.vx;
-          p.y += p.vy;
+          n.x += n.vx;
+          n.y += n.vy;
 
-          // Wrap edges smoothly
-          if (p.x < -20) p.x = width + 20;
-          if (p.x > width + 20) p.x = -20;
-          if (p.y < -20) p.y = height + 20;
-          if (p.y > height + 20) p.y = -20;
+          // Tether back to base position
+          if (Math.abs(n.x - n.baseX) > 25) n.vx *= -1;
+          if (Math.abs(n.y - n.baseY) > 25) n.vy *= -1;
 
-          // Gentle mouse interaction
-          const mdx = mouseX - p.x;
-          const mdy = mouseY - p.y;
+          // Mouse push
+          const mdx = mouseX - n.x;
+          const mdy = mouseY - n.y;
           const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-          if (mDist < 140 && mDist > 0) {
-            p.x -= (mdx / mDist) * 0.7;
-            p.y -= (mdy / mDist) * 0.7;
-          }
-
-          p.pulseAngle += p.pulseSpeed;
-        }
-
-        const currentAlpha = p.baseAlpha + Math.sin(p.pulseAngle) * 0.15;
-        const currentRadius = p.radius + Math.sin(p.pulseAngle) * 0.5;
-
-        // Draw connecting filaments between close particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 110) {
-            const lineAlpha = (1 - dist / 110) * 0.18;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(255, 90, 31, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
+          if (mDist < 120 && mDist > 0) {
+            n.x -= (mdx / mDist) * 0.5;
+            n.y -= (mdy / mDist) * 0.5;
           }
         }
 
-        // Draw outer soft glow
-        const glowGradient = ctx.createRadialGradient(
-          p.x,
-          p.y,
-          0,
-          p.x,
-          p.y,
-          currentRadius * 4
-        );
-        glowGradient.addColorStop(0, `${p.color}${Math.max(0, currentAlpha * 0.85)})`);
-        glowGradient.addColorStop(1, `${p.color}0)`);
+        // Draw connections
+        for (const connIdx of n.connections) {
+          const target = nodes[connIdx];
+          if (!target) continue;
 
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(target.x, target.y);
+          ctx.strokeStyle = 'rgba(235, 110, 60, 0.07)';
+          ctx.lineWidth = 0.75;
+          ctx.stroke();
+        }
+
+        // Draw node point
         ctx.beginPath();
-        ctx.arc(p.x, p.y, currentRadius * 4, 0, Math.PI * 2);
-        ctx.fillStyle = glowGradient;
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 90, 31, 0.18)';
         ctx.fill();
 
-        // Draw core node
+        // Node center core
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0.6, currentRadius), 0, Math.PI * 2);
-        ctx.fillStyle = `${p.color}${Math.max(0, currentAlpha)})`;
+        ctx.arc(n.x, n.y, n.radius * 0.45, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 90, 31, 0.4)';
         ctx.fill();
+      }
+
+      // Update and draw traveling pulses
+      for (let pIdx = pulses.length - 1; pIdx >= 0; pIdx--) {
+        const pulse = pulses[pIdx];
+        pulse.progress += pulse.speed;
+
+        const from = nodes[pulse.fromIndex];
+        const to = nodes[pulse.toIndex];
+
+        if (from && to && pulse.progress <= 1) {
+          const px = from.x + (to.x - from.x) * pulse.progress;
+          const py = from.y + (to.y - from.y) * pulse.progress;
+
+          // Pulse glow trail
+          const alpha = Math.sin(pulse.progress * Math.PI) * 0.85;
+
+          ctx.beginPath();
+          ctx.arc(px, py, pulse.size * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 90, 31, ${alpha * 0.25})`;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(px, py, pulse.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 90, 31, ${alpha})`;
+          ctx.fill();
+        } else {
+          pulses.splice(pIdx, 1);
+        }
       }
 
       if (!prefersReducedMotion) {
@@ -161,7 +224,7 @@ export const HeroMotionBackground: React.FC = () => {
       }
     };
 
-    render();
+    render(0);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -169,27 +232,92 @@ export const HeroMotionBackground: React.FC = () => {
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div
       aria-hidden="true"
       className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none -z-10 select-none"
     >
-      {/* Background Soft Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[350px] sm:h-[450px] rounded-full bg-gradient-to-tr from-[#FF5A1F]/15 via-[#FF8C5A]/10 to-transparent blur-[110px]" />
-      <div className="absolute bottom-10 left-1/4 w-[350px] h-[300px] rounded-full bg-[#FF5A1F]/10 blur-[90px]" />
-      <div className="absolute top-10 right-1/4 w-[350px] h-[300px] rounded-full bg-amber-500/10 blur-[90px]" />
-
-      {/* Dynamic Animated Canvas Mesh */}
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full block opacity-80 sm:opacity-90"
+      {/* 1. Large drifting dual-tone ambient glows (Warm Orange & Deep Slate/Navy blend) */}
+      <motion.div
+        animate={
+          prefersReducedMotion
+            ? undefined
+            : {
+                x: [0, 45, -35, 20, 0],
+                y: [0, -30, 25, -20, 0],
+                scale: [1, 1.08, 0.95, 1.04, 1],
+              }
+        }
+        transition={{
+          duration: 26,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[850px] h-[350px] sm:h-[480px] rounded-full bg-gradient-to-tr from-[#FF5A1F]/14 via-[#FF8C5A]/10 to-[#1E293B]/6 blur-[120px]"
       />
 
-      {/* Soft Vignette Overlay to maintain 100% text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F6]/80 via-transparent to-[#FAF8F6]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#FAF8F6_95%)]" />
+      <motion.div
+        animate={
+          prefersReducedMotion
+            ? undefined
+            : {
+                x: [0, -35, 40, -15, 0],
+                y: [0, 25, -30, 15, 0],
+              }
+        }
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute top-12 right-1/4 w-[320px] sm:w-[450px] h-[280px] rounded-full bg-gradient-to-br from-amber-500/10 via-[#FF5A1F]/8 to-transparent blur-[100px]"
+      />
+
+      <motion.div
+        animate={
+          prefersReducedMotion
+            ? undefined
+            : {
+                x: [0, 30, -20, 0],
+                y: [0, -20, 20, 0],
+              }
+        }
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute bottom-6 left-1/5 w-[300px] sm:w-[420px] h-[260px] rounded-full bg-gradient-to-tr from-[#0F172A]/5 via-[#FF5A1F]/8 to-transparent blur-[100px]"
+      />
+
+      {/* 2. Interactive Network / Circuit Canvas Grid */}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full block opacity-75 sm:opacity-85"
+      />
+
+      {/* 3. Subtle Periodic Scanning Light Line */}
+      {!prefersReducedMotion && (
+        <motion.div
+          animate={{
+            top: ['-10%', '110%'],
+            opacity: [0, 0.4, 0.4, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'linear',
+            repeatDelay: 2,
+          }}
+          className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF5A1F]/25 to-transparent pointer-events-none"
+        />
+      )}
+
+      {/* 4. Vignette / Contrast Overlays for 100% Typography Crispness */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F6]/85 via-transparent to-[#FAF8F6]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#FAF8F6_95%)]" />
     </div>
   );
 };
