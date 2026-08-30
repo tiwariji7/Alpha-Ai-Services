@@ -12,8 +12,10 @@ import {
   MessageCircle,
   Send,
   Lock,
+  AlertCircle,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { TurnstileWidget } from './TurnstileWidget';
 
 interface ScheduleCallModalProps {
   isOpen: boolean;
@@ -43,6 +45,11 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
   onClose,
   initialTopic,
 }) => {
+  const [website, setWebsite] = useState(''); // Honeypot
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [resetSignal, setResetSignal] = useState(0);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -83,6 +90,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
         phone: false,
         service: false,
       });
+      setWebsite('');
+      setTurnstileToken('');
+      setSubmitError(null);
+      setResetSignal((prev) => prev + 1);
     }
   }, [isOpen]);
 
@@ -134,7 +145,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
     setFormData({ ...formData, phone: digits });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({
       name: true,
@@ -145,24 +156,57 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
     if (!isFormValid) return;
 
+    if (!turnstileToken) {
+      setSubmitError('Please complete the security verification below.');
+      return;
+    }
+
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
+    try {
+      const response = await fetch('/api/quick-inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+          website,
+        }),
+      });
 
-      // Trigger celebratory confetti
-      try {
-        confetti({
-          particleCount: 70,
-          spread: 60,
-          origin: { y: 0.6 },
-          colors: ['#FF5A1F', '#FF7A45', '#111111', '#25D366'],
-        });
-      } catch {
-        // Safe fallback
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setIsSuccess(true);
+        try {
+          confetti({
+            particleCount: 70,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: ['#FF5A1F', '#FF7A45', '#111111', '#25D366'],
+          });
+        } catch {
+          // Safe fallback
+        }
+      } else {
+        const errorMsg =
+          result.error ||
+          (result.errors ? Object.values(result.errors).join(' ') : 'Failed to submit inquiry.');
+        setSubmitError(errorMsg);
+        setTurnstileToken('');
+        setResetSignal((prev) => prev + 1);
       }
-    }, 800);
+    } catch (err) {
+      console.error('Submission fetch error:', err);
+      setSubmitError('Network error while sending inquiry. Please check your connection or reach us on WhatsApp.');
+      setTurnstileToken('');
+      setResetSignal((prev) => prev + 1);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -270,6 +314,17 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
               ) : (
                 /* Short High-Conversion Form */
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Hidden Honeypot field for bot detection */}
+                  <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                    />
+                  </div>
                   {/* Row 1: Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {/* Full Name */}
@@ -286,11 +341,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                           onBlur={() => setTouched({ ...touched, name: true })}
                           onChange={handleNameChange}
                           placeholder="e.g. Rahul Sharma"
-                          className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                            touched.name && !isNameValid
+                          className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.name && !isNameValid
                               ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                               : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                          }`}
+                            }`}
                         />
                       </div>
                       {touched.name && !isNameValid && (
@@ -317,11 +371,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                           onChange={handlePhoneChange}
                           placeholder="98765 43210"
                           maxLength={10}
-                          className={`w-full px-3 py-2 bg-[#FAF8F6] border rounded-r-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                            touched.phone && !isPhoneValid
+                          className={`w-full px-3 py-2 bg-[#FAF8F6] border rounded-r-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.phone && !isPhoneValid
                               ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                               : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                          }`}
+                            }`}
                         />
                       </div>
                       {touched.phone && !isPhoneValid && (
@@ -346,11 +399,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                         onBlur={() => setTouched({ ...touched, email: true })}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. rahul@company.com"
-                        className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                          touched.email && !isEmailValid
+                        className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.email && !isEmailValid
                             ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                             : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
+                          }`}
                       />
                     </div>
                     {touched.email && !isEmailValid && (
@@ -373,11 +425,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                             type="button"
                             key={srv}
                             onClick={() => setFormData({ ...formData, service: srv })}
-                            className={`p-2 rounded-xl text-[11px] font-bold border text-center transition-all cursor-pointer truncate ${
-                              isSelected
+                            className={`p-2 rounded-xl text-[11px] font-bold border text-center transition-all cursor-pointer truncate ${isSelected
                                 ? 'bg-[#FF5A1F] text-white border-[#FF5A1F] shadow-2xs'
                                 : 'bg-[#FAF8F6] text-[#6B6660] border-[#EDE9E4] hover:border-[#FF5A1F]/40 hover:text-[#111111]'
-                            }`}
+                              }`}
                           >
                             {srv}
                           </button>
@@ -400,11 +451,10 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                             type="button"
                             key={method.id}
                             onClick={() => setFormData({ ...formData, contactMethod: method.id })}
-                            className={`py-2 px-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                              isSelected
+                            className={`py-2 px-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${isSelected
                                 ? 'bg-[#111111] text-white border-[#111111] shadow-2xs'
                                 : 'bg-[#FAF8F6] text-[#6B6660] border-[#EDE9E4] hover:text-[#111111]'
-                            }`}
+                              }`}
                           >
                             <Icon className="w-3.5 h-3.5 text-[#FF5A1F]" />
                             <span>{method.label}</span>
@@ -428,8 +478,30 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                     />
                   </div>
 
+                  {/* Cloudflare Turnstile Verification (Managed Mode) */}
+                  <div className="pt-1">
+                    <TurnstileWidget
+                      action="quick_inquiry"
+                      onVerify={(token) => {
+                        setTurnstileToken(token);
+                        setSubmitError(null);
+                      }}
+                      onExpire={() => setTurnstileToken('')}
+                      onError={() => setTurnstileToken('')}
+                      resetSignal={resetSignal}
+                    />
+                  </div>
+
+                  {/* Inline Error Alert */}
+                  {submitError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <span className="leading-relaxed">{submitError}</span>
+                    </div>
+                  )}
+
                   {/* Submit Button & Trust Note */}
-                  <div className="pt-2 space-y-2.5">
+                  <div className="pt-1 space-y-2.5">
                     <button
                       type="submit"
                       disabled={isSubmitting}

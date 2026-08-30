@@ -18,8 +18,8 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  onNavigate,
-  onOpenScheduleModal: _onOpenScheduleModal,
+  onNavigate: _onNavigate,
+  onOpenScheduleModal,
 }) => {
   const prefersReducedMotion = useReducedMotion();
 
@@ -301,7 +301,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           className="pt-2 flex justify-center"
         >
           <motion.button
-            onClick={() => onNavigate('/contact')}
+            onClick={() => onOpenScheduleModal()}
             animate={
               prefersReducedMotion
                 ? undefined

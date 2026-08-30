@@ -16,8 +16,10 @@ import {
   ChevronUp,
   Globe2,
   Lock,
+  AlertCircle,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { TurnstileWidget } from '../components/common/TurnstileWidget';
 import {
   fadeUp,
   staggerContainer,
@@ -144,6 +146,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     projectDetails: false,
   });
 
+  const [website, setWebsite] = useState(''); // Honeypot field
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [resetSignal, setResetSignal] = useState(0);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -190,35 +197,72 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     setFormData({ ...formData, phone: val });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      service: true,
+      stage: true,
+      projectDetails: true,
+    });
+
     if (!isFormValid) {
-      setTouched({
-        name: true,
-        email: true,
-        phone: true,
-        service: true,
-        stage: true,
-        projectDetails: true,
-      });
+      return;
+    }
+
+    if (!turnstileToken) {
+      setSubmitError('Please complete the security verification below before submitting.');
       return;
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      try {
-        confetti({
-          particleCount: 85,
-          spread: 75,
-          origin: { y: 0.6 },
-          colors: ['#FF5A1F', '#FF7A45', '#111111', '#FFA07A'],
-        });
-      } catch {
-        // Confetti fallback
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/project-enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+          website,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        try {
+          confetti({
+            particleCount: 85,
+            spread: 75,
+            origin: { y: 0.6 },
+            colors: ['#FF5A1F', '#FF7A45', '#111111', '#FFA07A'],
+          });
+        } catch {
+          // Confetti fallback
+        }
+      } else {
+        const errorMsg =
+          result.error ||
+          (result.errors ? Object.values(result.errors).join(' ') : 'Failed to submit enquiry.');
+        setSubmitError(errorMsg);
+        setTurnstileToken('');
+        setResetSignal((prev) => prev + 1);
       }
-    }, 650);
+    } catch (err) {
+      console.error('Submission fetch error:', err);
+      setSubmitError('Network error while sending enquiry. Please check your connection or reach us on WhatsApp.');
+      setTurnstileToken('');
+      setResetSignal((prev) => prev + 1);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -241,6 +285,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       stage: false,
       projectDetails: false,
     });
+    setWebsite('');
+    setTurnstileToken('');
+    setSubmitError(null);
+    setResetSignal((prev) => prev + 1);
     setSubmitted(false);
   };
 
@@ -382,8 +430,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </div>
               </div>
             ) : (
-              /* Project Enquiry Form */
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Hidden Honeypot field for bot detection */}
+                <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
                 {/* Form Header */}
                 <div className="space-y-1 border-b border-[#EDE9E4] pb-4">
                   <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111]">
@@ -408,11 +466,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       onBlur={() => setTouched({ ...touched, name: true })}
                       onChange={handleNameChange}
                       placeholder="e.g. Alex Morgan (letters only)"
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                        touched.name && !isNameValid
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.name && !isNameValid
                           ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                           : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                      }`}
+                        }`}
                     />
                     {touched.name && !isNameValid && (
                       <p className="text-[11px] text-red-500 font-medium">
@@ -433,11 +490,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       onBlur={() => setTouched({ ...touched, email: true })}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. alex@company.com"
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                        touched.email && !isEmailValid
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.email && !isEmailValid
                           ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                           : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                      }`}
+                        }`}
                     />
                     {touched.email && !isEmailValid && (
                       <p className="text-[11px] text-red-500 font-medium">
@@ -462,11 +518,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                         onBlur={() => setTouched({ ...touched, phone: true })}
                         onChange={handlePhoneChange}
                         placeholder="10-digit mobile number"
-                        className={`w-full box-border pl-12 pr-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${
-                          touched.phone && !isPhoneValid
+                        className={`w-full box-border pl-12 pr-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.phone && !isPhoneValid
                             ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                             : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
+                          }`}
                       />
                     </div>
                     {touched.phone && !isPhoneValid && (
@@ -500,13 +555,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       value={formData.service}
                       onBlur={() => setTouched({ ...touched, service: true })}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${
-                        !formData.service ? 'text-gray-400' : 'text-[#111111]'
-                      } ${
-                        touched.service && !isServiceValid
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${!formData.service ? 'text-gray-400' : 'text-[#111111]'
+                        } ${touched.service && !isServiceValid
                           ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                           : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                      }`}
+                        }`}
                     >
                       <option value="" disabled>
                         Select a service...
@@ -534,13 +587,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       value={formData.stage}
                       onBlur={() => setTouched({ ...touched, stage: true })}
                       onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${
-                        !formData.stage ? 'text-gray-400' : 'text-[#111111]'
-                      } ${
-                        touched.stage && !isStageValid
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${!formData.stage ? 'text-gray-400' : 'text-[#111111]'
+                        } ${touched.stage && !isStageValid
                           ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                           : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                      }`}
+                        }`}
                     >
                       <option value="" disabled>
                         Select project stage...
@@ -566,9 +617,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     <select
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${
-                        !formData.budget ? 'text-gray-400' : 'text-[#111111]'
-                      }`}
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${!formData.budget ? 'text-gray-400' : 'text-[#111111]'
+                        }`}
                     >
                       <option value="">Select budget range (Optional)...</option>
                       {BUDGET_RANGES.map((b) => (
@@ -587,9 +637,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     <select
                       value={formData.timeline}
                       onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${
-                        !formData.timeline ? 'text-gray-400' : 'text-[#111111]'
-                      }`}
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${!formData.timeline ? 'text-gray-400' : 'text-[#111111]'
+                        }`}
                     >
                       <option value="">Select start timeline (Optional)...</option>
                       {TIMELINES.map((t) => (
@@ -613,11 +662,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     onBlur={() => setTouched({ ...touched, projectDetails: true })}
                     onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
                     placeholder="Briefly tell us what you're building, what you need help with, and any important requirements..."
-                    className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all resize-none ${
-                      touched.projectDetails && !isDetailsValid
+                    className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all resize-none ${touched.projectDetails && !isDetailsValid
                         ? 'border-red-400 focus:border-red-500 bg-red-50/20'
                         : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                    }`}
+                      }`}
                   />
                   <div className="flex items-center justify-between text-[11px]">
                     {touched.projectDetails && !isDetailsValid ? (
@@ -631,16 +679,37 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   </div>
                 </div>
 
+                {/* Cloudflare Turnstile Verification (Managed Mode) */}
+                <div className="pt-2">
+                  <TurnstileWidget
+                    action="contact_form"
+                    onVerify={(token) => {
+                      setTurnstileToken(token);
+                      setSubmitError(null);
+                    }}
+                    onExpire={() => setTurnstileToken('')}
+                    onError={() => setTurnstileToken('')}
+                    resetSignal={resetSignal}
+                  />
+                </div>
+
+                {/* Inline Error Alert */}
+                {submitError && (
+                  <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-600 flex items-start gap-2.5">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span className="leading-relaxed">{submitError}</span>
+                  </div>
+                )}
+
                 {/* Submit Action Button */}
-                <div className="pt-2 space-y-3">
+                <div className="pt-1 space-y-3">
                   <button
                     type="submit"
                     disabled={!isFormValid || isSubmitting}
-                    className={`w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md ${
-                      isFormValid && !isSubmitting
+                    className={`w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md ${isFormValid && !isSubmitting
                         ? 'bg-[#FF5A1F] text-white hover:bg-[#e04c15] hover:shadow-[0_8px_24px_rgba(255,90,31,0.35)] active:scale-95 cursor-pointer'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                    }`}
+                      }`}
                   >
                     {isSubmitting ? (
                       <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />

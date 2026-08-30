@@ -135,7 +135,7 @@ function AppContent() {
       <main className="flex-grow z-10">
         <Suspense fallback={<PageLoadingFallback />}>
           <AnimatePresence mode="wait" initial={false}>
-            <Routes location={location} key={location.pathname}>
+            <Routes location={location}>
               <Route
                 path="/"
                 element={
