@@ -86,6 +86,8 @@ export const PortfolioDetailPage: React.FC<PortfolioDetailPageProps> = ({
         <img
           src={item.coverImage}
           alt={item.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       </div>
@@ -219,6 +221,8 @@ export const PortfolioDetailPage: React.FC<PortfolioDetailPageProps> = ({
                 <img
                   src={imgUrl}
                   alt={`${item.title} Preview ${gIdx + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>

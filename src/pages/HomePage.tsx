@@ -9,7 +9,6 @@ import { ServicesPreview } from '../components/home/ServicesPreview';
 import { ProcessPreview } from '../components/home/ProcessPreview';
 import { PortfolioPreview } from '../components/home/PortfolioPreview';
 import { IndustriesMarquee } from '../components/home/IndustriesMarquee';
-import { TestimonialsSection } from '../components/home/TestimonialsSection';
 import { FinalCtaBanner } from '../components/home/FinalCtaBanner';
 
 interface HomePageProps {
@@ -44,7 +43,6 @@ export const HomePage: React.FC<HomePageProps> = ({
       <ProcessPreview onNavigate={onNavigate} />
       <PortfolioPreview onNavigate={onNavigate} />
       <IndustriesMarquee onNavigate={onNavigate} />
-      <TestimonialsSection />
       <FinalCtaBanner
         onNavigate={onNavigate}
         onOpenScheduleModal={onOpenScheduleModal}

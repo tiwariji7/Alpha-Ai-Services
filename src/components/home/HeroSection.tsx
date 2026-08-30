@@ -43,9 +43,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
           className="space-y-3 sm:space-y-4 max-w-3xl mx-auto text-center flex flex-col items-center"
         >
-          <h2 className="text-xs sm:text-sm font-bold text-[#6B6660] uppercase tracking-wider">
+          <p className="text-xs sm:text-sm font-bold text-[#6B6660] uppercase tracking-wider">
             AI-POWERED SOFTWARE ENGINEERING STUDIO
-          </h2>
+          </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#111111] tracking-tight leading-[1.08]">
             Build intelligent software that{' '}
             <span className="text-[#FF5A1F] relative inline-block">

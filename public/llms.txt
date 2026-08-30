@@ -1,0 +1,96 @@
+# Alpha AI Services (https://alphaaiservices.in)
+
+> Software engineering and AI product studio building intelligent applications, custom software, mobile apps, and scalable cloud systems.
+
+## Company Overview
+- **Name:** Alpha AI Services
+- **Website:** https://alphaaiservices.in
+- **Email:** info@alphaaiservices.in
+- **Operating Model:** Senior software engineers working directly with clients—no account manager layers or delayed games of telephone.
+- **Location:** Prayagraj (Office) and Pune (Remote/Hybrid), India. Serving clients globally.
+
+## Core Capabilities & Services
+
+### 1. AI & Machine Learning Development
+- **URL:** https://alphaaiservices.in/services/ai-development
+- **Summary:** Enterprise RAG (Retrieval-Augmented Generation), fine-tuned open-weights & Gemini SLMs/LLMs, production vector databases (pgvector, Qdrant, Pinecone), computer vision, and autonomous tool-calling agents.
+- **Starting Price:** $4,500 / project
+
+### 2. Custom Software Engineering & Architecture
+- **URL:** https://alphaaiservices.in/services/software-development
+- **Summary:** Scalable backend architectures, distributed microservices (Go, Node.js, Python), resilient PostgreSQL/Redis data pipelines, message brokers (Kafka, RabbitMQ), and high-throughput APIs.
+- **Starting Price:** $5,000 / project
+
+### 3. Modern Web Application Development
+- **URL:** https://alphaaiservices.in/services/web-development
+- **Summary:** Responsive, high-performance web applications using React, Next.js, TypeScript, Tailwind CSS, and edge computing architectures with sub-second page loads.
+- **Starting Price:** $3,500 / project
+
+### 4. Mobile Application Development (iOS & Android)
+- **URL:** https://alphaaiservices.in/services/mobile-apps
+- **Summary:** Native Kotlin/Swift and cross-platform Flutter/React Native mobile applications with offline sync, biometric security, push notification pipelines, and store deployment.
+- **Starting Price:** $4,000 / project
+
+### 5. Cloud Infrastructure & DevOps
+- **URL:** https://alphaaiservices.in/services/cloud-devops
+- **Summary:** Multi-cloud AWS/GCP architecture, Kubernetes orchestration, Docker containerization, Infrastructure as Code (Terraform), automated CI/CD pipelines, and 99.99% uptime engineering.
+- **Starting Price:** $3,000 / project
+
+### 6. Cybersecurity & Data Protection
+- **URL:** https://alphaaiservices.in/services/cyber-security
+- **Summary:** OWASP Top 10 code audits, automated penetration testing, zero-trust RBAC authentication (OAuth2, OIDC), envelope encryption (AES-256 / TLS 1.3), and SOC2/HIPAA compliance readiness.
+- **Starting Price:** $3,500 / project
+
+### 7. Product Design & UI/UX Systems
+- **URL:** https://alphaaiservices.in/services/ui-ux-design
+- **Summary:** Conversion-driven design systems, user empathy mapping, high-fidelity Figma component libraries, and interactive design-to-code pipelines.
+- **Starting Price:** $2,500 / project
+
+### 8. Workflow Automation & System Integrations
+- **URL:** https://alphaaiservices.in/services/automation
+- **Summary:** Automated business workflows, ERP/CRM bi-directional sync, custom webhooks, Temporal durable execution pipelines, and third-party API orchestrations.
+- **Starting Price:** $4,000 / project
+
+## Representative Portfolio & Case Studies
+
+1. **SeHAT SmartCare (Healthcare AI)**
+   - **URL:** https://alphaaiservices.in/portfolio/sehat-smartcare
+   - **Tech:** AI & RAG, Android (Kotlin), FastAPI, PostgreSQL, Vector Embeddings
+   - **Result:** Low-latency conversational health triage platform with clinical semantic guardrails.
+
+2. **TOMATO 3D (Interactive WebGL Experience)**
+   - **URL:** https://alphaaiservices.in/portfolio/tomato-3d-food
+   - **Tech:** React, TypeScript, Three.js, WebGL, Framer Motion
+   - **Result:** Smooth 60 FPS 3D food customizer and interactive ordering interface.
+
+3. **AI Business Assistant (Enterprise Knowledge Copilot)**
+   - **URL:** https://alphaaiservices.in/portfolio/ai-business-assistant
+   - **Tech:** AI & RAG, Python, FastAPI, React, pgvector, PostgreSQL
+   - **Result:** Internal enterprise copilot with source attribution and natural language query execution.
+
+## Agile Engineering Process (5 Stages)
+- **URL:** https://alphaaiservices.in/company/process
+1. Deep Discovery & Technical Feasibility (System architecture, PRD, security matrix)
+2. Interactive UX & Architectural Prototyping (Clickable prototype, DB schema)
+3. Rapid Agile Sprints & Production Milestones (Bi-weekly demo releases, automated testing)
+4. Hardening, Automated Security & Deployment (Load testing, SOC2 checks, zero-downtime CI/CD)
+5. 24/7 Telemetry, Observability & Warranty (Post-launch warranty hypercare, metrics dashboard)
+
+## Engagement & Pricing Options
+- **URL:** https://alphaaiservices.in/pricing
+- **Retainer Model:** Monthly technology retainers for continuous development and maintenance (₹9,999 to ₹49,999+ / mo).
+- **Milestone Model:** Fixed-scope deliverables with defined milestones and 100% intellectual property handover.
+- **Code & IP Ownership:** Clients retain full ownership of all source code, models, assets, and infrastructure configurations.
+
+## Legal & Compliance Policies
+- **Privacy Policy:** https://alphaaiservices.in/privacy-policy (Compliance with India DPDP Act 2023 & IT Act 2000)
+- **Terms & Conditions:** https://alphaaiservices.in/terms (Engineering milestones, intellectual property handover, and monthly retainer terms)
+
+## Contact Information
+- **URL:** https://alphaaiservices.in/contact
+- **Direct Email:** info@alphaaiservices.in
+- **WhatsApp:** https://wa.me/918381835420 (Direct Chat)
+- **LinkedIn:** https://www.linkedin.com/in/tiwarijii
+- **Instagram:** https://www.instagram.com/alphaaiservices.in/?hl=en
+- **GitHub:** https://github.com/tiwariji7
+- **Response Time:** Typically within 1 business day

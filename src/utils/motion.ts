@@ -69,18 +69,18 @@ export const staggerItem: Variants = {
   },
 };
 
-// 7. Page Transition variant (Smooth fade & slight vertical float on route changes)
+// 7. Page Transition variant (Subtle fade out 180ms, clean fade in 240ms on route changes)
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 12 },
+  initial: { opacity: 0, y: 6 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.36, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.24, ease: [0.16, 1, 0.3, 1] },
   },
   exit: {
     opacity: 0,
-    y: -8,
-    transition: { duration: 0.22, ease: [0.4, 0, 1, 1] },
+    y: -4,
+    transition: { duration: 0.18, ease: [0.4, 0, 1, 1] },
   },
 };
 

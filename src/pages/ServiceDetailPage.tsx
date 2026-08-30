@@ -94,10 +94,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     (slug === 'cyber-security' ? SERVICES_LIST[7] : null) ||
     SERVICES_LIST[0];
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [slug]);
-
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
       case 'Bot':

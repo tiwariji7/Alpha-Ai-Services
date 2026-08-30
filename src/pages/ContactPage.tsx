@@ -3,7 +3,6 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
   Sparkles,
   Mail,
-  Phone,
   MapPin,
   Clock,
   Send,
@@ -87,7 +86,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I contact you before submitting a project?',
-    a: 'Yes. You can contact us directly through email, phone or WhatsApp to discuss your requirements.',
+    a: 'Yes. You can contact us directly through email or WhatsApp to discuss your requirements.',
   },
 ];
 
@@ -679,7 +678,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               <div className="space-y-3 pt-2">
                 {/* Email */}
                 <a
-                  href="mailto:hello@alpha-ai.services"
+                  href="mailto:info@alphaaiservices.in"
                   className="flex items-start gap-3 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#FF5A1F]/40 transition-all group"
                 >
                   <div className="w-9 h-9 rounded-xl bg-white border border-[#EDE9E4] flex items-center justify-center text-[#FF5A1F] shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
@@ -690,49 +689,30 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       Email Us
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-[#111111] group-hover:text-[#FF5A1F] transition-colors truncate block">
-                      hello@alpha-ai.services
+                      info@alphaaiservices.in
                     </span>
                   </div>
                 </a>
 
-                {/* Phone / WhatsApp */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <a
-                    href="tel:+918884927421"
-                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#FF5A1F]/40 transition-all group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-white border border-[#EDE9E4] flex items-center justify-center text-[#FF5A1F] shrink-0 shadow-2xs">
-                      <Phone className="w-3.5 h-3.5" />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[9.5px] font-bold text-[#6B6660] uppercase block">
-                        Call Direct
-                      </span>
-                      <span className="text-xs font-bold text-[#111111] group-hover:text-[#FF5A1F] truncate block">
-                        +91 888 492 7421
-                      </span>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://wa.me/918884927421"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#25D366]/40 transition-all group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-white border border-[#EDE9E4] flex items-center justify-center text-[#25D366] shrink-0 shadow-2xs">
-                      <MessageCircle className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[9.5px] font-bold text-[#6B6660] uppercase block">
-                        WhatsApp Us
-                      </span>
-                      <span className="text-xs font-bold text-[#111111] group-hover:text-[#25D366] truncate block">
-                        Direct Chat
-                      </span>
-                    </div>
-                  </a>
-                </div>
+                {/* WhatsApp */}
+                <a
+                  href="https://wa.me/918381835420"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#25D366]/40 transition-all group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-white border border-[#EDE9E4] flex items-center justify-center text-[#25D366] shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#6B6660] block">
+                      WhatsApp Us
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-[#111111] group-hover:text-[#25D366] transition-colors truncate block">
+                      Send Direct Message on WhatsApp
+                    </span>
+                  </div>
+                </a>
               </div>
             </div>
 
@@ -833,7 +813,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </button>
 
                 <a
-                  href="https://wa.me/918884927421"
+                  href="https://wa.me/918381835420"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full bg-white/10 text-white border border-white/20 hover:bg-white/15 py-2.5 px-4 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 active:scale-95 shadow-xs"

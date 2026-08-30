@@ -80,6 +80,8 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
               <img
                 src={item.coverImage}
                 alt={item.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-extrabold text-[#111111] border border-[#EDE9E4] shadow-xs">

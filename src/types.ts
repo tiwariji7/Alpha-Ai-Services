@@ -9,7 +9,11 @@ export type RoutePath =
   | '/company/process'
   | '/company/industries'
   | '/pricing'
-  | '/contact';
+  | '/contact'
+  | '/privacy-policy'
+  | '/privacy'
+  | '/terms'
+  | '/sitemap';
 
 export interface NavItem {
   label: string;
@@ -141,7 +145,7 @@ export interface TeamMember {
   expertise: string[];
   social: {
     linkedin?: string;
-    twitter?: string;
+    instagram?: string;
     github?: string;
   };
 }

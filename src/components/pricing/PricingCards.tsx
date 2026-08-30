@@ -13,7 +13,7 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
   const prefersReducedMotion = useReducedMotion();
   const [expandedMobile, setExpandedMobile] = useState<Record<string, boolean>>({
     starter: false,
-    growth: true,
+    growth: false,
     partner: false,
   });
 

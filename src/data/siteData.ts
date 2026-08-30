@@ -12,7 +12,7 @@ import {
 export const SITE_CONFIG = {
   name: 'Alpha AI Services',
   tagline: 'Engineering intelligent software, AI products, and scalable digital solutions.',
-  email: 'info@alphaaiservices.online',
+  email: 'info@alphaaiservices.in',
   location: 'India · Remote / Hybrid',
 };
 
@@ -919,7 +919,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Former Principal Distributed Systems Engineer at Google Cloud. 14+ years designing high-throughput backends and fault-tolerant cloud clusters.',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     expertise: ['Distributed Systems', 'Go / Rust', 'Kubernetes', 'Cloud Security'],
-    social: { linkedin: '#', twitter: '#', github: '#' },
+    social: { linkedin: 'https://www.linkedin.com/in/tiwarijii', instagram: 'https://www.instagram.com/alphaaiservices.in/?hl=en', github: 'https://github.com/tiwariji7' },
   },
   {
     name: 'Dr. Soraya Lin',
@@ -927,7 +927,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'PhD in Machine Learning from Stanford. Specializes in Foundation Model fine-tuning, dense vector retrieval, and autonomous multi-agent systems.',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
     expertise: ['LLM Fine-Tuning', 'Vector Databases', 'PyTorch', 'Agent Orchestration'],
-    social: { linkedin: '#', twitter: '#', github: '#' },
+    social: { linkedin: 'https://www.linkedin.com/in/tiwarijii', instagram: 'https://www.instagram.com/alphaaiservices.in/?hl=en', github: 'https://github.com/tiwariji7' },
   },
   {
     name: 'Julian Mercer',
@@ -935,7 +935,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Design system pioneer and former Design Director. Obsessed with micro-interactions, responsive ergonomics, and visual hierarchy.',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
     expertise: ['Figma Master Systems', 'Framer Motion', 'Design Tokens', 'User Research'],
-    social: { linkedin: '#', twitter: '#', github: '#' },
+    social: { linkedin: 'https://www.linkedin.com/in/tiwarijii', instagram: 'https://www.instagram.com/alphaaiservices.in/?hl=en', github: 'https://github.com/tiwariji7' },
   },
   {
     name: 'Kavita Sundaram',
@@ -943,7 +943,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Led engineering squads at Stripe and Uber. Certified Scrum Master and expert in zero-defect Agile delivery and SOC2 compliance.',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
     expertise: ['Agile Engineering', 'CI/CD Pipelines', 'QA Automation', 'SOC2 Compliance'],
-    social: { linkedin: '#', twitter: '#', github: '#' },
+    social: { linkedin: 'https://www.linkedin.com/in/tiwarijii', instagram: 'https://www.instagram.com/alphaaiservices.in/?hl=en', github: 'https://github.com/tiwariji7' },
   },
 ];
 

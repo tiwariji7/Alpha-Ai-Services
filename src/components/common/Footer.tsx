@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Mail,
-  Phone,
   MapPin,
   ChevronRight,
   ArrowRight,
@@ -9,7 +8,7 @@ import {
   Linkedin,
   Github,
   Instagram,
-  Twitter,
+  MessageCircle,
 } from 'lucide-react';
 import footerBrandLogo from '../../assets/images/footerbrandlogo.png';
 import footerBrandLogoWebp from '../../assets/images/footerbrandlogo.webp';
@@ -39,10 +38,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', icon: <Linkedin className="w-3.5 h-3.5" />, href: 'https://linkedin.com' },
-    { name: 'GitHub', icon: <Github className="w-3.5 h-3.5" />, href: 'https://github.com' },
-    { name: 'Instagram', icon: <Instagram className="w-3.5 h-3.5" />, href: 'https://instagram.com' },
-    { name: 'X', icon: <Twitter className="w-3.5 h-3.5" />, href: 'https://x.com' },
+    { name: 'LinkedIn', icon: <Linkedin className="w-3.5 h-3.5" />, href: 'https://www.linkedin.com/in/tiwarijii' },
+    { name: 'Instagram', icon: <Instagram className="w-3.5 h-3.5" />, href: 'https://www.instagram.com/alphaaiservices.in/?hl=en' },
+    { name: 'GitHub', icon: <Github className="w-3.5 h-3.5" />, href: 'https://github.com/tiwariji7' },
   ];
 
   return (
@@ -99,16 +97,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
                 <a
-                  href="mailto:hello@alpha-ai.services"
+                  href="mailto:info@alphaaiservices.in"
                   className="hover:text-white transition-colors"
                 >
-                  hello@alpha-ai.services
+                  info@alphaaiservices.in
                 </a>
               </div>
 
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
-                <span>+91 888 492 7421</span>
+                <MessageCircle className="w-3.5 h-3.5 text-[#25D366] shrink-0" />
+                <a
+                  href="https://wa.me/918381835420"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Chat on WhatsApp
+                </a>
               </div>
 
               <div className="flex items-center gap-2">
@@ -246,8 +251,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Right: Legal Links with Vertical Dividers */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 text-[11px] text-[#8A90A0]">
             <button
-              onClick={() => onNavigate('/privacy')}
-              className="hover:text-white transition-colors"
+              onClick={() => onNavigate('/privacy-policy')}
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>

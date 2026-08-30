@@ -1,0 +1,35 @@
+# Robots.txt for Alpha AI Services (https://alphaaiservices.in)
+User-agent: *
+Allow: /
+
+# Explicitly allow modern AI Search and Retrieval crawlers for Generative Engine Optimization (GEO)
+# This enables real-time citation, answer extraction, and indexing by conversational engines (Perplexity, ChatGPT Search, Claude, Gemini).
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Note: Training-specific scrapers (such as GPTBot or CCBot) can optionally be disallowed in the future
+# if content-licensing policies require it. However, retrieval/search bots (OAI-SearchBot, PerplexityBot,
+# ClaudeBot, Google-Extended) should remain allowed so that AI answer engines can discover, cite,
+# and link back to Alpha AI Services when answering user prompts.
+
+# Sitemap Location
+Sitemap: https://alphaaiservices.in/sitemap.xml
