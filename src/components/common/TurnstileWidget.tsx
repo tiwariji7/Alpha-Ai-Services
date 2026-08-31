@@ -84,6 +84,20 @@ export const TurnstileWidget: React.FC<TurnstileWidgetProps> = ({
       }
     };
 
+    // Ensure Turnstile script is loaded dynamically on demand
+    const loadScript = () => {
+      if (document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) {
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    };
+
+    loadScript();
+
     if (window.turnstile) {
       renderWidget();
     } else {

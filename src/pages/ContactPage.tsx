@@ -376,520 +376,519 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       {/* 2. MAIN 2-COLUMN CONTACT LAYOUT */}
       <section className="px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
-          {/* LEFT COLUMN: Project Enquiry Form (approx 60% on desktop) */}
-          <div className="lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#EDE9E4] shadow-soft relative overflow-hidden">
-            {submitted ? (
-              /* Success State */
-              <div className="text-center py-10 sm:py-14 space-y-5">
-                <div className="w-16 h-16 bg-[#FF5A1F]/10 text-[#FF5A1F] rounded-full flex items-center justify-center mx-auto border border-[#FF5A1F]/20 shadow-xs">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
+          {/* LEFT COLUMN: Project Enquiry Form (approx 60% on desktop) - Dark Theme with Footer Dots */}
+          <div className="lg:col-span-7 bg-[#07090E] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#1E2433] shadow-soft-lg relative overflow-hidden text-white">
+            {/* Top Edge Glow Accent */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#FF5A1F] to-transparent opacity-80" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF5A1F]/10 blur-[80px] pointer-events-none" />
 
-                <div className="space-y-1.5">
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#111111] tracking-tight">
-                    Thanks — We've Received Your Enquiry.
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#6B6660] max-w-md mx-auto leading-relaxed">
-                    Our team will review your requirements and get back to you within 1 business day at <strong className="text-[#111111]">{formData.email}</strong>.
-                  </p>
-                </div>
+            {/* Background Decorative Tech Dots Mesh (Matching Footer) */}
+            <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
 
-                {/* Submitted Summary */}
-                <div className="bg-[#FAF8F6] p-4 sm:p-5 rounded-2xl border border-[#EDE9E4] text-left text-xs text-[#6B6660] space-y-2 max-w-md mx-auto">
-                  <div className="flex justify-between border-b border-[#EDE9E4]/60 pb-1.5">
-                    <span className="text-gray-500">Contact:</span>
-                    <span className="font-bold text-[#111111]">{formData.name}</span>
+            <div className="relative z-10">
+              {submitted ? (
+                /* Success State */
+                <div className="text-center py-10 sm:py-14 space-y-5">
+                  <div className="w-16 h-16 bg-[#FF5A1F]/15 text-[#FF5A1F] rounded-full flex items-center justify-center mx-auto border border-[#FF5A1F]/30 shadow-glow-orange">
+                    <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <div className="flex justify-between border-b border-[#EDE9E4]/60 pb-1.5">
-                    <span className="text-gray-500">Phone:</span>
-                    <span className="font-bold text-[#111111]">+91 {formData.phone}</span>
+
+                  <div className="space-y-1.5">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                      Thanks — We've Received Your Enquiry.
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#9EA3B0] max-w-md mx-auto leading-relaxed">
+                      Our team will review your requirements and get back to you within 1 business day at <strong className="text-white">{formData.email}</strong>.
+                    </p>
                   </div>
-                  <div className="flex justify-between border-b border-[#EDE9E4]/60 pb-1.5">
-                    <span className="text-gray-500">Service:</span>
-                    <span className="font-bold text-[#111111]">{formData.service}</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[#EDE9E4]/60 pb-1.5">
-                    <span className="text-gray-500">Project Stage:</span>
-                    <span className="font-bold text-[#111111]">{formData.stage}</span>
-                  </div>
-                  {formData.timeline && (
-                    <div className="flex justify-between pt-0.5">
-                      <span className="text-gray-500">Timeline:</span>
-                      <span className="font-bold text-[#FF5A1F]">{formData.timeline}</span>
+
+                  {/* Submitted Summary */}
+                  <div className="bg-[#0F131D] p-4 sm:p-5 rounded-2xl border border-[#1E2433] text-left text-xs text-[#9EA3B0] space-y-2 max-w-md mx-auto">
+                    <div className="flex justify-between border-b border-[#1E2433] pb-1.5">
+                      <span className="text-gray-400">Contact:</span>
+                      <span className="font-bold text-white">{formData.name}</span>
                     </div>
-                  )}
-                </div>
+                    <div className="flex justify-between border-b border-[#1E2433] pb-1.5">
+                      <span className="text-gray-400">Phone:</span>
+                      <span className="font-bold text-white">+91 {formData.phone}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-[#1E2433] pb-1.5">
+                      <span className="text-gray-400">Service:</span>
+                      <span className="font-bold text-white">{formData.service}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-[#1E2433] pb-1.5">
+                      <span className="text-gray-400">Project Stage:</span>
+                      <span className="font-bold text-white">{formData.stage}</span>
+                    </div>
+                    {formData.timeline && (
+                      <div className="flex justify-between pt-0.5">
+                        <span className="text-gray-400">Timeline:</span>
+                        <span className="font-bold text-[#FF5A1F]">{formData.timeline}</span>
+                      </div>
+                    )}
+                  </div>
 
-                <div className="pt-3">
-                  <button
-                    onClick={handleReset}
-                    className="bg-[#111111] text-white py-3 px-8 rounded-full font-bold text-xs sm:text-sm hover:bg-[#262626] transition-all shadow-sm active:scale-95 cursor-pointer"
-                  >
-                    Send Another Enquiry
-                  </button>
+                  <div className="pt-3">
+                    <button
+                      onClick={handleReset}
+                      className="bg-gradient-to-r from-[#FF5A1F] to-[#FF702E] text-white py-3 px-8 rounded-full font-bold text-xs sm:text-sm hover:brightness-110 transition-all shadow-md active:scale-95 cursor-pointer"
+                    >
+                      Send Another Enquiry
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Hidden Honeypot field for bot detection */}
-                <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                  <input
-                    type="text"
-                    name="website"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                </div>
-                {/* Form Header */}
-                <div className="space-y-1 border-b border-[#EDE9E4] pb-4">
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111]">
-                    Project Inquiry Form
-                  </h2>
-                  <p className="text-xs text-[#6B6660]">
-                    Share your requirements below and we'll get back to you within 1 business day.
-                  </p>
-                </div>
-
-                {/* CSS Grid for Inputs - Strict Zero Overflow Architecture */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* ROW 1: Full Name (Only characters) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Full Name <span className="text-[#FF5A1F]">*</span>
-                    </label>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Hidden Honeypot field for bot detection */}
+                  <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
                     <input
                       type="text"
-                      required
-                      value={formData.name}
-                      onBlur={() => setTouched({ ...touched, name: true })}
-                      onChange={handleNameChange}
-                      placeholder="e.g. Alex Morgan (letters only)"
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.name && !isNameValid
-                          ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                          : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
                     />
-                    {touched.name && !isNameValid && (
-                      <p className="text-[11px] text-red-500 font-medium">
-                        Please enter a valid name using letters only (min 2 chars).
-                      </p>
-                    )}
+                  </div>
+                  {/* Form Header */}
+                  <div className="space-y-1 border-b border-[#1E2433] pb-4">
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                      Project Inquiry Form
+                    </h2>
+                    <p className="text-xs text-[#9EA3B0]">
+                      Share your requirements below and we'll get back to you within 1 business day.
+                    </p>
                   </div>
 
-                  {/* ROW 1: Work Email (Strict, not spam) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Work Email <span className="text-[#FF5A1F]">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onBlur={() => setTouched({ ...touched, email: true })}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. alex@company.com"
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.email && !isEmailValid
-                          ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                          : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
-                    />
-                    {touched.email && !isEmailValid && (
-                      <p className="text-[11px] text-red-500 font-medium">
-                        Please enter a valid, non-spam work email address.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* ROW 2: Phone / WhatsApp (Required with star, exact 10 valid digits) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Phone / WhatsApp <span className="text-[#FF5A1F]">*</span>
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-500">
-                        +91
-                      </span>
+                  {/* CSS Grid for Inputs - Strict Zero Overflow Architecture */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* ROW 1: Full Name (Only characters) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Full Name <span className="text-[#FF5A1F]">*</span>
+                      </label>
                       <input
-                        type="tel"
+                        type="text"
                         required
-                        value={formData.phone}
-                        onBlur={() => setTouched({ ...touched, phone: true })}
-                        onChange={handlePhoneChange}
-                        placeholder="10-digit mobile number"
-                        className={`w-full box-border pl-12 pr-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.phone && !isPhoneValid
-                            ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                            : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
+                        value={formData.name}
+                        onBlur={() => setTouched({ ...touched, name: true })}
+                        onChange={handleNameChange}
+                        placeholder="e.g. Alex Morgan (letters only)"
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm text-white placeholder:text-gray-500 focus:outline-none transition-all ${
+                          touched.name && !isNameValid
+                            ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                            : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
+                        }`}
+                      />
+                      {touched.name && !isNameValid && (
+                        <p className="text-[11px] text-red-400 font-medium">
+                          Please enter a valid name using letters only (min 2 chars).
+                        </p>
+                      )}
+                    </div>
+
+                    {/* ROW 1: Work Email (Strict, not spam) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Work Email <span className="text-[#FF5A1F]">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onBlur={() => setTouched({ ...touched, email: true })}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="e.g. alex@company.com"
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm text-white placeholder:text-gray-500 focus:outline-none transition-all ${
+                          touched.email && !isEmailValid
+                            ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                            : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
+                        }`}
+                      />
+                      {touched.email && !isEmailValid && (
+                        <p className="text-[11px] text-red-400 font-medium">
+                          Please enter a valid, non-spam work email address.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* ROW 2: Phone / WhatsApp (Required with star, exact 10 valid digits) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Phone / WhatsApp <span className="text-[#FF5A1F]">*</span>
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onBlur={() => setTouched({ ...touched, phone: true })}
+                          onChange={handlePhoneChange}
+                          placeholder="10-digit mobile number"
+                          className={`w-full box-border pl-12 pr-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm text-white placeholder:text-gray-500 focus:outline-none transition-all ${
+                            touched.phone && !isPhoneValid
+                              ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                              : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
                           }`}
+                        />
+                      </div>
+                      {touched.phone && !isPhoneValid && (
+                        <p className="text-[11px] text-red-400 font-medium">
+                          Please enter a valid 10-digit number starting with 6, 7, 8, or 9.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* ROW 2: Company / Organization (Optional) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Company / Organization <span className="text-gray-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        placeholder="e.g. Acme Labs Inc."
+                        className="w-full box-border px-3.5 py-2.5 bg-[#0F131D] border border-[#1E2433] rounded-xl text-xs sm:text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-[#FF5A1F] focus:bg-[#141926] transition-all"
                       />
                     </div>
-                    {touched.phone && !isPhoneValid && (
-                      <p className="text-[11px] text-red-500 font-medium">
-                        Please enter a valid 10-digit number starting with 6, 7, 8, or 9.
-                      </p>
-                    )}
+
+                    {/* ROW 3: What do you need help with? (No auto-selection) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        What do you need help with? <span className="text-[#FF5A1F]">*</span>
+                      </label>
+                      <select
+                        required
+                        value={formData.service}
+                        onBlur={() => setTouched({ ...touched, service: true })}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${
+                          !formData.service ? 'text-gray-500' : 'text-white'
+                        } ${
+                          touched.service && !isServiceValid
+                            ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                            : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
+                        }`}
+                      >
+                        <option value="" disabled className="bg-[#0F131D] text-gray-500">
+                          Select a service...
+                        </option>
+                        {SERVICE_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt} className="bg-[#0F131D] text-white">
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                      {touched.service && !isServiceValid && (
+                        <p className="text-[11px] text-red-400 font-medium">
+                          Please select a service.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* ROW 4: Project Stage (No auto-selection) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Project Stage <span className="text-[#FF5A1F]">*</span>
+                      </label>
+                      <select
+                        required
+                        value={formData.stage}
+                        onBlur={() => setTouched({ ...touched, stage: true })}
+                        onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${
+                          !formData.stage ? 'text-gray-500' : 'text-white'
+                        } ${
+                          touched.stage && !isStageValid
+                            ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                            : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
+                        }`}
+                      >
+                        <option value="" disabled className="bg-[#0F131D] text-gray-500">
+                          Select project stage...
+                        </option>
+                        {PROJECT_STAGES.map((stg) => (
+                          <option key={stg} value={stg} className="bg-[#0F131D] text-white">
+                            {stg}
+                          </option>
+                        ))}
+                      </select>
+                      {touched.stage && !isStageValid && (
+                        <p className="text-[11px] text-red-400 font-medium">
+                          Please select your project stage.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* ROW 5: Estimated Budget (No auto-selection, Optional) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Estimated Budget <span className="text-gray-400 font-normal">(Optional)</span>
+                      </label>
+                      <select
+                        value={formData.budget}
+                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border border-[#1E2433] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-[#141926] transition-all truncate ${
+                          !formData.budget ? 'text-gray-500' : 'text-white'
+                        }`}
+                      >
+                        <option value="" className="bg-[#0F131D] text-gray-500">Select budget range (Optional)...</option>
+                        {BUDGET_RANGES.map((b) => (
+                          <option key={b} value={b} className="bg-[#0F131D] text-white">
+                            {b}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* ROW 6: Preferred Start Timeline (No auto-selection, Optional) */}
+                    <div className="min-w-0 w-full space-y-1">
+                      <label className="block text-xs font-bold text-gray-200">
+                        Preferred Start Timeline <span className="text-gray-400 font-normal">(Optional)</span>
+                      </label>
+                      <select
+                        value={formData.timeline}
+                        onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                        className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border border-[#1E2433] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-[#141926] transition-all truncate ${
+                          !formData.timeline ? 'text-gray-500' : 'text-white'
+                        }`}
+                      >
+                        <option value="" className="bg-[#0F131D] text-gray-500">Select start timeline (Optional)...</option>
+                        {TIMELINES.map((t) => (
+                          <option key={t} value={t} className="bg-[#0F131D] text-white">
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  {/* ROW 2: Company / Organization (Optional) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Company / Organization <span className="text-gray-400 font-normal">(Optional)</span>
+                  {/* FULL WIDTH: Project Details Textarea (Minimum 10 chars) */}
+                  <div className="w-full space-y-1 pt-1">
+                    <label className="block text-xs font-bold text-gray-200">
+                      Project Details <span className="text-[#FF5A1F]">*</span>
                     </label>
-                    <input
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      placeholder="e.g. Acme Labs Inc."
-                      className="w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all"
+                    <textarea
+                      rows={4}
+                      required
+                      value={formData.projectDetails}
+                      onBlur={() => setTouched({ ...touched, projectDetails: true })}
+                      onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
+                      placeholder="Briefly tell us what you're building, what you need help with, and any important requirements..."
+                      className={`w-full box-border px-3.5 py-2.5 bg-[#0F131D] border rounded-xl text-xs sm:text-sm text-white placeholder:text-gray-500 focus:outline-none transition-all resize-none ${
+                        touched.projectDetails && !isDetailsValid
+                          ? 'border-red-500/80 focus:border-red-500 bg-red-950/20'
+                          : 'border-[#1E2433] focus:border-[#FF5A1F] focus:bg-[#141926]'
+                      }`}
+                    />
+                    <div className="flex items-center justify-between text-[11px]">
+                      {touched.projectDetails && !isDetailsValid ? (
+                        <p className="text-red-400 font-medium">
+                          Please provide at least 10 characters of project details.
+                        </p>
+                      ) : (
+                        <span className="text-gray-400">Minimum 10 characters</span>
+                      )}
+                      <span className="text-gray-400">{formData.projectDetails.length} chars</span>
+                    </div>
+                  </div>
+
+                  {/* Cloudflare Turnstile Verification (Managed Mode) */}
+                  <div className="pt-2">
+                    <TurnstileWidget
+                      action="contact_form"
+                      onVerify={(token) => {
+                        setTurnstileToken(token);
+                        setSubmitError(null);
+                      }}
+                      onExpire={() => setTurnstileToken('')}
+                      onError={() => setTurnstileToken('')}
+                      resetSignal={resetSignal}
                     />
                   </div>
 
-                  {/* ROW 3: What do you need help with? (No auto-selection) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      What do you need help with? <span className="text-[#FF5A1F]">*</span>
-                    </label>
-                    <select
-                      required
-                      value={formData.service}
-                      onBlur={() => setTouched({ ...touched, service: true })}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${!formData.service ? 'text-gray-400' : 'text-[#111111]'
-                        } ${touched.service && !isServiceValid
-                          ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                          : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
-                    >
-                      <option value="" disabled>
-                        Select a service...
-                      </option>
-                      {SERVICE_OPTIONS.map((opt) => (
-                        <option key={opt} value={opt} className="text-[#111111]">
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                    {touched.service && !isServiceValid && (
-                      <p className="text-[11px] text-red-500 font-medium">
-                        Please select a service.
-                      </p>
-                    )}
-                  </div>
+                  {/* Inline Error Alert */}
+                  {submitError && (
+                    <div className="p-3.5 bg-red-950/40 border border-red-500/40 rounded-2xl text-xs text-red-300 flex items-start gap-2.5">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                      <span className="leading-relaxed">{submitError}</span>
+                    </div>
+                  )}
 
-                  {/* ROW 4: Project Stage (No auto-selection) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Project Stage <span className="text-[#FF5A1F]">*</span>
-                    </label>
-                    <select
-                      required
-                      value={formData.stage}
-                      onBlur={() => setTouched({ ...touched, stage: true })}
-                      onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm focus:outline-none transition-all truncate ${!formData.stage ? 'text-gray-400' : 'text-[#111111]'
-                        } ${touched.stage && !isStageValid
-                          ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                          : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
-                        }`}
-                    >
-                      <option value="" disabled>
-                        Select project stage...
-                      </option>
-                      {PROJECT_STAGES.map((stg) => (
-                        <option key={stg} value={stg} className="text-[#111111]">
-                          {stg}
-                        </option>
-                      ))}
-                    </select>
-                    {touched.stage && !isStageValid && (
-                      <p className="text-[11px] text-red-500 font-medium">
-                        Please select your project stage.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* ROW 5: Estimated Budget (No auto-selection, Optional) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Estimated Budget <span className="text-gray-400 font-normal">(Optional)</span>
-                    </label>
-                    <select
-                      value={formData.budget}
-                      onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${!formData.budget ? 'text-gray-400' : 'text-[#111111]'
-                        }`}
-                    >
-                      <option value="">Select budget range (Optional)...</option>
-                      {BUDGET_RANGES.map((b) => (
-                        <option key={b} value={b} className="text-[#111111]">
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* ROW 6: Preferred Start Timeline (No auto-selection, Optional) */}
-                  <div className="min-w-0 w-full space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Preferred Start Timeline <span className="text-gray-400 font-normal">(Optional)</span>
-                    </label>
-                    <select
-                      value={formData.timeline}
-                      onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                      className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all truncate ${!formData.timeline ? 'text-gray-400' : 'text-[#111111]'
-                        }`}
-                    >
-                      <option value="">Select start timeline (Optional)...</option>
-                      {TIMELINES.map((t) => (
-                        <option key={t} value={t} className="text-[#111111]">
-                          {t}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* FULL WIDTH: Project Details Textarea (Minimum 10 chars) */}
-                <div className="w-full space-y-1 pt-1">
-                  <label className="block text-xs font-bold text-[#111111]">
-                    Project Details <span className="text-[#FF5A1F]">*</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={formData.projectDetails}
-                    onBlur={() => setTouched({ ...touched, projectDetails: true })}
-                    onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
-                    placeholder="Briefly tell us what you're building, what you need help with, and any important requirements..."
-                    className={`w-full box-border px-3.5 py-2.5 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all resize-none ${touched.projectDetails && !isDetailsValid
-                        ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                        : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
+                  {/* Submit Action Button */}
+                  <div className="pt-1 space-y-3">
+                    <button
+                      type="submit"
+                      disabled={!isFormValid || isSubmitting}
+                      className={`w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md ${
+                        isFormValid && !isSubmitting
+                          ? 'bg-[#FF5A1F] text-white hover:bg-[#e04c15] hover:shadow-[0_8px_24px_rgba(255,90,31,0.35)] active:scale-95 cursor-pointer'
+                          : 'bg-[#161D2B] text-gray-500 border border-[#1E2433] cursor-not-allowed shadow-none'
                       }`}
-                  />
-                  <div className="flex items-center justify-between text-[11px]">
-                    {touched.projectDetails && !isDetailsValid ? (
-                      <p className="text-red-500 font-medium">
-                        Please provide at least 10 characters of project details.
-                      </p>
-                    ) : (
-                      <span className="text-gray-400">Minimum 10 characters</span>
-                    )}
-                    <span className="text-gray-400">{formData.projectDetails.length} chars</span>
+                    >
+                      {isSubmitting ? (
+                        <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                      ) : (
+                        <>
+                          <span>Send Project Enquiry</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+
+                    {/* Privacy / NDA note */}
+                    <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#9EA3B0] font-medium text-center">
+                      <Lock className="w-3.5 h-3.5 text-gray-400" />
+                      <span>Your information stays private. Handled under mutual NDA upon request.</span>
+                    </div>
                   </div>
-                </div>
-
-                {/* Cloudflare Turnstile Verification (Managed Mode) */}
-                <div className="pt-2">
-                  <TurnstileWidget
-                    action="contact_form"
-                    onVerify={(token) => {
-                      setTurnstileToken(token);
-                      setSubmitError(null);
-                    }}
-                    onExpire={() => setTurnstileToken('')}
-                    onError={() => setTurnstileToken('')}
-                    resetSignal={resetSignal}
-                  />
-                </div>
-
-                {/* Inline Error Alert */}
-                {submitError && (
-                  <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-600 flex items-start gap-2.5">
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">{submitError}</span>
-                  </div>
-                )}
-
-                {/* Submit Action Button */}
-                <div className="pt-1 space-y-3">
-                  <button
-                    type="submit"
-                    disabled={!isFormValid || isSubmitting}
-                    className={`w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md ${isFormValid && !isSubmitting
-                        ? 'bg-[#FF5A1F] text-white hover:bg-[#e04c15] hover:shadow-[0_8px_24px_rgba(255,90,31,0.35)] active:scale-95 cursor-pointer'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                      }`}
-                  >
-                    {isSubmitting ? (
-                      <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                    ) : (
-                      <>
-                        <span>Send Project Enquiry</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-
-                  {/* Privacy / NDA note */}
-                  <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#8C867F] font-medium text-center">
-                    <Lock className="w-3.5 h-3.5 text-gray-400" />
-                    <span>Your information stays private. Handled under mutual NDA upon request.</span>
-                  </div>
-                </div>
-              </form>
-            )}
+                </form>
+              )}
+            </div>
           </div>
 
           {/* RIGHT COLUMN: Contact Channels, Presence & Hours (approx 40% on desktop) */}
           <div className="lg:col-span-5 space-y-6">
             {/* Contact Information Card */}
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EDE9E4] shadow-soft space-y-4">
-              <div className="space-y-1">
-                <h3 className="text-lg sm:text-xl font-extrabold text-[#111111]">
-                  Let's Talk
-                </h3>
-                <p className="text-xs text-[#6B6660] leading-relaxed">
-                  Whether you're starting something new or improving an existing product, we're happy to discuss your requirements.
-                </p>
-              </div>
-
-              <div className="space-y-3 pt-2">
-                {/* Email */}
-                <a
-                  href="mailto:info@alphaaiservices.in"
-                  className="flex items-start gap-3 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#FF5A1F]/40 transition-all group"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-white border border-[#EDE9E4] flex items-center justify-center text-[#FF5A1F] shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#6B6660] block">
-                      Email Us
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-[#111111] group-hover:text-[#FF5A1F] transition-colors truncate block">
-                      info@alphaaiservices.in
-                    </span>
-                  </div>
-                </a>
-
-                {/* WhatsApp */}
-                <a
-                  href="https://wa.me/918381835420"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-3 p-3 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] hover:border-[#25D366]/40 transition-all group"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-white border border-[#EDE9E4] flex items-center justify-center text-[#25D366] shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                    <MessageCircle className="w-4 h-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#6B6660] block">
-                      WhatsApp Us
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-[#111111] group-hover:text-[#25D366] transition-colors truncate block">
-                      Send Direct Message on WhatsApp
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Our Presence / Office Locations */}
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EDE9E4] shadow-soft space-y-4">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#FF5A1F]" />
-                <h3 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                  Our Presence
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                {/* Location 1 */}
-                <div className="p-3.5 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-extrabold text-[#111111]">
-                      Prayagraj, Uttar Pradesh
-                    </h4>
-                    <span className="px-2 py-0.5 rounded-md bg-white border border-[#EDE9E4] text-[9.5px] font-bold text-[#FF5A1F]">
-                      Office
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-[#6B6660]">
-                    Our primary office presence in Uttar Pradesh, India.
+            <div className="bg-[#07090E] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#1E2433] shadow-soft-lg space-y-4 relative overflow-hidden text-white">
+              {/* Background Tech Dots */}
+              <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
+              
+              <div className="relative z-10 space-y-4">
+                <div className="space-y-1">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white">
+                    Let's Talk
+                  </h3>
+                  <p className="text-xs text-[#9EA3B0] leading-relaxed">
+                    Whether you're starting something new or improving an existing product, we're happy to discuss your requirements.
                   </p>
                 </div>
 
-                {/* Location 2 */}
-                <div className="p-3.5 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-extrabold text-[#111111]">
-                      Pune, Maharashtra
-                    </h4>
-                    <span className="px-2 py-0.5 rounded-md bg-white border border-[#EDE9E4] text-[9.5px] font-bold text-[#6B6660]">
-                      Remote / Hybrid
-                    </span>
+                <div className="space-y-3 pt-1">
+                  {/* Email */}
+                  <a
+                    href="mailto:info@alphaaiservices.in"
+                    className="flex items-start gap-3 p-3 rounded-2xl bg-[#0F131D] border border-[#1E2433] hover:border-[#FF5A1F]/50 hover:bg-[#141926] transition-all group"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[#161D2B] border border-[#1E2433] flex items-center justify-center text-[#FF5A1F] shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8A90A0] block">
+                        Email Us
+                      </span>
+                      <span className="text-xs sm:text-sm font-bold text-white group-hover:text-[#FF5A1F] transition-colors truncate block">
+                        info@alphaaiservices.in
+                      </span>
+                    </div>
+                  </a>
+
+                  {/* WhatsApp */}
+                  <a
+                    href="https://wa.me/918381835420"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-3 p-3 rounded-2xl bg-[#0F131D] border border-[#1E2433] hover:border-[#25D366]/50 hover:bg-[#141926] transition-all group"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[#161D2B] border border-[#1E2433] flex items-center justify-center text-[#25D366] shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                      <MessageCircle className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8A90A0] block">
+                        WhatsApp Us
+                      </span>
+                      <span className="text-xs sm:text-sm font-bold text-white group-hover:text-[#25D366] transition-colors truncate block">
+                        Send Direct Message on WhatsApp
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Our Presence / Office Locations - Dark with Footer Dots */}
+            <div className="bg-[#07090E] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#1E2433] shadow-soft-lg space-y-4 relative overflow-hidden text-white">
+              {/* Background Tech Dots (Matching Footer) */}
+              <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF5A1F]/10 blur-[40px] pointer-events-none" />
+
+              <div className="relative z-10 space-y-4">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#FF5A1F]" />
+                  <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                    Our Presence
+                  </h3>
+                </div>
+
+                <div className="space-y-3">
+                  {/* Location 1 */}
+                  <div className="p-3.5 rounded-2xl bg-[#0F131D] border border-[#1E2433] space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-extrabold text-white">
+                        Prayagraj, Uttar Pradesh
+                      </h4>
+                      <span className="px-2 py-0.5 rounded-md bg-[#161D2B] border border-[#FF5A1F]/30 text-[9.5px] font-bold text-[#FF5A1F]">
+                        Office
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#9EA3B0]">
+                      Our primary office presence in Uttar Pradesh, India.
+                    </p>
                   </div>
-                  <p className="text-[11px] text-[#6B6660]">
-                    Available for remote and hybrid collaboration with clients and teams in Pune, India.
-                  </p>
+
+                  {/* Location 2 */}
+                  <div className="p-3.5 rounded-2xl bg-[#0F131D] border border-[#1E2433] space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-extrabold text-white">
+                        Pune, Maharashtra
+                      </h4>
+                      <span className="px-2 py-0.5 rounded-md bg-[#161D2B] border border-[#1E2433] text-[9.5px] font-bold text-[#9EA3B0]">
+                        Remote / Hybrid
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#9EA3B0]">
+                      Available for remote and hybrid collaboration with clients and teams in Pune, India.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Working Hours Card */}
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EDE9E4] shadow-soft space-y-3.5">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#FF5A1F]" />
-                <h3 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                  Working Hours
-                </h3>
-              </div>
+            <div className="bg-[#07090E] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#1E2433] shadow-soft-lg space-y-3.5 relative overflow-hidden text-white">
+              {/* Background Tech Dots */}
+              <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
 
-              <div className="space-y-2 text-xs">
-                <div className="flex items-center justify-between py-1 border-b border-[#EDE9E4]/60">
-                  <span className="font-semibold text-[#111111]">Monday – Friday</span>
-                  <span className="font-bold text-[#FF5A1F]">9:00 AM – 5:00 PM IST</span>
+              <div className="relative z-10 space-y-3.5">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#FF5A1F]" />
+                  <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                    Working Hours
+                  </h3>
                 </div>
-                <div className="flex items-center justify-between py-1 border-b border-[#EDE9E4]/60">
-                  <span className="text-gray-500">Saturday</span>
-                  <span className="text-gray-400 font-medium">Closed</span>
+
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center justify-between py-1 border-b border-[#1E2433]">
+                    <span className="font-semibold text-white">Monday – Friday</span>
+                    <span className="font-bold text-[#FF5A1F]">9:00 AM – 5:00 PM IST</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-b border-[#1E2433]">
+                    <span className="text-[#8A90A0]">Saturday</span>
+                    <span className="text-gray-500 font-medium">Closed</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <span className="text-[#8A90A0]">Sunday</span>
+                    <span className="text-gray-500 font-medium">Closed</span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between py-1">
-                  <span className="text-gray-500">Sunday</span>
-                  <span className="text-gray-400 font-medium">Closed</span>
-                </div>
-              </div>
 
-              <p className="text-[10.5px] text-[#8C867F] italic leading-tight pt-1">
-                * Messages received outside working hours will be reviewed on the next business day.
-              </p>
-            </div>
-
-            {/* Direct Consultation Dark Card */}
-            <div className="bg-[#111111] text-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#2A2A2A] shadow-soft-lg space-y-3.5 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-[#FF5A1F]/15 blur-[40px] pointer-events-none" />
-
-              <div className="relative z-10 space-y-1">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FF5A1F]">
-                  Quick Connect
-                </span>
-                <h3 className="text-lg font-extrabold text-white">
-                  Prefer to Talk First?
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  Have questions before submitting your project details? Start a conversation with our team.
+                <p className="text-[10.5px] text-[#8A90A0] italic leading-tight pt-1">
+                  * Messages received outside working hours will be reviewed on the next business day.
                 </p>
-              </div>
-
-              <div className="relative z-10 pt-1 flex flex-col sm:flex-row gap-2">
-                <button
-                  onClick={() => onOpenScheduleModal('Direct Conversation Inquiry')}
-                  className="w-full bg-[#FF5A1F] text-white py-2.5 px-4 rounded-full text-xs font-bold hover:bg-[#e04c15] transition-all flex items-center justify-center gap-1.5 active:scale-95 shadow-xs cursor-pointer"
-                >
-                  <span>Let's Talk</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <a
-                  href="https://wa.me/918381835420"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-white/10 text-white border border-white/20 hover:bg-white/15 py-2.5 px-4 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 active:scale-95 shadow-xs"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                  <span>WhatsApp Us</span>
-                </a>
               </div>
             </div>
           </div>
@@ -988,6 +987,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       {/* 5. FINAL CTA BANNER */}
       <section className="px-4 sm:px-6 max-w-5xl mx-auto">
         <div className="relative bg-[#111111] border border-[#2A2A2A] rounded-2xl sm:rounded-3xl p-6 sm:p-9 text-white text-center shadow-soft-lg overflow-hidden">
+          {/* Background Decorative Tech Dots Mesh */}
+          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
           {/* Ambient Warm Glow */}
           <div className="absolute top-0 right-0 w-60 h-60 rounded-full bg-[#FF5A1F]/15 blur-[80px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-[#FF5A1F]/10 blur-[80px] pointer-events-none" />

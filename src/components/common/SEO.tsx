@@ -58,7 +58,7 @@ export const SEO: React.FC<SEOProps> = ({ customSEO }) => {
     setMetaTag('property', 'og:description', seo.description);
     setMetaTag('property', 'og:url', seo.canonicalUrl);
     setMetaTag('property', 'og:image', ogImg);
-    setMetaTag('property', 'og:image:alt', `${SITE_NAME} — Enterprise AI & Software Engineering`);
+    setMetaTag('property', 'og:image:alt', `${SITE_NAME} — Website & App Development Company in India`);
 
     // 5. Set Social Share Card Tags
     setMetaTag('name', 'twitter:card', 'summary_large_image');

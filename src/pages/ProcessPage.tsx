@@ -406,6 +406,8 @@ export const ProcessPage: React.FC<ProcessPageProps> = ({
       {/* 4. FINAL CTA BANNER */}
       <section className="px-4 sm:px-6 max-w-5xl mx-auto">
         <div className="relative bg-[#111111] border border-[#2A2A2A] rounded-2xl sm:rounded-3xl p-6 sm:p-9 text-white text-center shadow-soft-lg overflow-hidden">
+          {/* Background Decorative Tech Dots Mesh */}
+          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
           {/* Ambient Warm Glow */}
           <div className="absolute top-0 right-0 w-60 h-60 rounded-full bg-[#FF5A1F]/15 blur-[80px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-[#FF5A1F]/10 blur-[80px] pointer-events-none" />

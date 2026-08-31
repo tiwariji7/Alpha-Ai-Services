@@ -38,12 +38,12 @@ export interface PageSEO {
   };
 }
 
-// Global Organization Schema (Used across the website for brand entity grounding)
+// Global Organization Schema (Brand Entity Grounding)
 export const ORGANIZATION_SCHEMA = {
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
-  alternateName: ['Alpha AI', 'AlphaAiServices', 'Alpha AI Software Engineering'],
+  alternateName: ['Alpha AI', 'AlphaAiServices', 'Alpha AI Software Engineering Studio'],
   url: SITE_URL,
   logo: {
     '@type': 'ImageObject',
@@ -52,18 +52,19 @@ export const ORGANIZATION_SCHEMA = {
   },
   image: `${SITE_URL}/brandlogo.png`,
   description:
-    'Alpha AI Services is a software engineering and AI product studio specializing in custom LLMs, enterprise RAG pipelines, modern web applications, mobile apps, and scalable cloud systems.',
+    'Alpha AI Services is a premier website and app development company in India with teams in Pune and Prayagraj, engineering custom web applications, mobile apps, SaaS platforms, and enterprise AI solutions.',
   email: 'info@alphaaiservices.in',
+  telephone: '+918381835420',
   foundingDate: '2024',
   knowsAbout: [
-    'Artificial Intelligence',
-    'Generative AI & LLMs',
-    'Retrieval-Augmented Generation (RAG)',
-    'Full-Stack Web Development',
+    'Website Development',
     'Mobile Application Development',
-    'Cloud Architecture & DevOps',
-    'Custom Software Engineering',
+    'Full-Stack Web Engineering',
+    'Custom Software Development',
+    'Artificial Intelligence & Machine Learning',
+    'Retrieval-Augmented Generation (RAG)',
     'UI/UX Design Systems',
+    'Cloud Architecture & DevOps',
     'Workflow Automation',
     'Cybersecurity',
   ],
@@ -72,51 +73,113 @@ export const ORGANIZATION_SCHEMA = {
     'https://www.instagram.com/alphaaiservices.in/?hl=en',
     'https://github.com/tiwariji7',
   ],
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'IN',
-    addressLocality: 'Prayagraj',
-    addressRegion: 'Uttar Pradesh',
-  },
+  address: [
+    {
+      '@type': 'PostalAddress',
+      streetAddress: 'Civil Lines',
+      addressLocality: 'Prayagraj',
+      addressRegion: 'Uttar Pradesh',
+      postalCode: '211001',
+      addressCountry: 'IN',
+    },
+    {
+      '@type': 'PostalAddress',
+      streetAddress: 'Baner / Hinjawadi Tech Hub',
+      addressLocality: 'Pune',
+      addressRegion: 'Maharashtra',
+      postalCode: '411045',
+      addressCountry: 'IN',
+    },
+  ],
   contactPoint: [
     {
       '@type': 'ContactPoint',
+      telephone: '+918381835420',
       email: 'info@alphaaiservices.in',
-      contactType: 'customer support',
+      contactType: 'sales and customer support',
+      areaServed: ['IN', 'US', 'GB', 'Worldwide'],
       availableLanguage: ['English', 'Hindi'],
     },
   ],
 };
 
-// Global LocalBusiness / ProfessionalService Schema
-export const LOCAL_BUSINESS_SCHEMA = {
+// LocalBusiness Schema for Prayagraj Office
+export const LOCAL_BUSINESS_PRAYAGRAJ_SCHEMA = {
   '@type': 'ProfessionalService',
-  '@id': `${SITE_URL}/#business`,
-  name: SITE_NAME,
+  '@id': `${SITE_URL}/#business-prayagraj`,
+  name: 'Alpha AI Services — Prayagraj Office',
+  alternateName: 'Alpha AI Prayagraj',
   url: SITE_URL,
   logo: `${SITE_URL}/brandlogo.png`,
   image: `${SITE_URL}/brandlogo.png`,
   email: 'info@alphaaiservices.in',
-  priceRange: '$$',
+  telephone: '+918381835420',
+  priceRange: '₹₹',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Civil Lines',
     addressLocality: 'Prayagraj',
     addressRegion: 'Uttar Pradesh',
+    postalCode: '211001',
     addressCountry: 'IN',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '25.4358',
+    longitude: '81.8463',
   },
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       opens: '09:00',
-      closes: '17:00',
+      closes: '19:00',
     },
   ],
   areaServed: [
+    { '@type': 'City', name: 'Prayagraj' },
+    { '@type': 'AdministrativeArea', name: 'Uttar Pradesh' },
     { '@type': 'Country', name: 'India' },
-    { '@type': 'Country', name: 'United States' },
-    { '@type': 'Country', name: 'United Kingdom' },
-    { '@type': 'AdministrativeArea', name: 'Worldwide' },
+  ],
+};
+
+// LocalBusiness Schema for Pune Office
+export const LOCAL_BUSINESS_PUNE_SCHEMA = {
+  '@type': 'ProfessionalService',
+  '@id': `${SITE_URL}/#business-pune`,
+  name: 'Alpha AI Services — Pune Office',
+  alternateName: 'Alpha AI Pune',
+  url: SITE_URL,
+  logo: `${SITE_URL}/brandlogo.png`,
+  image: `${SITE_URL}/brandlogo.png`,
+  email: 'info@alphaaiservices.in',
+  telephone: '+918381835420',
+  priceRange: '₹₹',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Baner / Hinjawadi Tech Hub',
+    addressLocality: 'Pune',
+    addressRegion: 'Maharashtra',
+    postalCode: '411045',
+    addressCountry: 'IN',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '18.5204',
+    longitude: '73.8567',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '09:00',
+      closes: '19:00',
+    },
+  ],
+  areaServed: [
+    { '@type': 'City', name: 'Pune' },
+    { '@type': 'AdministrativeArea', name: 'Maharashtra' },
+    { '@type': 'Country', name: 'India' },
   ],
 };
 
@@ -126,41 +189,46 @@ export const WEBSITE_SCHEMA = {
   '@id': `${SITE_URL}/#website`,
   url: SITE_URL,
   name: SITE_NAME,
-  description: 'Enterprise AI applications, custom software, and digital experiences that scale.',
+  description: 'Enterprise website development, mobile apps, and custom software engineering across India.',
   publisher: {
     '@id': `${SITE_URL}/#organization`,
   },
 };
 
-// Static Pages SEO definitions
+// Static Pages SEO definitions with target keywords
 const STATIC_PAGES_SEO: Record<string, PageSEO> = {
   '/': {
-    title: 'Enterprise AI & Custom Software Engineering | Alpha AI Services',
+    title: 'Website & App Development Company in India | Alpha AI',
     description:
-      'Alpha AI Services engineers production-grade AI applications, custom software, modern web apps, and cloud systems for high-growth startups and enterprises.',
+      'Alpha AI Services is a leading website and app development company in India. We engineer custom web apps, mobile apps, AI systems, and SaaS platforms.',
     canonicalUrl: `${SITE_URL}/`,
     keywords: [
-      'Enterprise AI Development',
-      'Custom Software Engineering',
-      'Web Application Development',
-      'Mobile App Development',
-      'RAG Pipelines',
-      'AI Product Studio',
+      'website development company in India',
+      'app development company in India',
+      'custom website development services India',
+      'best web development company for startups India',
+      'affordable website development for small business India',
+      'hire web developer India',
+      'hire app developer India',
+      'digital marketing agency for small business India',
+      'social media management services India',
     ],
     breadcrumbs: [{ name: 'Home', url: `${SITE_URL}/` }],
     faqs: FAQS_DATA,
   },
   '/services': {
-    title: 'Enterprise AI & Software Development Services | Alpha AI Services',
+    title: 'Website, App & AI Development Services India | Alpha AI',
     description:
-      'Explore full-lifecycle software engineering services: AI and machine learning, custom web apps, mobile applications, cloud DevOps, and automated workflows.',
+      'Explore custom website development, mobile app engineering, AI systems, and cloud DevOps built for high-growth startups and businesses across India.',
     canonicalUrl: `${SITE_URL}/services`,
     keywords: [
-      'Software Engineering Services',
-      'AI Development Company',
-      'Full Stack Web Development',
-      'Mobile App Development',
-      'Cloud DevOps Solutions',
+      'website development company in India',
+      'app development company in India',
+      'custom website development services India',
+      'software development services India',
+      'full stack web development',
+      'digital agency India',
+      'hire web developer India',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -169,16 +237,17 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     faqs: FAQS_DATA,
   },
   '/portfolio': {
-    title: 'Engineered Software & AI Case Studies | Alpha AI Services',
+    title: 'Website & App Development Portfolio | Alpha AI Case Studies',
     description:
-      'Discover real-world AI applications, SaaS platforms, and digital products engineered by Alpha AI Services with verifiable architecture and technical ROI.',
+      'Discover real-world websites, mobile applications, SaaS platforms, and AI systems engineered by Alpha AI Services with verifiable performance and ROI.',
     canonicalUrl: `${SITE_URL}/portfolio`,
     keywords: [
-      'AI Case Studies',
-      'Software Engineering Portfolio',
-      'Healthcare AI App',
-      '3D Web App',
-      'Enterprise AI Assistant',
+      'web development portfolio India',
+      'app development case studies',
+      'software engineering portfolio',
+      'custom web apps India',
+      'healthcare web app',
+      '3D web app case study',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -186,16 +255,17 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
   },
   '/pricing': {
-    title: 'Transparent Software & AI Development Pricing | Alpha AI',
+    title: 'Affordable Website & App Development Pricing in India',
     description:
-      'Clear, milestone-based software engineering and AI development pricing. Fixed-scope MVP sprints, dedicated engineering teams, and support plans.',
+      'Transparent, milestone-based pricing for website development, mobile apps, and dedicated developer retainers for startups and small businesses in India.',
     canonicalUrl: `${SITE_URL}/pricing`,
     keywords: [
-      'Software Development Pricing',
-      'AI Development Cost',
-      'Engineering Retainer Plans',
-      'Dedicated Developers',
-      'MVP Development Pricing',
+      'affordable website development for small business India',
+      'website development cost India',
+      'how much does a website cost in India',
+      'hire web developer India',
+      'hire app developer India',
+      'custom software development pricing',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -204,16 +274,18 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     faqs: PRICING_FAQS.map((f) => ({ question: f.question, answer: f.answer })),
   },
   '/company/about': {
-    title: 'About Alpha AI Services — Software Engineering Studio',
+    title: 'About Us — Web & App Development in Pune & Prayagraj',
     description:
-      'Learn about Alpha AI Services: our engineering standards, senior product builders, technical ethos, and mission to deliver exceptional digital software.',
+      'Alpha AI Services is a software engineering studio with teams in Pune and Prayagraj, delivering custom websites, mobile apps, and AI for clients across India.',
     canonicalUrl: `${SITE_URL}/company/about`,
     keywords: [
-      'About Alpha AI Services',
-      'Software Engineering Studio',
-      'AI Development Team',
-      'Senior Software Architects',
-      'Engineering Philosophy',
+      'website development company in Pune',
+      'app development company in Pune',
+      'website development company in Prayagraj',
+      'web design agency Pune',
+      'digital agency Prayagraj',
+      'best web development company for startups India',
+      'about Alpha AI Services',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -221,16 +293,16 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
   },
   '/company/story': {
-    title: 'Our Engineering Philosophy & Mission | Alpha AI Services',
+    title: 'Our Story & Engineering Philosophy | Alpha AI Services',
     description:
-      'Why we founded Alpha AI Services: eliminating agency bloat, pairing clients directly with senior software architects, and shipping resilient software.',
+      'Why we built Alpha AI Services: pairing Indian startups with senior software engineers directly, building high-conversion websites, and eliminating agency bloat.',
     canonicalUrl: `${SITE_URL}/company/story`,
     keywords: [
-      'Engineering Philosophy',
-      'Alpha AI Story',
-      'Software Craftsmanship',
-      'Senior Developers Direct',
-      'Agile Software Studio',
+      'best web development company for small business India',
+      'digital marketing agency for local business India',
+      'software craftsmanship India',
+      'direct senior developers',
+      'Alpha AI story',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -238,16 +310,16 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
   },
   '/company/process': {
-    title: 'Our 5-Stage Agile Engineering Process | Alpha AI Services',
+    title: 'Our Development Process & Pricing Models | Alpha AI',
     description:
-      'From technical discovery and architectural prototyping to agile sprints, CI/CD deployment, and 24/7 monitoring—see how we ship production software.',
+      'Learn how our 5-stage development process delivers custom websites and apps on time and within budget. Understand timelines, scope, and technical roadmap.',
     canonicalUrl: `${SITE_URL}/company/process`,
     keywords: [
-      'Software Development Process',
-      'Agile Engineering Methodology',
-      'Sprint Delivery',
-      'CI/CD Pipeline Architecture',
-      'Technical Discovery',
+      'website development process explained',
+      'how much does a website cost in India',
+      'custom website development services India',
+      'agile web development methodology',
+      'sprint delivery process',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -255,16 +327,16 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
   },
   '/company/industries': {
-    title: 'Industry-Specific AI & Software Solutions | Alpha AI Services',
+    title: 'Industry AI & Software Solutions India | Alpha AI',
     description:
-      'Tailored AI and software solutions for Healthcare, FinTech, E-Commerce, Logistics, SaaS, and EdTech with domain-compliant architecture.',
+      'Tailored website, mobile app, and AI solutions for Healthcare, FinTech, E-Commerce, Logistics, and SaaS startups with domain-compliant architectures.',
     canonicalUrl: `${SITE_URL}/company/industries`,
     keywords: [
-      'Healthcare AI Solutions',
-      'FinTech Software Development',
-      'E-Commerce Engineering',
-      'Logistics Automation',
-      'Enterprise SaaS Development',
+      'healthcare web development India',
+      'fintech software development',
+      'e-commerce website development India',
+      'logistics software automation',
+      'SaaS application development India',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -272,16 +344,18 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
   },
   '/contact': {
-    title: 'Contact Alpha AI Services — Discuss Your Next Project',
+    title: 'Contact Us — Web & App Development in Pune & Prayagraj',
     description:
-      'Schedule a technical consultation or submit project requirements. Receive an architectural roadmap and milestone estimate within one business day.',
+      'Connect with Alpha AI Services. Teams in Pune and Prayagraj providing website development, app development, and technical consulting across India.',
     canonicalUrl: `${SITE_URL}/contact`,
     keywords: [
-      'Contact Alpha AI Services',
-      'Hire AI Engineers',
-      'Software Consultation',
-      'Request Project Proposal',
-      'Software Engineering Inquiries',
+      'website development company in Pune',
+      'website development company in Prayagraj',
+      'web design agency Pune',
+      'digital agency Prayagraj',
+      'hire web developer India',
+      'hire app developer India',
+      'contact Alpha AI Services',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -289,20 +363,20 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     ],
     faqs: [
       {
-        question: 'Do you work with startups and small businesses?',
-        answer: 'Yes. We work with startups, small businesses and growing organizations depending on the project requirements.',
+        question: 'Do you work with startups and small businesses across India?',
+        answer: 'Yes. We work with startups, small businesses, and growing enterprises across all Indian cities as well as international clients.',
       },
       {
-        question: 'Can you manage an existing website or application?',
-        answer: 'Yes. We can provide maintenance, troubleshooting, improvements, hosting support and ongoing development.',
+        question: 'Where are your offices located?',
+        answer: 'We have operational teams and offices located in Prayagraj (Uttar Pradesh) and Pune (Maharashtra), serving clients nationwide.',
       },
       {
-        question: 'Do you offer monthly support?',
-        answer: 'Yes. Monthly technology support plans are available for businesses that need ongoing development and maintenance.',
+        question: 'Can you manage an existing website or mobile application?',
+        answer: 'Yes. We provide complete maintenance, bug fixing, performance optimization, cloud hosting management, and ongoing feature development.',
       },
       {
-        question: 'Can I contact you before submitting a project?',
-        answer: 'Yes. You can contact us directly through email or WhatsApp to discuss your requirements.',
+        question: 'Do you offer monthly website and social media management packages?',
+        answer: 'Yes. We offer transparent monthly technology and digital management plans for businesses needing continuous maintenance and growth support.',
       },
     ],
   },
@@ -313,10 +387,9 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     canonicalUrl: `${SITE_URL}/privacy-policy`,
     keywords: [
       'Privacy Policy',
-      'Data Protection Policy',
+      'Data Protection Policy India',
       'DPDP Act 2023 Compliance',
       'Client Confidentiality',
-      'Information Security',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -330,10 +403,9 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     canonicalUrl: `${SITE_URL}/privacy-policy`,
     keywords: [
       'Privacy Policy',
-      'Data Protection Policy',
+      'Data Protection Policy India',
       'DPDP Act 2023 Compliance',
       'Client Confidentiality',
-      'Information Security',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -347,10 +419,9 @@ const STATIC_PAGES_SEO: Record<string, PageSEO> = {
     canonicalUrl: `${SITE_URL}/terms`,
     keywords: [
       'Terms and Conditions',
-      'Software Engineering Agreement',
+      'Software Engineering Agreement India',
       'Client SOW Terms',
       'Code Ownership Terms',
-      'Retainer Service Agreement',
     ],
     breadcrumbs: [
       { name: 'Home', url: `${SITE_URL}/` },
@@ -366,15 +437,104 @@ function getServiceSEO(slug: string): PageSEO {
     return STATIC_PAGES_SEO['/services'];
   }
 
-  return {
+  // Specialized metadata for target services
+  const customServiceMeta: Record<string, { title: string; desc: string; keywords: string[] }> = {
+    'web-development': {
+      title: 'Custom Website Development Company in India | Alpha AI',
+      desc: 'Professional website development company in India offering responsive design, custom web applications, e-commerce, and high-performance frontend solutions.',
+      keywords: [
+        'custom website development for small business',
+        'responsive website design services',
+        'e-commerce website development India',
+        'website development company in India',
+        'hire web developer India',
+      ],
+    },
+    'mobile-apps': {
+      title: 'Mobile App Development Company in India | Alpha AI',
+      desc: 'End-to-end iOS & Android mobile app development company in India building scalable, high-performance apps for startups and growing enterprises.',
+      keywords: [
+        'mobile app development company India',
+        'Android/iOS app development for startups',
+        'app development company in India',
+        'hire app developer India',
+        'cross-platform mobile app development',
+      ],
+    },
+    'ai-development': {
+      title: 'AI & Machine Learning Development India | Alpha AI',
+      desc: 'Production-grade enterprise AI, custom LLMs, RAG pipelines, and intelligent workflow automation engineered for modern businesses across India.',
+      keywords: [
+        'AI development company India',
+        'custom LLM development',
+        'RAG pipeline engineering',
+        'machine learning services India',
+      ],
+    },
+    'software-development': {
+      title: 'Custom Software Engineering Services India | Alpha AI',
+      desc: 'Scalable enterprise software engineering, robust API architecture, and microservice backend systems designed for high-concurrency business operations.',
+      keywords: [
+        'custom software development services India',
+        'enterprise backend development',
+        'microservices architecture India',
+        'custom software engineering',
+      ],
+    },
+    'cloud-devops': {
+      title: 'Cloud Infrastructure & DevOps Services India | Alpha AI',
+      desc: 'Automated CI/CD pipelines, Kubernetes orchestration, cloud security, and 24/7 observability for resilient and scalable digital platforms.',
+      keywords: [
+        'cloud DevOps services India',
+        'Kubernetes consulting India',
+        'CI/CD pipeline automation',
+        'cloud infrastructure management',
+      ],
+    },
+    'cyber-security': {
+      title: 'Cybersecurity & Data Protection Services | Alpha AI',
+      desc: 'Enterprise-grade security audits, DPDP Act 2023 compliance, vulnerability testing, and zero-trust data protection for modern applications.',
+      keywords: [
+        'cybersecurity services India',
+        'DPDP Act compliance audit',
+        'application security testing',
+        'data protection services',
+      ],
+    },
+    'ui-ux-design': {
+      title: 'UI/UX Design Systems & Product Design | Alpha AI',
+      desc: 'Conversion-focused UI/UX design, interactive prototyping, and design systems for web and mobile applications that engage users and drive growth.',
+      keywords: [
+        'UI/UX design agency India',
+        'product design for startups',
+        'design systems development',
+        'mobile app UI design',
+      ],
+    },
+    'automation': {
+      title: 'Workflow Automation & Integrations India | Alpha AI',
+      desc: 'Streamline business operations with custom API integrations, automated data pipelines, and intelligent workflow solutions across India.',
+      keywords: [
+        'workflow automation services India',
+        'business process automation',
+        'custom API integrations',
+        'automation consulting India',
+      ],
+    },
+  };
+
+  const meta = customServiceMeta[slug] || {
     title: `${service.title} | Alpha AI Services`,
-    description: service.shortDesc.length > 160 ? `${service.shortDesc.slice(0, 157)}...` : service.shortDesc,
+    desc: service.shortDesc.length > 160 ? `${service.shortDesc.slice(0, 157)}...` : service.shortDesc,
+    keywords: [service.title, `${service.title} Services India`, 'Custom Software Architecture', 'Enterprise Engineering'],
+  };
+
+  return {
+    title: meta.title,
+    description: meta.desc,
     canonicalUrl: `${SITE_URL}/services/${service.slug}`,
     keywords: [
-      service.title,
-      `${service.title} Services`,
-      'Custom Software Architecture',
-      'Enterprise Engineering',
+      ...meta.keywords,
       ...service.features.map((f) => f.title),
     ],
     breadcrumbs: [
@@ -390,16 +550,16 @@ function getServiceSEO(slug: string): PageSEO {
     },
     faqs: [
       {
-        question: `What is included in ${service.title}?`,
-        answer: `${service.fullDesc} Features include: ${service.features.map((f) => f.title).join(', ')}.`,
+        question: `What is included in our ${service.title} offering?`,
+        answer: `${service.fullDesc} Core capabilities include: ${service.features.map((f) => f.title).join(', ')}.`,
       },
       {
-        question: `How do you ensure performance and quality in ${service.title}?`,
-        answer: `We use strict code review, continuous integration, automated testing, and SOC2-compliant engineering best practices with direct senior developer involvement.`,
+        question: `How do you ensure high performance and quality in ${service.title}?`,
+        answer: `We implement strict code reviews, continuous automated testing, sub-second latency targets, and clean architecture with senior developer involvement.`,
       },
       {
         question: `Who owns the source code and IP for ${service.title}?`,
-        answer: `You retain 100% full, unencumbered ownership of all source code, models, architecture diagrams, and design assets upon milestone delivery.`,
+        answer: `You retain 100% full, unencumbered ownership of all source code, design assets, database schemas, and documentation from day one.`,
       },
     ],
   };
@@ -420,7 +580,7 @@ function getPortfolioDetailSEO(slug: string): PageSEO {
     keywords: [
       caseStudy.name,
       caseStudy.title,
-      'Case Study',
+      'Web & App Case Study',
       ...caseStudy.tags,
       ...caseStudy.techUsed,
     ],
@@ -437,16 +597,16 @@ function getPortfolioDetailSEO(slug: string): PageSEO {
     },
     faqs: [
       {
-        question: `What challenge did the ${caseStudy.name} project solve?`,
+        question: `What business challenge did the ${caseStudy.name} project address?`,
         answer: caseStudy.challenge,
       },
       {
-        question: `What was Alpha AI Services' technical solution for ${caseStudy.name}?`,
+        question: `What technical architecture did Alpha AI Services deliver for ${caseStudy.name}?`,
         answer: caseStudy.solution,
       },
       {
-        question: `What technologies were utilized in ${caseStudy.name}?`,
-        answer: `The platform was built using: ${caseStudy.techUsed.join(', ')}.`,
+        question: `What technologies were utilized in engineering ${caseStudy.name}?`,
+        answer: `The platform was engineered with: ${caseStudy.techUsed.join(', ')}.`,
       },
     ],
   };
@@ -454,7 +614,6 @@ function getPortfolioDetailSEO(slug: string): PageSEO {
 
 // Main lookup function to get SEO configuration for any pathname
 export function getSeoConfigForPath(pathname: string): PageSEO {
-  // Normalize pathname
   const normalized = pathname.replace(/\/+$/, '') || '/';
 
   if (STATIC_PAGES_SEO[normalized]) {
@@ -471,7 +630,6 @@ export function getSeoConfigForPath(pathname: string): PageSEO {
     return getPortfolioDetailSEO(slug);
   }
 
-  // Default fallback to Homepage SEO
   return STATIC_PAGES_SEO['/'];
 }
 
@@ -479,7 +637,8 @@ export function getSeoConfigForPath(pathname: string): PageSEO {
 export function generateStructuredDataGraph(seo: PageSEO) {
   const graph: any[] = [
     ORGANIZATION_SCHEMA,
-    LOCAL_BUSINESS_SCHEMA,
+    LOCAL_BUSINESS_PRAYAGRAJ_SCHEMA,
+    LOCAL_BUSINESS_PUNE_SCHEMA,
     WEBSITE_SCHEMA,
   ];
 
@@ -508,10 +667,16 @@ export function generateStructuredDataGraph(seo: PageSEO) {
       provider: {
         '@id': `${SITE_URL}/#organization`,
       },
-      areaServed: {
-        '@type': 'AdministrativeArea',
-        name: 'Worldwide',
-      },
+      areaServed: [
+        {
+          '@type': 'Country',
+          name: 'India',
+        },
+        {
+          '@type': 'AdministrativeArea',
+          name: 'Worldwide',
+        },
+      ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: `${seo.serviceData.name} Offerings`,
@@ -522,7 +687,7 @@ export function generateStructuredDataGraph(seo: PageSEO) {
               '@type': 'Service',
               name: seo.serviceData.name,
             },
-            priceCurrency: 'USD',
+            priceCurrency: 'INR',
             description: seo.serviceData.description,
           },
         ],
@@ -530,7 +695,7 @@ export function generateStructuredDataGraph(seo: PageSEO) {
     });
   }
 
-  // FAQPage Schema (vital for AI search engine citation and featured snippet answers)
+  // FAQPage Schema
   if (seo.faqs && seo.faqs.length > 0) {
     graph.push({
       '@type': 'FAQPage',

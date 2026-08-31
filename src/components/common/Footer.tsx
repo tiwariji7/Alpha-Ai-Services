@@ -49,9 +49,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#FF5A1F] to-transparent opacity-80" />
       <div className="absolute top-0 left-1/4 w-96 h-16 bg-[#FF5A1F]/15 blur-[50px] pointer-events-none -z-0" />
 
-      {/* Background Decorative Tech Dots Mesh */}
+      {/* Background Decorative Tech Dots Mesh Across All Area */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-1/3 opacity-15 pointer-events-none -z-0 bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]"
+        className="absolute inset-0 opacity-15 pointer-events-none -z-0 bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
-                <span>India &nbsp;•&nbsp; Remote / Hybrid</span>
+                <span>Pune & Prayagraj &nbsp;•&nbsp; Serving Pan-India</span>
               </div>
             </div>
 

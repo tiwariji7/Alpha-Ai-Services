@@ -322,6 +322,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* 5. FINAL CTA SECTION */}
       <section className="px-4 sm:px-6 max-w-5xl mx-auto">
         <div className="relative bg-[#111111] border border-[#2A2A2A] rounded-2xl sm:rounded-3xl p-6 sm:p-9 text-white text-center shadow-soft-lg overflow-hidden">
+          {/* Background Decorative Tech Dots Mesh */}
+          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#F4512C_1px,transparent_1px)] [background-size:16px_16px]" />
           {/* Subtle Ambient Glow */}
           <div className="absolute top-0 right-0 w-60 h-60 rounded-full bg-[#F4512C]/15 blur-[80px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-[#F4512C]/10 blur-[80px] pointer-events-none" />

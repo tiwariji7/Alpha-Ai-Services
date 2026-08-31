@@ -14,6 +14,8 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
   return (
     <section className="px-4 sm:px-6 max-w-5xl mx-auto">
       <div className="relative bg-[#111111] border border-[#2A2A2A] rounded-2xl sm:rounded-3xl p-7 sm:p-12 text-white text-center shadow-soft-lg overflow-hidden space-y-5 sm:space-y-6">
+        {/* Background Decorative Tech Dots Mesh */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
         {/* Ambient Warm Glows */}
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-[#FF5A1F]/15 blur-[90px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[#FF5A1F]/10 blur-[90px] pointer-events-none" />

@@ -86,6 +86,8 @@ export const PortfolioDetailPage: React.FC<PortfolioDetailPageProps> = ({
         <img
           src={item.coverImage}
           alt={item.title}
+          width="1200"
+          height="675"
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover"
@@ -232,8 +234,10 @@ export const PortfolioDetailPage: React.FC<PortfolioDetailPageProps> = ({
       )}
 
       {/* Bottom Action Card */}
-      <div className="bg-[#111111] text-white rounded-3xl p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
-        <div>
+      <div className="relative bg-[#111111] text-white rounded-3xl p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md overflow-hidden border border-[#2A2A2A]">
+        {/* Background Decorative Tech Dots Mesh */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="relative z-10">
           <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight">
             Interested in building something similar?
           </h3>

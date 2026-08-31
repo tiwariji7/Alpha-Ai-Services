@@ -80,6 +80,8 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
               <img
                 src={item.coverImage}
                 alt={item.title}
+                width="600"
+                height="340"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -127,8 +129,10 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
       </div>
 
       {/* Bottom CTA Banner */}
-      <div className="bg-[#111111] text-white rounded-3xl p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
-        <div className="space-y-1">
+      <div className="relative bg-[#111111] text-white rounded-3xl p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md overflow-hidden border border-[#2A2A2A]">
+        {/* Background Decorative Tech Dots Mesh */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="relative z-10 space-y-1">
           <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight">
             Have a project in mind?
           </h3>

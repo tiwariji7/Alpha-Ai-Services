@@ -121,21 +121,25 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({
               </nav>
             </div>
 
-            <div className="bg-[#111111] text-white rounded-2xl p-5 border border-[#2A2A2A] shadow-soft space-y-3">
-              <div className="flex items-center gap-2 text-[#FF5A1F]">
-                <HelpCircle className="w-4 h-4" />
-                <span className="text-xs font-extrabold uppercase tracking-wider">Privacy Queries</span>
+            <div className="relative bg-[#111111] text-white rounded-2xl p-5 border border-[#2A2A2A] shadow-soft space-y-3 overflow-hidden">
+              {/* Background Decorative Tech Dots Mesh */}
+              <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
+              <div className="relative z-10 space-y-3">
+                <div className="flex items-center gap-2 text-[#FF5A1F]">
+                  <HelpCircle className="w-4 h-4" />
+                  <span className="text-xs font-extrabold uppercase tracking-wider">Privacy Queries</span>
+                </div>
+                <p className="text-xs text-gray-300 leading-relaxed">
+                  Have specific questions regarding our data policies or need an NDA before sharing specs?
+                </p>
+                <a
+                  href="mailto:info@alphaaiservices.in"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF5A1F] hover:underline"
+                >
+                  <span>info@alphaaiservices.in</span>
+                  <ArrowRight className="w-3 h-3" />
+                </a>
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                Have specific questions regarding our data policies or need an NDA before sharing specs?
-              </p>
-              <a
-                href="mailto:info@alphaaiservices.in"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF5A1F] hover:underline"
-              >
-                <span>info@alphaaiservices.in</span>
-                <ArrowRight className="w-3 h-3" />
-              </a>
             </div>
           </aside>
 

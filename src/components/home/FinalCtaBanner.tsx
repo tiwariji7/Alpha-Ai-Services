@@ -25,8 +25,8 @@ export const FinalCtaBanner: React.FC<FinalCtaBannerProps> = ({
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#FF5A1F]/15 blur-[80px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
           <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#FF5A1F]/10 blur-[80px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
 
-          {/* Abstract Subtle Tech Grid Lines */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#3A1F1315_1px,transparent_1px),linear-gradient(to_bottom,#3A1F1315_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-60" />
+          {/* Background Decorative Tech Dots Mesh (Matching Footer) */}
+          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
 
           <div className="relative z-10 max-w-2xl mx-auto space-y-2.5 sm:space-y-3">
             {/* Small Badge Label */}

@@ -24,6 +24,8 @@ export const ScopeExclusions: React.FC<ScopeExclusionsProps> = ({
   return (
     <section className="px-4 sm:px-6 max-w-6xl mx-auto">
       <div className="relative bg-[#111111] border border-[#2A2A2A] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-white text-left shadow-soft-lg overflow-hidden space-y-8">
+        {/* Background Decorative Tech Dots Mesh */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]" />
         {/* Subtle Ambient Glow */}
         <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#FF5A1F]/10 blur-[100px] pointer-events-none" />
 
