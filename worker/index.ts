@@ -8,7 +8,7 @@
  */
 
 import { Env } from './types';
-import { verifyTurnstileToken } from './utils/turnstile';
+import { verifyTurnstileToken, resolveAllowedHostnames } from './utils/turnstile';
 import { validateProjectEnquiry, validateQuickInquiry } from './utils/validation';
 import { checkRateLimit } from './utils/rate-limit';
 import {
@@ -137,11 +137,13 @@ async function handleProjectEnquiry(request: Request, env: Env): Promise<Respons
 
   // 3. Turnstile token verification
   const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+  const allowedHostnames = resolveAllowedHostnames(env);
   const turnstileResult = await verifyTurnstileToken(
     body.turnstileToken,
     turnstileSecret,
     'contact_form',
-    clientIp
+    clientIp,
+    allowedHostnames
   );
 
   if (!turnstileResult.valid) {
@@ -298,11 +300,13 @@ async function handleQuickInquiry(request: Request, env: Env): Promise<Response>
 
   // 3. Turnstile token verification
   const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+  const allowedHostnames = resolveAllowedHostnames(env);
   const turnstileResult = await verifyTurnstileToken(
     body.turnstileToken,
     turnstileSecret,
     'quick_inquiry',
-    clientIp
+    clientIp,
+    allowedHostnames
   );
 
   if (!turnstileResult.valid) {
@@ -448,7 +452,7 @@ export default {
     if (env.ASSETS && typeof env.ASSETS.fetch === 'function') {
       try {
         const assetResponse = await env.ASSETS.fetch(request);
-        
+
         // If static asset exists, return with security headers
         if (assetResponse.status !== 404) {
           const newHeaders = new Headers(assetResponse.headers);

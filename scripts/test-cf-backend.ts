@@ -17,6 +17,12 @@ import {
   buildQuickInquiryCustomerEmail,
 } from '../worker/utils/resend';
 import { checkRateLimit } from '../worker/utils/rate-limit';
+import {
+  resolveAllowedHostnames,
+  DEFAULT_PRODUCTION_HOSTNAMES,
+  DEFAULT_DEVELOPMENT_HOSTNAMES,
+  verifyTurnstileToken,
+} from '../worker/utils/turnstile';
 
 function assert(condition: boolean, msg: string) {
   if (!condition) {
@@ -119,7 +125,7 @@ async function runTests() {
     service: 'Custom Software',
   });
   assert(!customerTemplate.html.includes('<script>'), 'Customer email HTML does not contain unescaped script tag');
-  assert(customerTemplate.subject === 'Thank You for Contacting Alpha AI Services', 'Customer email subject matches specification');
+  assert(customerTemplate.subject === 'Thank You for Contacting Alpha Ai Services', 'Customer email subject matches specification');
   assert(customerTemplate.html.includes('Dr. John &lt;script&gt;'), 'Customer email HTML contains escaped client name');
   assert(customerTemplate.text.includes('We have successfully received your enquiry'), 'Customer text contains confirmation message');
 
@@ -128,13 +134,42 @@ async function runTests() {
     service: 'AI & Machine Learning',
     contactMethod: 'WhatsApp',
   });
-  assert(quickCustomerTemplate.subject === 'Thank You for Contacting Alpha AI Services', 'Quick inquiry customer email subject matches specification');
+  assert(quickCustomerTemplate.subject === 'Thank You for Contacting Alpha Ai Services', 'Quick inquiry customer email subject matches specification');
   assert(quickCustomerTemplate.html.includes('Priya Mehta &lt;script&gt;'), 'Quick inquiry customer email HTML contains escaped client name');
 
   console.log('\n--- 6. Rate Limiter Tests ---');
   const dummyEnv: any = {};
   const rateLimitResult = await checkRateLimit('192.168.1.1', 'project-enquiry', dummyEnv);
   assert(rateLimitResult.allowed === true, 'Rate limit initial request allowed');
+
+  console.log('\n--- 7. Turnstile Environment & Hostname Verification Tests ---');
+  
+  // Production default strictly allows only official domains
+  const prodHostnames = resolveAllowedHostnames({});
+  assert(prodHostnames.includes('alphaaiservices.in'), 'Production includes alphaaiservices.in');
+  assert(prodHostnames.includes('www.alphaaiservices.in'), 'Production includes www.alphaaiservices.in');
+  assert(!prodHostnames.includes('localhost'), 'Production strictly disallows localhost');
+  assert(!prodHostnames.includes('127.0.0.1'), 'Production strictly disallows 127.0.0.1');
+
+  // Development mode allows localhost and 127.0.0.1
+  const devHostnames = resolveAllowedHostnames({ ENVIRONMENT: 'development' });
+  assert(devHostnames.includes('alphaaiservices.in'), 'Development includes alphaaiservices.in');
+  assert(devHostnames.includes('localhost'), 'Development includes localhost');
+  assert(devHostnames.includes('127.0.0.1'), 'Development includes 127.0.0.1');
+
+  // Custom environment variable override
+  const customHostnames = resolveAllowedHostnames({
+    ALLOWED_TURNSTILE_HOSTNAMES: 'alphaaiservices.in, staging.alphaaiservices.in, localhost',
+  });
+  assert(customHostnames.length === 3, 'Custom hostnames parsed properly');
+  assert(customHostnames.includes('staging.alphaaiservices.in'), 'Custom hostnames includes staging domain');
+
+  // Missing token/secret validation
+  const missingToken = await verifyTurnstileToken('', 'secret', 'contact_form');
+  assert(missingToken.valid === false, 'Empty token rejected');
+
+  const missingSecret = await verifyTurnstileToken('valid_token', '', 'contact_form');
+  assert(missingSecret.valid === false, 'Missing secret rejected');
 
   console.log('\n=========================================');
   console.log('🎉 ALL BACKEND & SECURITY TESTS PASSED!');

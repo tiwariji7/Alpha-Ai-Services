@@ -11,11 +11,50 @@ export interface TurnstileVerifyResult {
   cdata?: string;
 }
 
+export const DEFAULT_PRODUCTION_HOSTNAMES: readonly string[] = [
+  'alphaaiservices.in',
+  'www.alphaaiservices.in',
+];
+
+export const DEFAULT_DEVELOPMENT_HOSTNAMES: readonly string[] = [
+  'alphaaiservices.in',
+  'www.alphaaiservices.in',
+  'localhost',
+  '127.0.0.1',
+];
+
+/**
+ * Resolves the expected Turnstile hostnames based on the environment configuration.
+ * - In Production: strictly allows alphaaiservices.in and www.alphaaiservices.in
+ * - In Development (ENVIRONMENT='development'): additionally allows localhost and 127.0.0.1
+ * - Custom override: ALLOWED_TURNSTILE_HOSTNAMES comma-separated list
+ */
+export function resolveAllowedHostnames(env?: {
+  ENVIRONMENT?: string;
+  ALLOWED_TURNSTILE_HOSTNAMES?: string;
+}): string[] {
+  if (env?.ALLOWED_TURNSTILE_HOSTNAMES && typeof env.ALLOWED_TURNSTILE_HOSTNAMES === 'string') {
+    const parsed = env.ALLOWED_TURNSTILE_HOSTNAMES.split(',')
+      .map((h) => h.trim().toLowerCase())
+      .filter(Boolean);
+    if (parsed.length > 0) {
+      return parsed;
+    }
+  }
+
+  if (env?.ENVIRONMENT === 'development') {
+    return [...DEFAULT_DEVELOPMENT_HOSTNAMES];
+  }
+
+  return [...DEFAULT_PRODUCTION_HOSTNAMES];
+}
+
 export async function verifyTurnstileToken(
   token: string,
   secretKey: string,
   expectedAction: string,
-  clientIp?: string
+  clientIp?: string,
+  allowedHostnames: readonly string[] = DEFAULT_PRODUCTION_HOSTNAMES
 ): Promise<{ valid: boolean; error?: string }> {
   if (!token || typeof token !== 'string') {
     return { valid: false, error: 'Missing security verification token. Please complete the verification.' };
@@ -56,17 +95,19 @@ export async function verifyTurnstileToken(
       return { valid: false, error: 'Security token action mismatch. Please refresh and try again.' };
     }
 
-    // Verify hostname match if returned in response
-    const ALLOWED_HOSTNAMES = [
-      'alphaaiservices.in',
-      'www.alphaaiservices.in',
-      'localhost',
-      '127.0.0.1',
-    ];
+    // Verify hostname match against allowed list
+    if (data.hostname) {
+      const normalizedHostname = data.hostname.toLowerCase();
+      const isAllowed = allowedHostnames.some(
+        (allowed) => allowed.toLowerCase() === normalizedHostname
+      );
 
-    if (data.hostname && !ALLOWED_HOSTNAMES.includes(data.hostname.toLowerCase())) {
-      console.warn(`Turnstile hostname mismatch: got ${data.hostname}`);
-      return { valid: false, error: 'Security token domain mismatch.' };
+      if (!isAllowed) {
+        console.warn(
+          `Turnstile hostname mismatch: got ${data.hostname}, allowed: [${allowedHostnames.join(', ')}]`
+        );
+        return { valid: false, error: 'Security token domain mismatch.' };
+      }
     }
 
     return { valid: true };

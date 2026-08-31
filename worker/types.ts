@@ -19,6 +19,10 @@ export interface Env {
   // Cloudflare KV Namespace (optional fallback)
   RATE_LIMIT_KV?: any;
 
+  // Environment Configuration
+  ENVIRONMENT?: 'development' | 'production' | 'test' | string;
+  ALLOWED_TURNSTILE_HOSTNAMES?: string;
+
   // Cloudflare Secrets / Environment Variables
   TURNSTILE_SECRET_KEY: string;
   RESEND_API_KEY: string;
