@@ -243,7 +243,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                 </h3>
 
                 <p className="text-xs text-[#6B6660] leading-relaxed">
-                  Leave your details below. We'll connect with you directly within 1 business day.
+                  Leave your details below. We'll connect with you directly as soon as possible.
                 </p>
               </div>
 
@@ -271,7 +271,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                       Thank You, {formData.name}!
                     </h4>
                     <p className="text-xs text-[#6B6660] max-w-sm mx-auto leading-relaxed">
-                      We've received your request for <strong>{formData.service}</strong>. We'll reach out via <strong>{formData.contactMethod}</strong> shortly.
+                      We've received your request for <strong>{formData.service}</strong>. We'll reach out via <strong>{formData.contactMethod}</strong> as soon as possible.
                     </p>
                   </div>
 

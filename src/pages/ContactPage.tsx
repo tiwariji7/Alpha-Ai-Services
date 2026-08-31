@@ -398,7 +398,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       Thanks — We've Received Your Enquiry.
                     </h3>
                     <p className="text-xs sm:text-sm text-[#9EA3B0] max-w-md mx-auto leading-relaxed">
-                      Our team will review your requirements and get back to you within 1 business day at <strong className="text-white">{formData.email}</strong>.
+                      Our team will review your requirements and get back to you as soon as possible at <strong className="text-white">{formData.email}</strong>.
                     </p>
                   </div>
 
@@ -456,7 +456,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       Project Inquiry Form
                     </h2>
                     <p className="text-xs text-[#9EA3B0]">
-                      Share your requirements below and we'll get back to you within 1 business day.
+                      Share your requirements below and we'll get back to you as soon as possible.
                     </p>
                   </div>
 
