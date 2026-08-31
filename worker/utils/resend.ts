@@ -201,14 +201,12 @@ ${data.projectDetails}
   return { subject, html, text };
 }
 
-export function buildProjectEnquiryCustomerEmail(data: {
+export function buildCustomerConfirmationEmail(data: {
   name: string;
-  service: string;
 }): { subject: string; html: string; text: string } {
   const safeName = sanitizeHtml(data.name);
-  const safeService = sanitizeHtml(data.service);
 
-  const subject = `We've received your enquiry — Alpha AI Services`;
+  const subject = 'Thank You for Contacting Alpha AI Services';
   const safeTitle = sanitizeHtml(subject);
 
   const html = `
@@ -225,37 +223,32 @@ export function buildProjectEnquiryCustomerEmail(data: {
     <tr>
       <td style="background-color: #111111; padding: 28px 32px; text-align: left;">
         <span style="display: inline-block; color: #FF5A1F; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">ALPHA AI SERVICES</span>
-        <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700;">Thank You for Reaching Out</h1>
+        <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700;">Enquiry Received</h1>
       </td>
     </tr>
     
     <!-- Body -->
     <tr>
       <td style="padding: 32px;">
-        <p style="font-size: 15px; line-height: 1.6; color: #111111; margin-top: 0;">
+        <p style="font-size: 15px; line-height: 1.6; color: #111111; margin-top: 0; margin-bottom: 16px;">
           Hi <strong>${safeName}</strong>,
         </p>
 
-        <p style="font-size: 14px; line-height: 1.6; color: #4A4641;">
-          Thank you for considering Alpha AI Services for your <strong>${safeService}</strong> project. We have received your detailed requirements.
+        <p style="font-size: 14px; line-height: 1.6; color: #4A4641; margin-top: 0; margin-bottom: 16px;">
+          Thank you for reaching out to Alpha AI Services.
         </p>
 
-        <!-- Next Steps Card -->
-        <div style="margin: 24px 0; padding: 20px; background-color: #FAF8F6; border: 1px solid #EDE9E4; border-radius: 12px;">
-          <h3 style="margin-top: 0; font-size: 14px; font-weight: 700; color: #111111;">What Happens Next:</h3>
-          <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: #4A4641;">
-            <li><strong>Technical Review:</strong> Our engineering team is currently reviewing your project requirements.</li>
-            <li><strong>Response Window:</strong> We will get back to you with initial architecture insights and timeline estimates within <strong>1 business day</strong>.</li>
-            <li><strong>Confidentiality:</strong> Your project ideas and data are 100% confidential and protected.</li>
-          </ul>
-        </div>
-
-        <p style="font-size: 14px; line-height: 1.6; color: #4A4641;">
-          If you have immediate questions or additional documents, feel free to reply directly to this email or reach us on WhatsApp.
+        <p style="font-size: 14px; line-height: 1.6; color: #4A4641; margin-top: 0; margin-bottom: 24px;">
+          We have successfully received your enquiry. Our team will connect with you as soon as possible.
         </p>
 
-        <div style="margin-top: 24px; text-align: left;">
-          <a href="https://wa.me/918381835420" style="display: inline-block; background-color: #25D366; color: #ffffff; padding: 10px 20px; border-radius: 9999px; text-decoration: none; font-size: 12px; font-weight: bold;">Direct WhatsApp Chat &rarr;</a>
+        <p style="font-size: 14px; line-height: 1.6; color: #111111; margin-top: 0; margin-bottom: 24px;">
+          Thank you,<br/>
+          <strong>Alpha AI Services</strong>
+        </p>
+
+        <div style="padding: 12px 16px; background-color: #FAF8F6; border: 1px solid #EDE9E4; border-radius: 8px; font-size: 12px; line-height: 1.5; color: #8C867F;">
+          This is an automated confirmation email. Please do not reply to this email.
         </div>
       </td>
     </tr>
@@ -263,8 +256,7 @@ export function buildProjectEnquiryCustomerEmail(data: {
     <!-- Footer -->
     <tr>
       <td style="background-color: #FAF8F6; padding: 20px 32px; border-top: 1px solid #EDE9E4; text-align: center; font-size: 12px; color: #8C867F;">
-        Alpha AI Services &bull; <a href="https://alphaaiservices.in" style="color: #FF5A1F; text-decoration: none;">alphaaiservices.in</a><br/>
-        Email: info@alphaaiservices.in | Phone: +91 8381835420
+        Alpha AI Services &bull; <a href="https://alphaaiservices.in" style="color: #FF5A1F; text-decoration: none;">alphaaiservices.in</a>
       </td>
     </tr>
   </table>
@@ -275,16 +267,24 @@ export function buildProjectEnquiryCustomerEmail(data: {
   const text = `
 Hi ${data.name},
 
-Thank you for reaching out to Alpha AI Services regarding your ${data.service} project.
+Thank you for reaching out to Alpha AI Services.
 
-We have received your enquiry. Our engineering team is reviewing your requirements, and we will get back to you within 1 business day.
+We have successfully received your enquiry. Our team will connect with you as soon as possible.
 
-Direct Email: info@alphaaiservices.in
-WhatsApp: https://wa.me/918381835420
-Website: https://alphaaiservices.in
+Thank you,
+Alpha AI Services
+
+This is an automated confirmation email. Please do not reply to this email.
   `.trim();
 
   return { subject, html, text };
+}
+
+export function buildProjectEnquiryCustomerEmail(data: {
+  name: string;
+  service?: string;
+}): { subject: string; html: string; text: string } {
+  return buildCustomerConfirmationEmail({ name: data.name });
 }
 
 /* =========================================================================
@@ -409,77 +409,8 @@ ${data.message || 'None'}
 
 export function buildQuickInquiryCustomerEmail(data: {
   name: string;
-  service: string;
-  contactMethod: string;
+  service?: string;
+  contactMethod?: string;
 }): { subject: string; html: string; text: string } {
-  const safeName = sanitizeHtml(data.name);
-  const safeService = sanitizeHtml(data.service);
-  const safeMethod = sanitizeHtml(data.contactMethod);
-
-  const subject = `We've received your request — Alpha AI Services`;
-  const safeTitle = sanitizeHtml(subject);
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${safeTitle}</title>
-</head>
-<body style="margin: 0; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #FAF8F6; color: #111111;">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; border: 1px solid #EDE9E4; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
-    <!-- Header -->
-    <tr>
-      <td style="background-color: #111111; padding: 28px 32px; text-align: left;">
-        <span style="display: inline-block; color: #FF5A1F; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">ALPHA AI SERVICES</span>
-        <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700;">Request Received</h1>
-      </td>
-    </tr>
-    
-    <!-- Body -->
-    <tr>
-      <td style="padding: 32px;">
-        <p style="font-size: 15px; line-height: 1.6; color: #111111; margin-top: 0;">
-          Hi <strong>${safeName}</strong>,
-        </p>
-
-        <p style="font-size: 14px; line-height: 1.6; color: #4A4641;">
-          Thank you for requesting information regarding <strong>${safeService}</strong>. We will connect with you via <strong>${safeMethod}</strong> within 1 business day.
-        </p>
-
-        <div style="margin: 24px 0; padding: 18px; background-color: #FAF8F6; border: 1px solid #EDE9E4; border-radius: 12px; font-size: 13px; line-height: 1.6; color: #4A4641;">
-          <strong>Need immediate assistance?</strong><br/>
-          You can also message us directly on WhatsApp anytime:
-          <div style="margin-top: 12px;">
-            <a href="https://wa.me/918381835420" style="display: inline-block; background-color: #25D366; color: #ffffff; padding: 8px 16px; border-radius: 9999px; text-decoration: none; font-size: 12px; font-weight: bold;">Chat on WhatsApp &rarr;</a>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr>
-      <td style="background-color: #FAF8F6; padding: 20px 32px; border-top: 1px solid #EDE9E4; text-align: center; font-size: 12px; color: #8C867F;">
-        Alpha AI Services &bull; <a href="https://alphaaiservices.in" style="color: #FF5A1F; text-decoration: none;">alphaaiservices.in</a><br/>
-        Email: info@alphaaiservices.in | Phone: +91 8381835420
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-  `;
-
-  const text = `
-Hi ${data.name},
-
-Thank you for requesting information regarding ${data.service} with Alpha AI Services.
-We will reach out to you via ${data.contactMethod} shortly.
-
-Email: info@alphaaiservices.in
-WhatsApp: https://wa.me/918381835420
-Website: https://alphaaiservices.in
-  `.trim();
-
-  return { subject, html, text };
+  return buildCustomerConfirmationEmail({ name: data.name });
 }

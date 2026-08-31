@@ -119,7 +119,17 @@ async function runTests() {
     service: 'Custom Software',
   });
   assert(!customerTemplate.html.includes('<script>'), 'Customer email HTML does not contain unescaped script tag');
-  assert(customerTemplate.html.includes('Custom Software'), 'Customer email contains service name');
+  assert(customerTemplate.subject === 'Thank You for Contacting Alpha AI Services', 'Customer email subject matches specification');
+  assert(customerTemplate.html.includes('Dr. John &lt;script&gt;'), 'Customer email HTML contains escaped client name');
+  assert(customerTemplate.text.includes('We have successfully received your enquiry'), 'Customer text contains confirmation message');
+
+  const quickCustomerTemplate = buildQuickInquiryCustomerEmail({
+    name: 'Priya Mehta <script>',
+    service: 'AI & Machine Learning',
+    contactMethod: 'WhatsApp',
+  });
+  assert(quickCustomerTemplate.subject === 'Thank You for Contacting Alpha AI Services', 'Quick inquiry customer email subject matches specification');
+  assert(quickCustomerTemplate.html.includes('Priya Mehta &lt;script&gt;'), 'Quick inquiry customer email HTML contains escaped client name');
 
   console.log('\n--- 6. Rate Limiter Tests ---');
   const dummyEnv: any = {};

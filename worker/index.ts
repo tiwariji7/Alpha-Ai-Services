@@ -216,23 +216,29 @@ async function handleProjectEnquiry(request: Request, env: Env): Promise<Respons
     );
   }
 
-  // Send Customer Confirmation (asynchronous dispatch)
+  // Send Customer Confirmation
   const customerTemplate = buildProjectEnquiryCustomerEmail({
     name: data.name,
     service: data.service,
   });
 
-  sendEmailWithResend({
-    apiKey: resendApiKey,
-    from: emailFrom,
-    to: data.email,
-    replyTo: adminEmail,
-    subject: customerTemplate.subject,
-    html: customerTemplate.html,
-    text: customerTemplate.text,
-  }).catch((err) => {
-    console.warn('Customer confirmation email send error:', err);
-  });
+  try {
+    const customerSend = await sendEmailWithResend({
+      apiKey: resendApiKey,
+      from: emailFrom,
+      to: data.email,
+      // Note: replyTo is intentionally NOT SET for customer confirmation
+      subject: customerTemplate.subject,
+      html: customerTemplate.html,
+      text: customerTemplate.text,
+    });
+
+    if (!customerSend.success) {
+      console.error('Customer confirmation email delivery failed.');
+    }
+  } catch {
+    console.error('Customer confirmation email delivery failed.');
+  }
 
   return jsonResponse(request, {
     success: true,
@@ -368,24 +374,30 @@ async function handleQuickInquiry(request: Request, env: Env): Promise<Response>
     );
   }
 
-  // Send Customer Confirmation (asynchronous dispatch)
+  // Send Customer Confirmation
   const customerTemplate = buildQuickInquiryCustomerEmail({
     name: data.name,
     service: data.service,
     contactMethod: data.contactMethod,
   });
 
-  sendEmailWithResend({
-    apiKey: resendApiKey,
-    from: emailFrom,
-    to: data.email,
-    replyTo: adminEmail,
-    subject: customerTemplate.subject,
-    html: customerTemplate.html,
-    text: customerTemplate.text,
-  }).catch((err) => {
-    console.warn('Customer confirmation email send error:', err);
-  });
+  try {
+    const customerSend = await sendEmailWithResend({
+      apiKey: resendApiKey,
+      from: emailFrom,
+      to: data.email,
+      // Note: replyTo is intentionally NOT SET for customer confirmation
+      subject: customerTemplate.subject,
+      html: customerTemplate.html,
+      text: customerTemplate.text,
+    });
+
+    if (!customerSend.success) {
+      console.error('Customer confirmation email delivery failed.');
+    }
+  } catch {
+    console.error('Customer confirmation email delivery failed.');
+  }
 
   return jsonResponse(request, {
     success: true,
