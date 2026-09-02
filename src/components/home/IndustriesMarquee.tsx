@@ -25,37 +25,37 @@ const INDUSTRIES_LIST: IndustryItem[] = [
   {
     id: 'fintech',
     name: 'Fintech & Finance',
-    icon: <Landmark className="w-4 h-4 text-emerald-600" />,
+    icon: <Landmark className="w-4 h-4 text-[#3B4FD9]" />,
   },
   {
     id: 'healthcare',
     name: 'Healthcare',
-    icon: <HeartPulse className="w-4 h-4 text-rose-500" />,
+    icon: <HeartPulse className="w-4 h-4 text-[#5B4FE0]" />,
   },
   {
     id: 'medtech',
     name: 'MedTech',
-    icon: <Stethoscope className="w-4 h-4 text-blue-500" />,
+    icon: <Stethoscope className="w-4 h-4 text-[#4D6BFF]" />,
   },
   {
     id: 'ecommerce',
     name: 'E-Commerce',
-    icon: <ShoppingBag className="w-4 h-4 text-amber-500" />,
+    icon: <ShoppingBag className="w-4 h-4 text-[#7B5CE8]" />,
   },
   {
     id: 'saas-tech',
     name: 'B2B SaaS & Tech',
-    icon: <Layers className="w-4 h-4 text-purple-500" />,
+    icon: <Layers className="w-4 h-4 text-[#3B4FD9]" />,
   },
   {
     id: 'real-estate',
     name: 'Real Estate',
-    icon: <Building2 className="w-4 h-4 text-sky-500" />,
+    icon: <Building2 className="w-4 h-4 text-[#4D6BFF]" />,
   },
   {
     id: 'education',
     name: 'Education',
-    icon: <GraduationCap className="w-4 h-4 text-[#FF5A1F]" />,
+    icon: <GraduationCap className="w-4 h-4 text-[#5B4FE0]" />,
   },
 ];
 
@@ -79,16 +79,16 @@ export const IndustriesMarquee: React.FC<IndustriesMarqueeProps> = ({ onNavigate
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3 mb-8 sm:mb-12"
         >
-          <span className="text-xs font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+          <span className="text-xs font-extrabold uppercase tracking-wider text-[#3B4FD9]">
             Domain Specialization
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#111111] tracking-tight">
-            Industries We <span className="text-[#FF5A1F]">Empower</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#151235] tracking-tight">
+            Industries We <span className="text-[#3B4FD9]">Empower</span>
           </h2>
           <div className="pt-1">
             <button
               onClick={() => onNavigate('/company/industries')}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#111111] hover:text-[#FF5A1F] transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#151235] hover:text-[#3B4FD9] transition-colors group cursor-pointer"
             >
               <span>View All Industry Solutions</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -104,12 +104,12 @@ export const IndustriesMarquee: React.FC<IndustriesMarqueeProps> = ({ onNavigate
             <div
               key={`${ind.id}-${idx}`}
               onClick={() => onNavigate('/company/industries')}
-              className="bg-white rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 border border-[#EDE9E4] shadow-soft hover:shadow-soft-lg hover:border-[#FF5A1F]/40 transition-all cursor-pointer flex items-center gap-3 shrink-0 group select-none"
+              className="bg-white rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 border border-[#EDEAFB] shadow-soft hover:shadow-soft-lg hover:border-[#3B4FD9]/40 transition-all cursor-pointer flex items-center gap-3 shrink-0 group select-none"
             >
-              <div className="w-8 h-8 rounded-xl bg-[#FAF8F6] border border-[#EDE9E4] flex items-center justify-center group-hover:bg-white group-hover:border-[#FF5A1F]/20 group-hover:scale-110 transition-all shadow-xs">
+              <div className="w-8 h-8 rounded-xl bg-[#EDEAFB] border border-[#7B5CE8]/20 flex items-center justify-center group-hover:bg-white group-hover:border-[#3B4FD9]/20 group-hover:scale-110 transition-all shadow-xs">
                 {ind.icon}
               </div>
-              <span className="text-xs sm:text-sm font-bold text-[#111111] group-hover:text-[#FF5A1F] transition-colors whitespace-nowrap">
+              <span className="text-xs sm:text-sm font-bold text-[#151235] group-hover:text-[#3B4FD9] transition-colors whitespace-nowrap">
                 {ind.name}
               </span>
             </div>

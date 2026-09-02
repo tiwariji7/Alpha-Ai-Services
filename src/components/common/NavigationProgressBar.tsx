@@ -39,7 +39,7 @@ export const NavigationProgressBar: React.FC = () => {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-gradient-to-r from-[#FF5A1F] via-[#FF7A45] to-[#FFA07A] shadow-[0_0_8px_rgba(255,90,31,0.8)] transition-all ease-out"
+        className="h-full bg-gradient-to-r from-[#3B4FD9] via-[#4D6BFF] to-[#7B5CE8] shadow-[0_0_8px_rgba(59,79,217,0.8)] transition-all ease-out"
         style={{
           width: `${progress}%`,
           transitionDuration: progress === 100 ? '120ms' : '180ms',

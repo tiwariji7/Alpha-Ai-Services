@@ -1,6 +1,8 @@
 # Robots.txt for Alpha AI Services (https://alphaaiservices.in)
+
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # Search Engine Crawlers
 User-agent: Googlebot
@@ -12,7 +14,7 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-# AI Search and Retrieval crawlers for Generative Engine Optimization (GEO)
+# AI Search & Retrieval Crawlers (Generative Engine Optimization)
 User-agent: GPTBot
 Allow: /
 

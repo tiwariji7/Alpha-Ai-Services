@@ -117,36 +117,23 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
   }, [isOpen, onClose]);
 
   // Validation rules
-  const isNameValid =
-    formData.name.trim().length >= 2 && /^[a-zA-Z\s.'-]+$/.test(formData.name.trim());
-
-  const isEmailValid =
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email.trim()) &&
-    !['test@test', 'fake@', 'temp@', 'spam@', 'dummy@'].some((kw) =>
-      formData.email.toLowerCase().includes(kw)
-    );
-
-  const cleanPhone = formData.phone.replace(/\D/g, '');
-  const isPhoneValid =
-    cleanPhone.length === 10 &&
-    /^[6-9]/.test(cleanPhone) &&
-    !/^(\d)\1{9}$/.test(cleanPhone) &&
-    !['9876543210', '9898989898', '9090909090'].includes(cleanPhone);
-
-  const isFormValid = isNameValid && isEmailValid && isPhoneValid && Boolean(formData.service);
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.replace(/[^a-zA-Z\s.'-]/g, '');
-    setFormData({ ...formData, name: val });
-  };
+  const isNameValid = /^[a-zA-Z\s.'-]{2,50}$/.test(formData.name.trim());
+  const isPhoneValid = /^[6-9]\d{9}$/.test(formData.phone.replace(/\D/g, ''));
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formData.email.trim());
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
-    setFormData({ ...formData, phone: digits });
+    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setFormData({ ...formData, phone: val });
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/[^a-zA-Z\s.'-]/g, '').slice(0, 50);
+    setFormData({ ...formData, name: val });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setTouched({
       name: true,
       email: true,
@@ -154,48 +141,64 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
       service: true,
     });
 
-    if (!isFormValid) return;
+    if (!isNameValid || !isPhoneValid || !isEmailValid) {
+      return;
+    }
 
+    // Bot detection via honeypot field
+    if (website) {
+      console.warn('Bot submission blocked via honeypot');
+      setIsSuccess(true);
+      return;
+    }
+
+    // Require Cloudflare Turnstile token
     if (!turnstileToken) {
-      setSubmitError('Please complete the security verification below.');
+      setSubmitError('Please complete security verification before sending your inquiry.');
       return;
     }
 
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      company: '',
+      service: formData.service,
+      budget: 'Flexible',
+      timeline: 'Immediately',
+      details: formData.message.trim() || `Quick Inquiry via Modal — Preferred Contact: ${formData.contactMethod}`,
+      contactMethod: formData.contactMethod,
+      source: 'quick_inquiry_modal',
+      timestamp: new Date().toISOString(),
+      turnstileToken: turnstileToken,
+    };
+
     try {
-      const response = await fetch('/api/quick-inquiry', {
+      // Direct Worker POST (works locally and deployed)
+      const res = await fetch('/api/inquiry', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          turnstileToken,
-          website,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
+      if (res.ok) {
         setIsSuccess(true);
+        // Delightful victory confetti burst
         try {
           confetti({
-            particleCount: 70,
+            particleCount: 75,
             spread: 60,
-            origin: { y: 0.6 },
-            colors: ['#FF5A1F', '#FF7A45', '#111111', '#25D366'],
+            origin: { y: 0.65 },
           });
         } catch {
-          // Safe fallback
+          // Ignore confetti errors if blocked
         }
       } else {
-        const errorMsg =
-          result.error ||
-          (result.errors ? Object.values(result.errors).join(' ') : 'Failed to submit inquiry.');
-        setSubmitError(errorMsg);
+        const errorData = await res.json().catch(() => ({}));
+        setSubmitError((errorData as any).message || 'Unable to submit right now. Please try reaching us directly on WhatsApp or Email.');
         setTurnstileToken('');
         setResetSignal((prev) => prev + 1);
       }
@@ -219,7 +222,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#111111]/70 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-[#0A0E2A]/70 backdrop-blur-sm transition-opacity"
           />
 
           {/* Modal Card */}
@@ -228,21 +231,21 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 14 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative bg-white rounded-3xl border border-[#EDE9E4] shadow-2xl w-full max-w-xl overflow-hidden z-10 my-auto text-left"
+            className="relative bg-white rounded-3xl border border-[#EDEAFB] shadow-2xl w-full max-w-xl overflow-hidden z-10 my-auto text-left"
           >
             {/* Header */}
-            <div className="p-5 sm:p-6 border-b border-[#EDE9E4] bg-white flex items-start justify-between gap-4">
+            <div className="p-5 sm:p-6 border-b border-[#EDEAFB] bg-white flex items-start justify-between gap-4">
               <div className="space-y-1 pr-4">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-[#FF5A1F] text-[10.5px] font-bold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDEAFB] border border-[#7B5CE8]/30 text-[#5B4FE0] text-[10.5px] font-bold uppercase tracking-wider">
                   <Sparkles className="w-3 h-3" />
                   <span>QUICK INQUIRY</span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#111111] tracking-tight leading-tight">
-                  Let's Build Something <span className="text-[#FF5A1F]">Great Together.</span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#151235] tracking-tight leading-tight">
+                  Let's Build Something <span className="text-[#3B4FD9]">Great Together.</span>
                 </h3>
 
-                <p className="text-xs text-[#6B6660] leading-relaxed">
+                <p className="text-xs text-[#5B5876] leading-relaxed">
                   Leave your details below. We'll connect with you directly as soon as possible.
                 </p>
               </div>
@@ -251,7 +254,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
               <button
                 onClick={onClose}
                 aria-label="Close modal"
-                className="w-8 h-8 rounded-full bg-[#FAF8F6] border border-[#EDE9E4] text-[#6B6660] hover:text-[#111111] hover:border-gray-300 flex items-center justify-center transition-all shrink-0 cursor-pointer"
+                className="w-8 h-8 rounded-full bg-[#F6F5FC] border border-[#EDEAFB] text-[#5B5876] hover:text-[#151235] hover:border-[#3B4FD9]/40 flex items-center justify-center transition-all shrink-0 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -262,32 +265,32 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
               {isSuccess ? (
                 /* Success Screen */
                 <div className="text-center py-6 sm:py-8 space-y-4">
-                  <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200 shadow-2xs">
+                  <div className="w-14 h-14 bg-[#EDEAFB] text-[#5B4FE0] rounded-full flex items-center justify-center mx-auto border border-[#7B5CE8]/30 shadow-2xs">
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
 
                   <div className="space-y-1">
-                    <h4 className="text-xl font-extrabold text-[#111111]">
+                    <h4 className="text-xl font-extrabold text-[#151235]">
                       Thank You, {formData.name}!
                     </h4>
-                    <p className="text-xs text-[#6B6660] max-w-sm mx-auto leading-relaxed">
+                    <p className="text-xs text-[#5B5876] max-w-sm mx-auto leading-relaxed">
                       We've received your request for <strong>{formData.service}</strong>. We'll reach out via <strong>{formData.contactMethod}</strong> as soon as possible.
                     </p>
                   </div>
 
                   {/* Summary Box */}
-                  <div className="p-3.5 bg-[#FAF8F6] border border-[#EDE9E4] rounded-2xl text-xs text-[#6B6660] max-w-sm mx-auto space-y-1.5 text-left">
+                  <div className="p-3.5 bg-[#EDEAFB]/50 border border-[#EDEAFB] rounded-2xl text-xs text-[#5B5876] max-w-sm mx-auto space-y-1.5 text-left">
                     <div className="flex justify-between">
-                      <span className="text-gray-400">Phone:</span>
-                      <span className="font-bold text-[#111111]">+91 {formData.phone}</span>
+                      <span className="text-slate-400">Phone:</span>
+                      <span className="font-bold text-[#151235]">+91 {formData.phone}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-400">Email:</span>
-                      <span className="font-bold text-[#111111]">{formData.email}</span>
+                      <span className="text-slate-400">Email:</span>
+                      <span className="font-bold text-[#151235]">{formData.email}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-400">Service:</span>
-                      <span className="font-bold text-[#FF5A1F]">{formData.service}</span>
+                      <span className="text-slate-400">Service:</span>
+                      <span className="font-bold text-[#3B4FD9]">{formData.service}</span>
                     </div>
                   </div>
 
@@ -295,7 +298,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                     <button
                       onClick={onClose}
-                      className="w-full sm:w-auto bg-[#111111] text-white py-2.5 px-6 rounded-full font-bold text-xs hover:bg-[#262626] transition-all cursor-pointer shadow-xs"
+                      className="w-full sm:w-auto bg-gradient-to-r from-[#3B4FD9] to-[#7B5CE8] text-white py-2.5 px-6 rounded-full font-bold text-xs transition-all cursor-pointer shadow-xs"
                     >
                       Back to Website
                     </button>
@@ -304,7 +307,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                       href="https://wa.me/918381835420"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full sm:w-auto bg-[#FAF8F6] text-[#111111] border border-[#EDE9E4] hover:bg-[#25D366]/10 hover:border-[#25D366]/30 hover:text-[#25D366] py-2.5 px-5 rounded-full font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      className="w-full sm:w-auto bg-[#F6F5FC] text-[#151235] border border-[#EDEAFB] hover:bg-[#25D366]/10 hover:border-[#25D366]/30 hover:text-[#25D366] py-2.5 px-5 rounded-full font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     >
                       <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
                       <span>Chat on WhatsApp →</span>
@@ -329,8 +332,8 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {/* Full Name */}
                     <div className="space-y-1">
-                      <label className="block text-xs font-bold text-[#111111]">
-                        Full Name <span className="text-[#FF5A1F]">*</span>
+                      <label className="block text-xs font-bold text-[#151235]">
+                        Full Name <span className="text-[#3B4FD9]">*</span>
                       </label>
                       <div className="relative">
                         <User className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -341,9 +344,9 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                           onBlur={() => setTouched({ ...touched, name: true })}
                           onChange={handleNameChange}
                           placeholder="e.g. Rahul Sharma"
-                          className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.name && !isNameValid
+                          className={`w-full pl-8 pr-3 py-2 bg-[#F6F5FC]/70 border rounded-xl text-xs sm:text-sm text-[#151235] placeholder:text-gray-400 focus:outline-none transition-all ${touched.name && !isNameValid
                               ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                              : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
+                              : 'border-[#EDEAFB] focus:border-[#3B4FD9] focus:bg-white'
                             }`}
                         />
                       </div>
@@ -356,11 +359,11 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
                     {/* Phone / WhatsApp */}
                     <div className="space-y-1">
-                      <label className="block text-xs font-bold text-[#111111]">
-                        WhatsApp / Phone <span className="text-[#FF5A1F]">*</span>
+                      <label className="block text-xs font-bold text-[#151235]">
+                        WhatsApp / Phone <span className="text-[#3B4FD9]">*</span>
                       </label>
                       <div className="flex">
-                        <span className="inline-flex items-center px-2.5 rounded-l-xl border border-r-0 border-[#EDE9E4] bg-gray-100 text-[#111111] text-xs font-bold shrink-0">
+                        <span className="inline-flex items-center px-2.5 rounded-l-xl border border-r-0 border-[#EDEAFB] bg-[#EDEAFB] text-[#151235] text-xs font-bold shrink-0">
                           +91
                         </span>
                         <input
@@ -371,9 +374,9 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                           onChange={handlePhoneChange}
                           placeholder="98765 43210"
                           maxLength={10}
-                          className={`w-full px-3 py-2 bg-[#FAF8F6] border rounded-r-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.phone && !isPhoneValid
+                          className={`w-full px-3 py-2 bg-[#F6F5FC]/70 border rounded-r-xl text-xs sm:text-sm text-[#151235] placeholder:text-gray-400 focus:outline-none transition-all ${touched.phone && !isPhoneValid
                               ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                              : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
+                              : 'border-[#EDEAFB] focus:border-[#3B4FD9] focus:bg-white'
                             }`}
                         />
                       </div>
@@ -387,8 +390,8 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
                   {/* Row 2: Work Email */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      Work Email <span className="text-[#FF5A1F]">*</span>
+                    <label className="block text-xs font-bold text-[#151235]">
+                      Work Email <span className="text-[#3B4FD9]">*</span>
                     </label>
                     <div className="relative">
                       <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -399,9 +402,9 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                         onBlur={() => setTouched({ ...touched, email: true })}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. rahul@company.com"
-                        className={`w-full pl-8 pr-3 py-2 bg-[#FAF8F6] border rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none transition-all ${touched.email && !isEmailValid
+                        className={`w-full pl-8 pr-3 py-2 bg-[#F6F5FC]/70 border rounded-xl text-xs sm:text-sm text-[#151235] placeholder:text-gray-400 focus:outline-none transition-all ${touched.email && !isEmailValid
                             ? 'border-red-400 focus:border-red-500 bg-red-50/20'
-                            : 'border-[#EDE9E4] focus:border-[#FF5A1F] focus:bg-white'
+                            : 'border-[#EDEAFB] focus:border-[#3B4FD9] focus:bg-white'
                           }`}
                       />
                     </div>
@@ -414,8 +417,8 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
                   {/* Row 3: Service Selection */}
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#111111]">
-                      What service do you need? <span className="text-[#FF5A1F]">*</span>
+                    <label className="block text-xs font-bold text-[#151235]">
+                      What service do you need? <span className="text-[#3B4FD9]">*</span>
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                       {QUICK_SERVICES.map((srv) => {
@@ -426,8 +429,8 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                             key={srv}
                             onClick={() => setFormData({ ...formData, service: srv })}
                             className={`p-2 rounded-xl text-[11px] font-bold border text-center transition-all cursor-pointer truncate ${isSelected
-                                ? 'bg-[#FF5A1F] text-white border-[#FF5A1F] shadow-2xs'
-                                : 'bg-[#FAF8F6] text-[#6B6660] border-[#EDE9E4] hover:border-[#FF5A1F]/40 hover:text-[#111111]'
+                                ? 'bg-gradient-to-r from-[#3B4FD9] to-[#7B5CE8] text-white border-transparent shadow-2xs'
+                                : 'bg-[#F6F5FC]/80 text-[#5B5876] border-[#EDEAFB] hover:border-[#3B4FD9]/40 hover:text-[#151235]'
                               }`}
                           >
                             {srv}
@@ -439,7 +442,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
                   {/* Row 4: Preferred Contact Method */}
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#111111]">
+                    <label className="block text-xs font-bold text-[#151235]">
                       Preferred way to connect:
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -452,11 +455,11 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                             key={method.id}
                             onClick={() => setFormData({ ...formData, contactMethod: method.id })}
                             className={`py-2 px-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${isSelected
-                                ? 'bg-[#111111] text-white border-[#111111] shadow-2xs'
-                                : 'bg-[#FAF8F6] text-[#6B6660] border-[#EDE9E4] hover:text-[#111111]'
+                                ? 'bg-[#0F1442] text-white border-[#0F1442] shadow-2xs'
+                                : 'bg-[#F6F5FC]/80 text-[#5B5876] border-[#EDEAFB] hover:text-[#151235]'
                               }`}
                           >
-                            <Icon className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                            <Icon className="w-3.5 h-3.5 text-[#3B4FD9]" />
                             <span>{method.label}</span>
                           </button>
                         );
@@ -466,7 +469,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
 
                   {/* Row 5: Short Project Note */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-[#111111]">
+                    <label className="block text-xs font-bold text-[#151235]">
                       Project Note <span className="text-gray-400 font-normal">(Optional)</span>
                     </label>
                     <textarea
@@ -474,7 +477,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Briefly describe what you want to build or improve..."
-                      className="w-full px-3 py-2 bg-[#FAF8F6] border border-[#EDE9E4] rounded-xl text-xs sm:text-sm text-[#111111] placeholder:text-gray-400 focus:outline-none focus:border-[#FF5A1F] focus:bg-white transition-all resize-none"
+                      className="w-full px-3 py-2 bg-[#F6F5FC]/70 border border-[#EDEAFB] rounded-xl text-xs sm:text-sm text-[#151235] placeholder:text-gray-400 focus:outline-none focus:border-[#3B4FD9] focus:bg-white transition-all resize-none"
                     />
                   </div>
 
@@ -505,7 +508,7 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#111111] hover:bg-[#262626] text-white py-3 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 active:scale-98 shadow-md cursor-pointer disabled:opacity-70"
+                      className="w-full bg-gradient-to-r from-[#3B4FD9] to-[#7B5CE8] hover:shadow-md hover:shadow-[#3B4FD9]/30 text-white py-3 px-6 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 active:scale-98 shadow-md cursor-pointer disabled:opacity-70"
                     >
                       {isSubmitting ? (
                         <>
@@ -515,19 +518,19 @@ export const ScheduleCallModal: React.FC<ScheduleCallModalProps> = ({
                       ) : (
                         <>
                           <span>Send Inquiry</span>
-                          <ArrowRight className="w-4 h-4 text-[#FF5A1F]" />
+                          <ArrowRight className="w-4 h-4 text-white" />
                         </>
                       )}
                     </button>
 
-                    <div className="flex items-center justify-center gap-3 text-[11px] text-[#8C867F]">
+                    <div className="flex items-center justify-center gap-3 text-[11px] text-[#5B5876]">
                       <span className="flex items-center gap-1">
-                        <Lock className="w-3 h-3 text-emerald-600" />
+                        <Lock className="w-3 h-3 text-[#5B4FE0]" />
                         100% Confidential
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-[#FF5A1F]" />
+                        <Clock className="w-3 h-3 text-[#3B4FD9]" />
                         Replies in &lt; 24h
                       </span>
                     </div>

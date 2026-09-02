@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Check, X as Cross, ArrowRight, Sparkles, ChevronDown, ChevronUp, Layers, CheckCircle2 } from 'lucide-react';
 import { PRICING_PLANS } from '../../data/pricingData';
+import { FlowingHeading } from '../common/FlowingHeading';
+import { ModernCard } from '../common/ModernCard';
+import { ScrollReveal } from '../common/ScrollReveal';
+import { InteractiveButton } from '../common/InteractiveButton';
 
 interface PricingCardsProps {
   onOpenScheduleModal: (topic?: string) => void;
@@ -24,16 +28,24 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
   return (
     <section id="pricing-cards-section" className="px-4 sm:px-6 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       <div className="text-center max-w-3xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-[#FF5A1F] text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>MONTHLY RETAINER PLANS</span>
-        </div>
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-[#111111] tracking-tight">
-          Transparent, Predictable Monthly Retainers
-        </h2>
-        <p className="text-xs sm:text-sm md:text-base text-[#6B6660]">
-          Ongoing engineering support for existing websites, applications, AI and digital systems.
-        </p>
+        <ScrollReveal variant="fadeScale">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDEAFB] border border-[#7B5CE8]/30 text-[#5B4FE0] text-[11px] sm:text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>MONTHLY RETAINER PLANS</span>
+          </div>
+        </ScrollReveal>
+
+        <FlowingHeading
+          as="h2"
+          text="Transparent, Predictable Monthly Retainers"
+          className="text-2xl sm:text-4xl font-extrabold text-[#151235] tracking-tight justify-center"
+        />
+
+        <ScrollReveal variant="fadeUp" delay={0.08}>
+          <p className="text-xs sm:text-sm md:text-base text-[#5B5876]">
+            Ongoing engineering support for existing websites, applications, AI and digital systems.
+          </p>
+        </ScrollReveal>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
@@ -42,70 +54,69 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
           const isExpanded = expandedMobile[plan.id];
 
           return (
-            <motion.div
+            <ModernCard
               key={plan.id}
-              initial={prefersReducedMotion ? undefined : { opacity: 0, y: 24 }}
-              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.45, delay: idx * 0.1 }}
-              className={`bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left relative transition-all duration-300 ${
+              variant={isPopular ? 'white' : 'white'}
+              accentColor={isPopular ? '#3B4FD9' : '#7B5CE8'}
+              delay={idx * 0.08}
+              className={`p-6 sm:p-8 flex flex-col justify-between text-left relative ${
                 isPopular
-                  ? 'border-2 border-[#FF5A1F] shadow-[0_16px_45px_rgba(255,90,31,0.12)] lg:-translate-y-2 z-10'
-                  : 'border border-[#EDE9E4] hover:border-[#111111]/30 shadow-soft hover:shadow-soft-lg'
+                  ? 'border-2 border-[#3B4FD9] shadow-[0_16px_45px_rgba(91,79,224,0.18)] lg:-translate-y-2 z-10'
+                  : 'border border-[#EDEAFB] hover:border-[#3B4FD9]/40'
               }`}
             >
               {/* Most Popular Badge */}
               {isPopular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF5A1F] text-white px-4 py-1 rounded-full text-[11px] font-extrabold shadow-md uppercase tracking-wider">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#3B4FD9] to-[#7B5CE8] text-white px-4 py-1 rounded-full text-[11px] font-extrabold shadow-md uppercase tracking-wider z-20">
                   {plan.badge}
                 </div>
               )}
 
               <div className="space-y-6">
                 {/* Header info */}
-                <div className="space-y-2 border-b border-[#EDE9E4] pb-6">
+                <div className="space-y-2 border-b border-[#EDEAFB] pb-6">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#3B4FD9] font-mono">
                       {plan.label}
                     </span>
                     {!isPopular && plan.badge && (
-                      <span className="bg-[#111111] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                      <span className="bg-[#0F1442] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider font-mono">
                         {plan.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#111111]">
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#151235]">
                     {plan.name}
                   </h3>
 
-                  <p className="text-xs sm:text-[13px] text-[#6B6660] leading-relaxed min-h-[38px]">
+                  <p className="text-xs sm:text-[13px] text-[#5B5876] leading-relaxed min-h-[38px]">
                     {plan.description}
                   </p>
 
                   <div className="pt-2">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-[#111111] tracking-tight">
+                      <span className="text-3xl sm:text-4xl font-extrabold text-[#151235] tracking-tight font-mono">
                         {plan.price}
                       </span>
-                      <span className="text-xs text-[#8C867F] font-semibold">{plan.period}</span>
+                      <span className="text-xs text-[#5B5876] font-semibold">{plan.period}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Included Section */}
                 <div className="space-y-3.5">
-                  <div className="text-xs font-extrabold text-[#111111] uppercase tracking-wider">
+                  <div className="text-xs font-extrabold text-[#151235] uppercase tracking-wider">
                     {plan.includedHeader}
                   </div>
 
-                  <ul className="space-y-2 text-xs sm:text-[13px] text-[#111111]">
+                  <ul className="space-y-2 text-xs sm:text-[13px] text-[#151235]">
                     {plan.included.slice(0, isExpanded ? undefined : 6).map((item, itemIdx) => (
                       <li key={itemIdx} className="flex items-start gap-2.5 leading-snug">
-                        <div className="w-4 h-4 rounded-full bg-[#FF5A1F]/10 text-[#FF5A1F] flex items-center justify-center shrink-0 mt-0.5">
+                        <div className="w-4 h-4 rounded-full bg-[#EDEAFB] text-[#5B4FE0] flex items-center justify-center shrink-0 mt-0.5">
                           <Check className="w-3 h-3 stroke-[3]" />
                         </div>
-                        <span className={item.includes('Dedicated Engineer') || item.includes('3-Person Engineering Team') || item.includes('Direct engineer') ? 'font-bold text-[#111111]' : ''}>
+                        <span className={item.includes('Dedicated Engineer') || item.includes('3-Person Engineering Team') || item.includes('Direct engineer') ? 'font-bold text-[#151235]' : ''}>
                           {item}
                         </span>
                       </li>
@@ -115,7 +126,7 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
                   {plan.included.length > 6 && (
                     <button
                       onClick={() => toggleMobileExpand(plan.id)}
-                      className="text-xs font-bold text-[#FF5A1F] hover:underline flex items-center gap-1 cursor-pointer pt-1"
+                      className="text-xs font-bold text-[#3B4FD9] hover:underline flex items-center gap-1 cursor-pointer pt-1"
                     >
                       <span>{isExpanded ? 'Show fewer items' : `+ ${plan.included.length - 6} more included capabilities`}</span>
                       {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -125,15 +136,15 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
 
                 {/* Examples of Requests / Improvements */}
                 {(plan.smallImprovements || plan.examples) && (
-                  <div className="bg-[#FAF8F6] p-3.5 rounded-2xl border border-[#EDE9E4] space-y-2">
-                    <div className="text-[11px] font-bold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                  <div className="bg-[#F6F5FC] p-3.5 rounded-2xl border border-[#EDEAFB] space-y-2">
+                    <div className="text-[11px] font-bold text-[#151235] uppercase tracking-wider flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-[#3B4FD9]" />
                       <span>Examples of Monthly Requests:</span>
                     </div>
-                    <ul className="space-y-1 text-xs text-[#6B6660]">
+                    <ul className="space-y-1 text-xs text-[#5B5876]">
                       {(plan.smallImprovements || plan.examples || []).slice(0, 4).map((ex, exIdx) => (
                         <li key={exIdx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-[#FF5A1F] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3 h-3 text-[#3B4FD9] shrink-0 mt-0.5" />
                           <span>{ex}</span>
                         </li>
                       ))}
@@ -142,14 +153,14 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
                 )}
 
                 {/* Not Included Area */}
-                <div className="bg-[#FAF8F6] p-3.5 rounded-2xl border border-[#EDE9E4] space-y-1.5">
-                  <div className="text-[11px] font-bold text-[#8C867F] uppercase tracking-wider">
+                <div className="bg-[#F6F5FC] p-3.5 rounded-2xl border border-[#EDEAFB] space-y-1.5">
+                  <div className="text-[11px] font-bold text-[#5B5876] uppercase tracking-wider">
                     NOT INCLUDED IN MONTHLY PLAN:
                   </div>
-                  <ul className="space-y-1 text-[11px] text-[#8C867F]">
+                  <ul className="space-y-1 text-[11px] text-[#5B5876]">
                     {plan.notIncluded.slice(0, 4).map((item, itemIdx) => (
                       <li key={itemIdx} className="flex items-center gap-2">
-                        <Cross className="w-3 h-3 text-gray-400 shrink-0" />
+                        <Cross className="w-3 h-3 text-[#5B5876] shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -158,31 +169,29 @@ export const PricingCards: React.FC<PricingCardsProps> = ({
 
                 {/* Important Scope Concept Note */}
                 {plan.scopeConcept && (
-                  <p className="text-[11px] text-[#8C867F] italic leading-tight pt-0.5">
+                  <p className="text-[11px] text-[#5B5876] italic leading-tight pt-0.5">
                     {plan.scopeConcept}
                   </p>
                 )}
               </div>
 
               {/* Bottom CTA & Note */}
-              <div className="pt-6 mt-6 border-t border-[#EDE9E4] space-y-3">
-                <button
+              <div className="pt-6 mt-6 border-t border-[#EDEAFB] space-y-3">
+                <InteractiveButton
+                  variant={isPopular ? 'primary' : 'navy'}
+                  glow={isPopular}
                   onClick={() => onOpenScheduleModal(`${plan.name} Plan (${plan.price}/mo)`)}
-                  className={`w-full py-3.5 px-6 rounded-full text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 group active:scale-95 cursor-pointer ${
-                    isPopular
-                      ? 'bg-[#FF5A1F] text-white hover:bg-[#e04c15] shadow-md hover:shadow-[0_8px_24px_rgba(255,90,31,0.35)]'
-                      : 'bg-[#111111] text-white hover:bg-[#262626] shadow-2xs'
-                  }`}
+                  className="w-full"
                 >
                   <span>{plan.ctaText}</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </button>
+                </InteractiveButton>
 
-                <p className="text-[11px] text-[#8C867F] text-center leading-tight">
+                <p className="text-[11px] text-[#5B5876] text-center leading-tight">
                   {plan.note}
                 </p>
               </div>
-            </motion.div>
+            </ModernCard>
           );
         })}
       </div>

@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { pageTransition } from './utils/motion';
-import { GlowBackground } from './components/common/GlowBackground';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { SEO } from './components/common/SEO';
@@ -156,14 +155,12 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F6] text-[#111111] font-sans antialiased flex flex-col justify-between selection:bg-[#FF5A1F]/20 selection:text-[#FF5A1F] relative overflow-x-clip">
+    <div className="min-h-screen bg-[#F6F5FC] text-[#151235] font-sans antialiased flex flex-col justify-between selection:bg-[#3B4FD9]/20 selection:text-[#3B4FD9] relative overflow-x-clip">
       {/* Top of page slim loading progress bar on navigation */}
       <NavigationProgressBar />
 
       {/* Dynamic SEO Meta Tags, Social Cards, Canonical Links & JSON-LD Structured Data */}
       <SEO />
-      {/* Dynamic Ambient Background Glow */}
-      <GlowBackground />
       <ScrollToTop />
 
       {/* Sticky Floating Navbar */}

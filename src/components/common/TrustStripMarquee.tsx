@@ -21,21 +21,21 @@ interface TechItem {
 }
 
 const TECH_ITEMS: TechItem[] = [
-  { name: 'React 19', category: 'Tech', icon: <Globe2 className="w-4 h-4 text-sky-500" /> },
-  { name: 'Next.js 15', category: 'Tech', icon: <Terminal className="w-4 h-4 text-black" /> },
-  { name: 'TypeScript', category: 'Tech', icon: <Code2 className="w-4 h-4 text-blue-600" /> },
-  { name: 'Python', category: 'Tech', icon: <Cpu className="w-4 h-4 text-emerald-500" /> },
-  { name: 'Node.js', category: 'Tech', icon: <Server className="w-4 h-4 text-green-600" /> },
-  { name: 'Go (Golang)', category: 'Tech', icon: <Layers className="w-4 h-4 text-cyan-600" /> },
-  { name: 'PyTorch & AI', category: 'Tech', icon: <Sparkles className="w-4 h-4 text-[#FF5A1F]" /> },
-  { name: 'Amazon Web Services (AWS)', category: 'Platform', icon: <Cloud className="w-4 h-4 text-amber-500" /> },
-  { name: 'Cloudflare Edge', category: 'Platform', icon: <Cloud className="w-4 h-4 text-orange-500" /> },
-  { name: 'Firebase & GCP', category: 'Platform', icon: <Database className="w-4 h-4 text-amber-600" /> },
-  { name: 'Docker & Kubernetes', category: 'Platform', icon: <Layers className="w-4 h-4 text-blue-500" /> },
-  { name: 'pgvector & Vector DBs', category: 'Tech', icon: <Database className="w-4 h-4 text-purple-600" /> },
-  { name: 'GitHub Enterprise', category: 'Ecosystem', icon: <Github className="w-4 h-4 text-gray-800" /> },
-  { name: 'Open-Source Contributions', category: 'Ecosystem', icon: <GitBranch className="w-4 h-4 text-emerald-600" /> },
-  { name: 'LangChain & LlamaIndex', category: 'Tech', icon: <Workflow className="w-4 h-4 text-[#FF5A1F]" /> },
+  { name: 'React 19', category: 'Tech', icon: <Globe2 className="w-4 h-4 text-[#3B4FD9]" /> },
+  { name: 'Next.js 15', category: 'Tech', icon: <Terminal className="w-4 h-4 text-[#151235]" /> },
+  { name: 'TypeScript', category: 'Tech', icon: <Code2 className="w-4 h-4 text-[#3B4FD9]" /> },
+  { name: 'Python', category: 'Tech', icon: <Cpu className="w-4 h-4 text-[#5B4FE0]" /> },
+  { name: 'Node.js', category: 'Tech', icon: <Server className="w-4 h-4 text-[#7B5CE8]" /> },
+  { name: 'Go (Golang)', category: 'Tech', icon: <Layers className="w-4 h-4 text-[#4D6BFF]" /> },
+  { name: 'PyTorch & AI', category: 'Tech', icon: <Sparkles className="w-4 h-4 text-[#3B4FD9]" /> },
+  { name: 'Amazon Web Services (AWS)', category: 'Platform', icon: <Cloud className="w-4 h-4 text-[#4D6BFF]" /> },
+  { name: 'Cloudflare Edge', category: 'Platform', icon: <Cloud className="w-4 h-4 text-[#3B4FD9]" /> },
+  { name: 'Firebase & GCP', category: 'Platform', icon: <Database className="w-4 h-4 text-[#5B4FE0]" /> },
+  { name: 'Docker & Kubernetes', category: 'Platform', icon: <Layers className="w-4 h-4 text-[#3B4FD9]" /> },
+  { name: 'pgvector & Vector DBs', category: 'Tech', icon: <Database className="w-4 h-4 text-[#7B5CE8]" /> },
+  { name: 'GitHub Enterprise', category: 'Ecosystem', icon: <Github className="w-4 h-4 text-[#151235]" /> },
+  { name: 'Open-Source Contributions', category: 'Ecosystem', icon: <GitBranch className="w-4 h-4 text-[#5B4FE0]" /> },
+  { name: 'LangChain & LlamaIndex', category: 'Tech', icon: <Workflow className="w-4 h-4 text-[#3B4FD9]" /> },
 ];
 
 interface TrustStripMarqueeProps {
@@ -59,14 +59,14 @@ export const TrustStripMarquee: React.FC<TrustStripMarqueeProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-6">
         {showHeading && (
           <div className="text-center space-y-1.5 max-w-2xl mx-auto">
-            <h3 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+            <h3 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3B4FD9]">
               Technology & Platform Ecosystem
             </h3>
-            <p className="text-xl sm:text-2xl font-extrabold text-[#111111] tracking-tight">
+            <p className="text-xl sm:text-2xl font-extrabold text-[#151235] tracking-tight">
               {title}
             </p>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-[#6B6660]">
+              <p className="text-xs sm:text-sm text-[#5B5876]">
                 {subtitle}
               </p>
             )}
@@ -80,16 +80,16 @@ export const TrustStripMarquee: React.FC<TrustStripMarqueeProps> = ({
           {marqueeItems.map((item, idx) => (
             <div
               key={`${item.name}-${idx}`}
-              className="flex items-center gap-2.5 px-4 py-2.5 bg-white rounded-2xl border border-[#EDE9E4] shadow-soft hover:border-[#FF5A1F]/40 hover:shadow-soft-lg transition-all cursor-default select-none shrink-0 group"
+              className="flex items-center gap-2.5 px-4 py-2.5 bg-white rounded-2xl border border-[#EDEAFB] shadow-soft hover:border-[#3B4FD9]/40 hover:shadow-soft-lg transition-all cursor-default select-none shrink-0 group"
             >
-              <div className="w-7 h-7 rounded-xl bg-[#FAF8F6] border border-[#EDE9E4] flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-7 h-7 rounded-xl bg-[#EDEAFB] border border-[#7B5CE8]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 {item.icon}
               </div>
               <div className="text-left">
-                <div className="text-xs font-bold text-[#111111] group-hover:text-[#FF5A1F] transition-colors whitespace-nowrap">
+                <div className="text-xs font-bold text-[#151235] group-hover:text-[#3B4FD9] transition-colors whitespace-nowrap">
                   {item.name}
                 </div>
-                <div className="text-[9px] uppercase tracking-wider text-[#6B6660] font-semibold">
+                <div className="text-[9px] uppercase tracking-wider text-[#5B5876] font-semibold">
                   {item.category}
                 </div>
               </div>

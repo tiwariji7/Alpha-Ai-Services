@@ -1,6 +1,9 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Zap, Brain, Users2, Rocket, Sparkles, CheckCircle2 } from 'lucide-react';
+import { FlowingHeading } from '../common/FlowingHeading';
+import { ModernCard } from '../common/ModernCard';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 interface WhyAlphaSectionProps {
   onNavigate?: (path: string) => void;
@@ -22,85 +25,86 @@ const REASONS: ReasonBanner[] = [
     ribbonLabel: 'VALUE-DRIVEN AI',
     title: 'AI-First Thinking',
     desc: 'We identify where AI can create real value — not where it simply looks impressive.',
-    icon: <Zap className="w-5 h-5 text-[#FF5A1F]" />,
-    color: '#FF5A1F',
-    lightBg: '#FFF6F0',
+    icon: <Zap className="w-5 h-5 text-[#3B4FD9]" />,
+    color: '#3B4FD9',
+    lightBg: '#EDEAFB',
   },
   {
     number: '02',
     ribbonLabel: 'CLEAN ARCHITECTURE',
     title: 'Engineering-Led Development',
     desc: 'Clean architecture, maintainable code and thoughtful technology choices from the foundation up.',
-    icon: <Brain className="w-5 h-5 text-[#D97706]" />,
-    color: '#D97706',
-    lightBg: '#FFFBEB',
+    icon: <Brain className="w-5 h-5 text-[#2A3FA8]" />,
+    color: '#2A3FA8',
+    lightBg: '#EDEAFB',
   },
   {
     number: '03',
     ribbonLabel: 'ZERO MIDDLEMEN',
     title: 'Direct Collaboration',
     desc: 'Work directly with the people building your product, with clear communication throughout the process.',
-    icon: <Users2 className="w-5 h-5 text-[#B84A1F]" />,
-    color: '#B84A1F',
-    lightBg: '#FFF7F2',
+    icon: <Users2 className="w-5 h-5 text-[#5B4FE0]" />,
+    color: '#5B4FE0',
+    lightBg: '#EDEAFB',
   },
   {
     number: '04',
     ribbonLabel: 'FUTURE-PROOF SCALE',
     title: 'Built to Grow',
     desc: 'We design products with the future in mind, so your software can evolve as your business grows.',
-    icon: <Rocket className="w-5 h-5 text-[#9A3B12]" />,
-    color: '#9A3B12',
-    lightBg: '#FFF5F0',
+    icon: <Rocket className="w-5 h-5 text-[#7B5CE8]" />,
+    color: '#7B5CE8',
+    lightBg: '#EDEAFB',
   },
 ];
 
 export const WhyAlphaSection: React.FC<WhyAlphaSectionProps> = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 relative overflow-hidden">
-      {/* Subtle Warm Ambient Background Highlights */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-br from-[#FF5A1F]/5 via-[#D97706]/3 to-transparent rounded-full blur-[100px] pointer-events-none -z-10" />
+      {/* Subtle Blue Ambient Background Highlights */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-br from-[#3B4FD9]/8 via-[#7B5CE8]/4 to-transparent rounded-full blur-[100px] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto space-y-10 sm:space-y-12 relative z-10">
         {/* Centered Editorial Heading Block */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="text-center max-w-3xl mx-auto space-y-2.5 sm:space-y-3"
-        >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-[#FF5A1F] text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Why Partner With Us</span>
-          </div>
+        <div className="text-center max-w-3xl mx-auto space-y-2.5 sm:space-y-3">
+          <ScrollReveal variant="fadeScale">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDEAFB] border border-[#7B5CE8]/30 text-[#5B4FE0] text-[11px] sm:text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Why Partner With Us</span>
+            </div>
+          </ScrollReveal>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#111111] tracking-tight">
-            Why <span className="text-[#FF5A1F]">Alpha AI Services?</span>
-          </h2>
-          <p className="text-base sm:text-lg lg:text-xl font-bold text-[#111111] leading-snug">
-            Technology is easy to build. Building it right is what matters.
-          </p>
-          <p className="text-xs sm:text-sm md:text-base text-[#6B6660] max-w-2xl mx-auto leading-relaxed">
-            We combine AI, software engineering and product thinking to build solutions that are practical, scalable and designed around your goals.
-          </p>
-        </motion.div>
+          <FlowingHeading
+            as="h2"
+            text="Why Alpha AI Services?"
+            highlightWords={['Alpha', 'AI', 'Services?']}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#151235] tracking-tight justify-center"
+          />
 
-        {/* 2x2 Grid of 3D Layered Numbered Cards */}
+          <ScrollReveal variant="fadeUp" delay={0.08}>
+            <p className="text-base sm:text-lg lg:text-xl font-bold text-[#151235] leading-snug">
+              Technology is easy to build. Building it right is what matters.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal variant="fadeUp" delay={0.15}>
+            <p className="text-xs sm:text-sm md:text-base text-[#5B5876] max-w-2xl mx-auto leading-relaxed">
+              We combine AI, software engineering and product thinking to build solutions that are practical, scalable and designed around your goals.
+            </p>
+          </ScrollReveal>
+        </div>
+
+        {/* 2x2 Grid of 3D Layered Modern Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {REASONS.map((item, idx) => (
-            <motion.div
+            <ModernCard
               key={item.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{
-                duration: 0.5,
-                delay: idx * 0.1,
-                ease: 'easeOut',
-              }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EDE9E4] hover:border-[#FF5A1F]/40 shadow-soft hover:shadow-soft-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-default text-left"
+              variant="white"
+              accentColor={item.color}
+              delay={idx * 0.08}
+              className="p-6 sm:p-7 flex flex-col justify-between"
             >
               {/* Subtle Ambient Gradient Corner Glow */}
               <div
@@ -110,7 +114,7 @@ export const WhyAlphaSection: React.FC<WhyAlphaSectionProps> = () => {
 
               {/* Large Subtle Watermark Number in Background */}
               <span
-                className="absolute -bottom-3 right-3 text-7xl sm:text-8xl font-black opacity-[0.06] group-hover:opacity-[0.12] transition-opacity select-none pointer-events-none"
+                className="absolute -bottom-3 right-3 text-7xl sm:text-8xl font-black opacity-[0.06] group-hover:opacity-[0.12] transition-opacity select-none pointer-events-none font-mono"
                 style={{ color: item.color }}
               >
                 {item.number}
@@ -130,7 +134,7 @@ export const WhyAlphaSection: React.FC<WhyAlphaSectionProps> = () => {
                 </span>
 
                 <div
-                  className="w-11 h-11 rounded-2xl bg-[#FAF8F6] border border-[#EDE9E4] flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xs"
+                  className="w-11 h-11 rounded-2xl bg-[#EDEAFB] border border-[#7B5CE8]/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xs"
                   style={{ borderColor: `${item.color}30` }}
                 >
                   {item.icon}
@@ -141,18 +145,18 @@ export const WhyAlphaSection: React.FC<WhyAlphaSectionProps> = () => {
               <div className="space-y-2 relative z-10 my-1">
                 <div className="flex items-center gap-2">
                   <span
-                    className="text-xs font-black tracking-wider uppercase"
+                    className="text-xs font-black tracking-wider uppercase font-mono"
                     style={{ color: item.color }}
                   >
                     REASON {item.number}
                   </span>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-extrabold text-[#111111] group-hover:text-[#FF5A1F] transition-colors leading-snug">
+                <h3 className="text-lg sm:text-xl font-extrabold text-[#151235] group-hover:text-[#3B4FD9] transition-colors leading-snug">
                   {item.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-[#6B6660] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5B5876] leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -164,32 +168,28 @@ export const WhyAlphaSection: React.FC<WhyAlphaSectionProps> = () => {
                   style={{ backgroundColor: item.color }}
                 />
               </div>
-            </motion.div>
+            </ModernCard>
           ))}
         </div>
 
         {/* Small Trust Strip / Commitment Line */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="pt-4 sm:pt-6 border-t border-[#EDE9E4] text-center space-y-2.5"
-        >
-          <div className="text-[11px] sm:text-xs font-extrabold text-[#111111] uppercase tracking-wider flex items-center justify-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5A1F]" />
-            <span>Our Quality Commitment</span>
+        <ScrollReveal variant="fadeUp" delay={0.25}>
+          <div className="pt-4 sm:pt-6 border-t border-[#EDEAFB] text-center space-y-2.5">
+            <div className="text-[11px] sm:text-xs font-extrabold text-[#151235] uppercase tracking-wider flex items-center justify-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#3B4FD9]" />
+              <span>Our Quality Commitment</span>
+            </div>
+            <p className="text-xs sm:text-sm text-[#5B5876] font-medium flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+              <span>Clear Scope</span>
+              <span className="text-[#3B4FD9] font-bold">·</span>
+              <span>Transparent Communication</span>
+              <span className="text-[#3B4FD9] font-bold">·</span>
+              <span>Secure Development</span>
+              <span className="text-[#3B4FD9] font-bold">·</span>
+              <span>Long-Term Support</span>
+            </p>
           </div>
-          <p className="text-xs sm:text-sm text-[#6B6660] font-medium flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-            <span>Clear Scope</span>
-            <span className="text-[#FF5A1F] font-bold">·</span>
-            <span>Transparent Communication</span>
-            <span className="text-[#FF5A1F] font-bold">·</span>
-            <span>Secure Development</span>
-            <span className="text-[#FF5A1F] font-bold">·</span>
-            <span>Long-Term Support</span>
-          </p>
-        </motion.div>
+        </ScrollReveal>
       </div>
     </section>
   );

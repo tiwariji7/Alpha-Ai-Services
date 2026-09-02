@@ -10,20 +10,20 @@ export const PageSkeleton: React.FC = () => {
       {/* Hero Skeleton Area */}
       <div className="flex flex-col items-center text-center space-y-4 max-w-3xl mx-auto">
         {/* Eyebrow badge skeleton */}
-        <div className="h-6 w-36 bg-[#EBE7E1] rounded-full" />
+        <div className="h-6 w-36 bg-[#EDEAFB] rounded-full" />
         
         {/* Main Heading skeleton */}
-        <div className="h-10 sm:h-12 w-4/5 sm:w-3/5 bg-[#E2DCD5] rounded-2xl" />
-        <div className="h-7 sm:h-9 w-3/5 sm:w-2/5 bg-[#E8E3DC] rounded-xl" />
+        <div className="h-10 sm:h-12 w-4/5 sm:w-3/5 bg-[#E2DFF5] rounded-2xl" />
+        <div className="h-7 sm:h-9 w-3/5 sm:w-2/5 bg-[#EDEAFB] rounded-xl" />
 
         {/* Subtitle skeleton */}
-        <div className="h-4 w-5/6 sm:w-4/6 bg-[#EBE7E1] rounded-md mt-2" />
-        <div className="h-4 w-4/6 sm:w-3/6 bg-[#EBE7E1] rounded-md" />
+        <div className="h-4 w-5/6 sm:w-4/6 bg-[#EDEAFB] rounded-md mt-2" />
+        <div className="h-4 w-4/6 sm:w-3/6 bg-[#EDEAFB] rounded-md" />
 
         {/* Action buttons skeleton */}
         <div className="flex items-center gap-3 pt-3">
-          <div className="h-11 w-36 bg-[#E2DCD5] rounded-full" />
-          <div className="h-11 w-32 bg-[#EBE7E1] rounded-full" />
+          <div className="h-11 w-36 bg-[#E2DFF5] rounded-full" />
+          <div className="h-11 w-32 bg-[#EDEAFB] rounded-full" />
         </div>
       </div>
 
@@ -32,14 +32,14 @@ export const PageSkeleton: React.FC = () => {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="p-6 rounded-3xl bg-white/70 border border-[#E7E2DA] space-y-4 shadow-2xs"
+            className="p-6 rounded-3xl bg-white/70 border border-[#EDEAFB] space-y-4 shadow-soft"
           >
-            <div className="w-10 h-10 rounded-2xl bg-[#EBE7E1]" />
-            <div className="h-5 w-3/4 bg-[#E2DCD5] rounded-lg" />
+            <div className="w-10 h-10 rounded-2xl bg-[#EDEAFB]" />
+            <div className="h-5 w-3/4 bg-[#E2DFF5] rounded-lg" />
             <div className="space-y-2">
-              <div className="h-3.5 w-full bg-[#EBE7E1] rounded-md" />
-              <div className="h-3.5 w-5/6 bg-[#EBE7E1] rounded-md" />
-              <div className="h-3.5 w-4/6 bg-[#EBE7E1] rounded-md" />
+              <div className="h-3.5 w-full bg-[#EDEAFB] rounded-md" />
+              <div className="h-3.5 w-5/6 bg-[#EDEAFB] rounded-md" />
+              <div className="h-3.5 w-4/6 bg-[#EDEAFB] rounded-md" />
             </div>
           </div>
         ))}

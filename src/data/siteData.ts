@@ -21,7 +21,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Harness state-of-the-art foundation models and specialized ML pipelines engineered for real-world enterprise speed.',
     fullDesc: 'We architect end-to-end artificial intelligence systems that move far beyond proof-of-concepts. From fine-tuned Gemini and open-weights LLMs to low-latency RAG vector pipelines and computer vision, we turn raw organizational data into continuous commercial advantage.',
     iconName: 'Sparkles',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'Highest Demand',
     features: [
       {
@@ -98,7 +98,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Bespoke software architecture engineered with type-safety, modularity, and high-throughput reliability.',
     fullDesc: 'We develop bespoke enterprise systems that scale effortlessly under heavy loads. Whether building complex distributed architectures, legacy modernization, or event-driven backends, our codebases are built to withstand mission-critical business operations.',
     iconName: 'Code2',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'Core Capability',
     features: [
       {
@@ -169,7 +169,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'React, Next.js, and Tailwind web apps with fluid animations, instant state reactivity, and flawless accessibility.',
     fullDesc: 'We construct digital web experiences that feel like native desktop software. Utilizing modern React, Vite, Next.js, and motion animations, our web apps load under 0.8 seconds and convert visitors into loyal users.',
     iconName: 'Globe',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'Interactive UI',
     features: [
       {
@@ -239,7 +239,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Cross-platform React Native and native iOS/Android apps built with 60fps gestures and offline capabilities.',
     fullDesc: 'We craft beautiful, high-performing mobile applications published directly to Apple App Store and Google Play Store. Featuring offline synchronization, biometric security, camera integrations, and push notification engines.',
     iconName: 'Smartphone',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'iOS & Android',
     features: [
       {
@@ -309,7 +309,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Automate deployments, scale serverless & Kubernetes clusters, and cut cloud expenditures by up to 40%.',
     fullDesc: 'We engineer rock-solid cloud infrastructure on AWS, Google Cloud, and Azure. With automated Terraform pipelines, container orchestration, zero-trust network boundaries, and 24/7 observability, your engineers can deploy with total confidence.',
     iconName: 'Cloud',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'AWS & GCP Certified',
     features: [
       {
@@ -374,7 +374,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Protect your enterprise assets, lock down cloud perimeters, and achieve SOC2, HIPAA, and GDPR compliance.',
     fullDesc: 'We proactively defend your critical infrastructure and sensitive data against advanced threats. Our certified security engineers conduct deep penetration testing, audit source code, establish zero-trust IAM policies, and guide you through compliance certifications.',
     iconName: 'ShieldCheck',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'Zero-Trust Defense',
     features: [
       {
@@ -438,7 +438,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Transform complex user workflows into intuitive, visually breathtaking digital products that users rave about.',
     fullDesc: 'We combine rigorous behavioral UX research with world-class visual craft. From interactive Figma prototypes to tokenized design systems ready for engineering handoff, we make complex enterprise software feel effortless and delightful.',
     iconName: 'Palette',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'Award-Winning Craft',
     features: [
       {
@@ -502,7 +502,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDesc: 'Bridge legacy tools and modern APIs with resilient automation pipelines, webhooks, and AI data extraction.',
     fullDesc: 'We eliminate repetitive operational bottlenecks by building intelligent event-driven workflows. By integrating custom scripts, Zapier/Make enterprise engines, and AI decision nodes, we save your team hundreds of manual hours every month.',
     iconName: 'Workflow',
-    accentColor: '#FF5A1F',
+    accentColor: '#3B4FD9',
     badgeText: 'High ROI',
     features: [
       {
@@ -568,17 +568,31 @@ export const PORTFOLIO_DATA: CaseStudyItem[] = [
     title: 'AI-Powered Health Assistance Platform',
     projectType: 'Internal Product',
     tags: ['AI', 'Android', 'RAG', 'Healthcare'],
-    coverImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
-    summary: 'An AI-powered health assistance platform designed to make health information and digital assistance more accessible.',
-    overview: 'SeHAT SmartCare is an intelligent health assistance platform designed to simplify access to accurate health guidance, symptom understanding, and digital healthcare workflows. It bridges the gap between everyday users and structured medical resources through a conversational AI assistant and an intuitive mobile interface.',
-    challenge: 'Finding verified, accessible, and context-aware health information in real time is often overwhelming for users. Traditional search engines return fragmented medical jargon, while clinics face high support burdens for basic triage inquiries.',
-    approach: 'We designed a privacy-focused system combining validated medical knowledge indexing, retrieval-augmented generation (RAG) with strict semantic guardrails, and an accessible Android application engineered for quick, intuitive navigation.',
-    solution: 'Built an AI-assisted health platform featuring low-latency contextual query retrieval, structured symptom intake summaries, voice/text interaction support, and emergency escalation pathways with clear disclaimers.',
-    techUsed: ['AI & RAG', 'Android (Kotlin)', 'FastAPI', 'PostgreSQL', 'Vector Embeddings', 'Tailwind CSS'],
+    coverImage: 'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/sehat-hero.png',
+    summary: 'AI-powered Android healthcare assistant for symptom analysis, medical report understanding, and intelligent health guidance.',
+    overview: 'SeHAT SmartCare is an AI-powered mobile health assistant designed to simplify symptom understanding, medical report interpretation, and access to reliable health information. The platform combines an intuitive Android application with Artificial Intelligence, Retrieval-Augmented Generation (RAG), semantic search, and medical language models to provide users with accessible, context-aware health assistance. It supports English, Hindi, and Hinglish interactions through text and voice-based inputs.',
+    challenge: 'Understanding health information can be difficult for everyday users. Symptoms may be confusing, medical reports often contain complex terminology, and finding relevant health information through conventional search can produce fragmented or difficult-to-understand results. SeHAT SmartCare was designed to address these challenges by providing a single mobile platform for symptom analysis, medical report understanding, and AI-assisted health conversations.',
+    approach: 'We designed a privacy-conscious, AI-assisted healthcare system that combines semantic medical knowledge retrieval with generative AI. The system uses Retrieval-Augmented Generation (RAG) to retrieve relevant medical knowledge before generating responses, helping provide more context-aware answers and reducing unsupported AI-generated information. An Android application provides the user interface, while a Python/FastAPI backend handles AI processing, vector search, report analysis, and chatbot workflows.',
+    solution: 'Built an AI-assisted health platform featuring intelligent symptom analysis, medical report interpretation, contextual medical knowledge retrieval, multilingual conversational assistance, voice/text interaction, and health-focused recommendations.',
+    techUsed: [
+      'AI & RAG',
+      'Android (Kotlin)',
+      'Python',
+      'FastAPI',
+      'FAISS',
+      'SentenceTransformers',
+      'OCR',
+      'Firebase',
+      'Hugging Face',
+    ],
     gallery: [
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/login-signup.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/positive-login-signup.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/insights-reminders.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/home-symptom.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/positive-nagative-signup.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/report-chatbot.png',
+      'https://raw.githubusercontent.com/tiwariji7/SeHAT-SmartCare/main/assets/images/tips-sos.png',
     ],
   },
   {

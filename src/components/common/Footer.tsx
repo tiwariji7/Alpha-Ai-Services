@@ -44,14 +44,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <footer className="relative bg-[#07090E] text-[#9EA3B0] pt-8 sm:pt-10 pb-5 px-4 sm:px-6 lg:px-10 overflow-hidden z-10 border-t border-[#161B26]">
+    <footer className="relative bg-[#0A0E2A] text-[#B8BEDC] pt-8 sm:pt-10 pb-5 px-4 sm:px-6 lg:px-10 overflow-hidden z-10 border-t border-[#141B5C]">
       {/* Top Edge Glow Accent */}
-      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#FF5A1F] to-transparent opacity-80" />
-      <div className="absolute top-0 left-1/4 w-96 h-16 bg-[#FF5A1F]/15 blur-[50px] pointer-events-none -z-0" />
+      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#3B4FD9] to-transparent opacity-90" />
+      <div className="absolute top-0 left-1/4 w-96 h-16 bg-[#3B4FD9]/20 blur-[50px] pointer-events-none -z-0" />
 
       {/* Background Decorative Tech Dots Mesh Across All Area */}
       <div
-        className="absolute inset-0 opacity-15 pointer-events-none -z-0 bg-[radial-gradient(#FF5A1F_1px,transparent_1px)] [background-size:16px_16px]"
+        className="absolute inset-0 opacity-15 pointer-events-none -z-0 bg-[radial-gradient(#3B4FD9_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -62,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             {/* Brand Logo & Name */}
             <button
               onClick={() => onNavigate('/')}
-              className="flex items-center gap-2.5 text-left group focus:outline-hidden"
+              className="flex items-center gap-2.5 text-left group focus:outline-hidden cursor-pointer"
               aria-label="Alpha AI Services Home"
             >
               <picture className="flex items-center shrink-0">
@@ -70,32 +70,32 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <img
                   src={footerBrandLogo}
                   alt="Alpha AI Services Logo"
-                  width="36"
-                  height="36"
+                  width="48"
+                  height="32"
                   loading="lazy"
                   decoding="async"
-                  className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0"
+                  className="brand-logo-footer shrink-0"
                 />
               </picture>
               <div>
                 <span className="font-extrabold text-sm sm:text-base tracking-tight leading-tight">
-                  <span className="text-white">Alpha</span> <span className="text-[#FF5A1F]">Ai</span> <span className="text-white">Services</span>
+                  <span className="text-white">Alpha</span> <span className="text-[#7DE8FF]">Ai</span> <span className="text-white">Services</span>
                 </span>
-                <span className="block text-[9.5px] tracking-wider uppercase text-gray-400 font-semibold mt-0.5">
+                <span className="block text-[9.5px] tracking-wider uppercase text-[#B8BEDC] font-semibold mt-0.5">
                   Software Engineering Studio
                 </span>
               </div>
             </button>
 
             {/* Description */}
-            <p className="text-xs text-[#9EA3B0] max-w-sm leading-relaxed">
+            <p className="text-xs text-[#B8BEDC] max-w-sm leading-relaxed">
               We design and build AI products, web applications, mobile apps and scalable software solutions for startups and growing businesses.
             </p>
 
-            {/* Contact Details with Orange Icons */}
-            <div className="space-y-1.5 text-xs text-[#CBD1DC]">
+            {/* Contact Details with Cyan/Blue Icons */}
+            <div className="space-y-1.5 text-xs text-[#B8BEDC]">
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-[#7DE8FF] shrink-0" />
                 <a
                   href="mailto:info@alphaaiservices.in"
                   className="hover:text-white transition-colors"
@@ -117,14 +117,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </div>
 
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-[#7DE8FF] shrink-0" />
                 <span>Pune & Prayagraj &nbsp;•&nbsp; Serving Pan-India</span>
               </div>
             </div>
 
             {/* Follow Us & Social Icons */}
             <div className="pt-1 space-y-1.5">
-              <div className="text-[11px] text-[#8A90A0] font-medium">Follow us</div>
+              <div className="text-[11px] text-[#B8BEDC]/80 font-medium">Follow us</div>
               <div className="flex items-center gap-2">
                 {socialLinks.map((social) => (
                   <a
@@ -133,7 +133,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="w-7 h-7 rounded-lg bg-[#0F131D] border border-[#1E2433] flex items-center justify-center text-gray-400 hover:text-white hover:border-[#FF5A1F]/50 hover:bg-[#161D2B] transition-all"
+                    className="w-7 h-7 rounded-lg bg-[#0F1442] border border-[#141B5C] flex items-center justify-center text-[#B8BEDC] hover:text-white hover:border-[#3B4FD9]/60 hover:bg-[#141B5C] transition-all"
                   >
                     {social.icon}
                   </a>
@@ -144,7 +144,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 2: Services (LG Span 3) */}
           <div className="lg:col-span-3 space-y-2.5 text-left">
-            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FFFFFF]">
               SERVICES
             </h4>
             <ul className="space-y-2 text-xs">
@@ -152,17 +152,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={service.path}>
                   <button
                     onClick={() => onNavigate(service.path)}
-                    className="w-full flex items-center justify-between text-[#B2B8C6] hover:text-white transition-colors group text-left py-0.5"
+                    className="w-full flex items-center justify-between text-[#B8BEDC] hover:text-white transition-colors group text-left py-0.5 cursor-pointer"
                   >
                     <span>{service.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#5A6275] group-hover:text-[#FF5A1F] group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#5B5876] group-hover:text-[#7DE8FF] group-hover:translate-x-0.5 transition-all" />
                   </button>
                 </li>
               ))}
               <li className="pt-1">
                 <button
                   onClick={() => onNavigate('/services')}
-                  className="font-bold text-[#FF5A1F] hover:text-[#FF7A3D] flex items-center gap-1 group text-xs"
+                  className="font-bold text-[#7DE8FF] hover:text-[#5EEAD4] flex items-center gap-1 group text-xs cursor-pointer"
                 >
                   <span>View All Services</span>
                   <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
@@ -173,7 +173,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 3: Company (LG Span 2) */}
           <div className="lg:col-span-2 space-y-2.5 text-left">
-            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FFFFFF]">
               COMPANY
             </h4>
             <ul className="space-y-2 text-xs">
@@ -181,10 +181,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={company.path}>
                   <button
                     onClick={() => onNavigate(company.path)}
-                    className="w-full flex items-center justify-between text-[#B2B8C6] hover:text-white transition-colors group text-left py-0.5"
+                    className="w-full flex items-center justify-between text-[#B8BEDC] hover:text-white transition-colors group text-left py-0.5 cursor-pointer"
                   >
                     <span>{company.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#5A6275] group-hover:text-[#FF5A1F] group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#5B5876] group-hover:text-[#7DE8FF] group-hover:translate-x-0.5 transition-all" />
                   </button>
                 </li>
               ))}
@@ -193,11 +193,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 4: Let's Work Together (LG Span 3) */}
           <div className="lg:col-span-3 space-y-2.5 text-left">
-            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FF5A1F]">
+            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#FFFFFF]">
               LET'S WORK TOGETHER
             </h4>
 
-            <p className="text-xs text-[#B2B8C6] leading-relaxed">
+            <p className="text-xs text-[#B8BEDC] leading-relaxed">
               Have a product idea or a business problem to solve?
             </p>
 
@@ -205,7 +205,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="space-y-2 pt-0.5">
               <button
                 onClick={() => onNavigate('/contact')}
-                className="w-full bg-gradient-to-r from-[#FF5A1F] to-[#FF702E] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:brightness-110 hover:shadow-md hover:shadow-[#FF5A1F]/20 transition-all flex items-center justify-center gap-2 group active:scale-98 shadow-xs"
+                className="w-full bg-gradient-to-r from-[#3B4FD9] to-[#7B5CE8] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:brightness-110 hover:shadow-md hover:shadow-[#3B4FD9]/30 transition-all flex items-center justify-center gap-2 group active:scale-98 shadow-xs cursor-pointer"
               >
                 <span>Start Your Project</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -213,7 +213,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
               <button
                 onClick={() => onNavigate('/contact')}
-                className="w-full bg-[#0D111A] text-white border border-[#FF5A1F]/40 hover:border-[#FF5A1F] hover:bg-[#131926] px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group active:scale-98"
+                className="w-full bg-[#0F1442] text-white border border-[#3B4FD9]/50 hover:border-[#7DE8FF] hover:bg-[#141B5C] px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group active:scale-98 cursor-pointer"
               >
                 <span>Contact Us</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -221,11 +221,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
 
             {/* Response Time Badge */}
-            <div className="pt-1 flex items-center gap-2.5 text-xs text-[#9EA3B0]">
-              <div className="w-7 h-7 rounded-full bg-[#121622] border border-[#1E2536] flex items-center justify-center text-[#FF5A1F] shrink-0">
+            <div className="pt-1 flex items-center gap-2.5 text-xs text-[#B8BEDC]">
+              <div className="w-7 h-7 rounded-full bg-[#0F1442] border border-[#141B5C] flex items-center justify-center text-[#7DE8FF] shrink-0">
                 <Headphones className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[10.5px] leading-tight">
+              <span className="text-[10.5px] leading-tight text-[#B8BEDC]">
                 We typically respond within one business day.
               </span>
             </div>
@@ -233,40 +233,40 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Footer Bottom Bar */}
-        <div className="pt-4 border-t border-[#161B26] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#6C7282] text-center md:text-left">
+        <div className="pt-4 border-t border-[#141B5C] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#B8BEDC]/80 text-center md:text-left">
           {/* Left: Copyright */}
-          <div className="text-[11px]">
+          <div className="text-[11px] text-[#B8BEDC]">
             © 2026 Alpha AI Services. All rights reserved.
           </div>
 
           {/* Center: AI • Software • Product Engineering */}
-          <div className="hidden lg:flex items-center gap-2 text-[#7F8698] font-medium text-[11px]">
+          <div className="hidden lg:flex items-center gap-2 text-[#B8BEDC] font-medium text-[11px]">
             <span>AI</span>
-            <span className="text-[#FF5A1F]">•</span>
+            <span className="text-[#7DE8FF]">•</span>
             <span>Software</span>
-            <span className="text-[#FF5A1F]">•</span>
+            <span className="text-[#7DE8FF]">•</span>
             <span>Product Engineering</span>
           </div>
 
           {/* Right: Legal Links with Vertical Dividers */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 text-[11px] text-[#8A90A0]">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 text-[11px] text-[#B8BEDC]">
             <button
               onClick={() => onNavigate('/privacy-policy')}
               className="hover:text-white transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
-            <span className="text-[#2B3244]">|</span>
+            <span className="text-[#141B5C]">|</span>
             <button
               onClick={() => onNavigate('/terms')}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Terms of Service
             </button>
-            <span className="text-[#2B3244]">|</span>
+            <span className="text-[#141B5C]">|</span>
             <button
               onClick={() => onNavigate('/sitemap')}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Sitemap
             </button>

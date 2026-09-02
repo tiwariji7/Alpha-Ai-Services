@@ -42,7 +42,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
       initial="initial"
       animate="animate"
       exit="exit"
-      className="space-y-12 sm:space-y-16 md:space-y-24 pb-16 sm:pb-24 overflow-x-hidden bg-[#FAF8F6]"
+      className="space-y-12 sm:space-y-16 md:space-y-24 pb-16 sm:pb-24 overflow-x-hidden bg-[#F6F5FC]"
     >
       {/* 1. HERO SECTION */}
       <PricingHero
